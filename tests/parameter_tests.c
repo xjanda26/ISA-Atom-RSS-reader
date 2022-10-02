@@ -6,7 +6,7 @@
 
 int test_TP1() {
     char *in_var = "testtest";
-    return test(1, parse_parameters(0, (char**)in_var, 1), "TP1");
+    return test(1, parse_parameters(1, (char**)in_var, 1), "TP1");
 }
 
 void run_parameter_tests(){

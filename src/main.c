@@ -3,6 +3,12 @@
 */
 #include <stdio.h>
 
+#include "parameters.h"
+
 int main (int argc, char *argv[]) {
-    printf("Hello world\n");
+    int result = 0;
+
+    result = parse_parameters(argc, argv, 0);
+
+    return result;
 }
