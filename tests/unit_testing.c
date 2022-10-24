@@ -11,7 +11,7 @@ int test(int expected, int actual, const char* testCaseID) {
         printf("%s PASSED\n", testCaseID);
         passed = 1;
     } else {
-        printf("%s FAILED, expected: %d\tactual: %d", testCaseID, expected, actual);
+        printf("%s FAILED, expected: %d\tactual: %d\n", testCaseID, expected, actual);
     }
 
     return passed;

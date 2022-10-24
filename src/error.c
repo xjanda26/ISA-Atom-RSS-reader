@@ -31,6 +31,18 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_OPT_MUL_DOMAINS;
     }
 
+    if (!strcmp(msg, OPT_URL_INVALID)) {
+        errorValue = ERR_OPT_URL_INVALID;
+    }
+
+    if (!strcmp(msg, OPT_PATH_MISSING)) {
+        errorValue = ERR_OPT_PATH_MISSING;
+    }
+
+    if (!strcmp(msg, REGEX_COMPILE_FAILED)) {
+        errorValue = ERR_REGEX_COMPILE_FAILED;
+    }
+
     if (!isTesting) {
         print_error_msg(errorValue, msg);
     }

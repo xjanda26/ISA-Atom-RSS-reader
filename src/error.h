@@ -11,14 +11,21 @@
 #define OPT_MULTIPLE "Operator is used multpletimes.\n"
 #define OPT_MUL_COMBINATION "Multiple combination of operators.\n"
 #define OPT_MUL_DOMAINS "Entered multiple domain sources.\n"
+#define OPT_URL_INVALID "Entered URL is invalid.\n"
+#define OPT_PATH_MISSING "Operator '-f' requires an argument.\n"
+
+#define REGEX_COMPILE_FAILED "Could not compile regex.\n"
 
 #define ERR_GENERIC 1
+#define ERR_REGEX_COMPILE_FAILED 2
 
 #define ERR_OPT_FEW 10
 #define ERR_OPT_UNKNOWN 11
 #define ERR_OPT_MULTIPLE 12
 #define ERR_OPT_MUL_COMBINATION 13
 #define ERR_OPT_MUL_DOMAINS 14
+#define ERR_OPT_URL_INVALID 15
+#define ERR_OPT_PATH_MISSING 16
 
 void print_error_msg (int errorValue, const char* msg);
 int error_msg(const char *msg, int isTesting);
