@@ -4,6 +4,21 @@
 
 #include "parameters.h"
 
+int optFlags[7];
+char *hostName;
+char *port;
+char *filePath;
+
+void init_parameter_variables() {
+    for (int i = 0; i < 7; i++) {
+        optFlags[i] = 0;
+    }
+
+    hostName = NULL;
+    port = NULL;
+    filePath = NULL;
+}
+
 int parse_parameters (int argc, char *argv[], int is_testing) {
     extern char *optarg; 
     extern int optind;
@@ -12,8 +27,8 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
 
     opterr = 0;
     optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
+    init_parameter_variables();
 
-    int optFlags[7] = {0,0,0,0,0,0,0};
     int opt, i, optErrFlag = 0, optPathMissFlag = 0;
     
     if (argc < 2) {
@@ -34,6 +49,7 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                     break;
                 case 'f':
                     optFlags[F_FLAG]++;
+                    filePath = optarg;
                     break;
                 case 'T':
                     optFlags[T_FLAG]++;
@@ -52,9 +68,7 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
             regex_t regex;
             int regexResult;
 
-            char urlRegex[] = "^https?:\\/\\/www\\.[a-zA-Z0-9]+([-\\.]{1}[a-zA-Z0-9]+)*\\.[a-z]{2,5}(:([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?(\\/.*)?$"; //"^https?:\/\/www\.[a-zA-Z0-9]+([-\.]{1}[a-zA-Z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$";
-
-            regexResult = regcomp(&regex, urlRegex, REG_EXTENDED);
+            regexResult = regcomp(&regex, REGEX_URL, REG_EXTENDED);
             if(regexResult) {
                 return error_msg(REGEX_COMPILE_FAILED, is_testing);
             }
@@ -64,6 +78,7 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                 return error_msg(OPT_URL_INVALID, is_testing);
             }
 
+            hostName = argv[optind];
             //skús vyparsovať port
         
             optFlags[DOMAIN_FLAG]++;
