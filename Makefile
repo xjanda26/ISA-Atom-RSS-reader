@@ -3,7 +3,7 @@ PRJ := feedreader
 TEST := test
 
 CC := gcc
-CFLAGS := -Wall -std=c99 -pedantic -lm -g
+CFLAGS := -Wall -std=gnu17 -pedantic -lm -g
 
 PROGS := $(PRJ) $(TEST)
 COMPILE := $(CC) $(CFLAGS)
@@ -11,7 +11,7 @@ COMPILE := $(CC) $(CFLAGS)
 OBJDIR := bin
 
 FEEDREADER_OBJS := $(addprefix $(OBJDIR)/, \
-						parameters.o connectionAri.o dns_communication.o \
+						parameters.o feed.o dns_communication.o \
 						error.o host.o http_communication.o)
 TEST_OBJS := $(addprefix $(OBJDIR)/, tests.o unit_testing.o parameter_tests.o) $(FEEDREADER_OBJS)
 

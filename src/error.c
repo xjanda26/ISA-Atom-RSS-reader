@@ -43,6 +43,11 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_REGEX_COMPILE_FAILED;
     }
 
+    // TCP Error
+    if (!strcmp(msg, TCP_UNKNOWN_ADDR)) {
+        errorValue = ERR_TCP_UNKNOWN_ADDR;
+    }
+
     if (!isTesting) {
         print_error_msg(errorValue, msg);
     }
