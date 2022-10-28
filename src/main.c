@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "connectionAri.h"
+#include "host.h"
 #include "parameters.h"
 
 int main (int argc, char *argv[]) {
@@ -11,7 +12,7 @@ int main (int argc, char *argv[]) {
 
     result = parse_parameters(argc, argv, 0);
     printf("File flag: %i\n", optFlags[F_FLAG]);
-    printf("Host: %s\n", hostName);
+    //printf("Host: %s\n", hosts[0].hostName);
     printf("File path: %s\n", filePath);
 
     if (!result) {

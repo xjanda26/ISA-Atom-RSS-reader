@@ -65,25 +65,14 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                     }
             }
         } else {
-            regex_t regex;
-            int regexResult;
+            int urlParsingRes = parse_url(argv[optind], is_testing);
 
-            regexResult = regcomp(&regex, REGEX_URL, REG_EXTENDED);
-            if(regexResult) {
-                return error_msg(REGEX_COMPILE_FAILED, is_testing);
+            if(urlParsingRes) {
+                return urlParsingRes;
             }
 
-            regexResult = regexec(&regex, argv[optind], 0, NULL, 0);
-            if (regexResult == REG_NOMATCH) {
-                return error_msg(OPT_URL_INVALID, is_testing);
-            }
-
-            hostName = argv[optind];
-            //skús vyparsovať port
-        
             optFlags[DOMAIN_FLAG]++;
             optind++;
-            regfree(&regex);
         }
     }
 
