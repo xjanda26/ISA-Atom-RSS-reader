@@ -28,6 +28,10 @@ void clear_destinations() {
     free(ports);
 }
 
+/**
+ * Regex inspiration: https://man7.org/linux/man-pages/man3/regexec.3.html
+ * 
+*/
 int parse_url (char *url, int is_testing) {
     regex_t regex;
 
