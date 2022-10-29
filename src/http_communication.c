@@ -28,7 +28,7 @@ int connect_to_host(char *hostname, char *port, int is_testing) {
 
     struct addrinfo hints;
     struct addrinfo *peer_address;
-    struct addrinfo *res;
+    //struct addrinfo *res;
 
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
@@ -70,13 +70,13 @@ int connect_to_host(char *hostname, char *port, int is_testing) {
 
 int receive_data() {
     char response[BUFFER_SIZE+1];
-    char *response_b = response, *queqe;
+    char *response_b = response;//, *queqe;
     char *response_end = response + BUFFER_SIZE;
     char *body = 0;
 
     enum {length, chunked, connection};
     int encoding = 0;
-    int remaining = 0;
+    //int remaining = 0;
 
     while (1) {
         if (response_b == response_end) {
