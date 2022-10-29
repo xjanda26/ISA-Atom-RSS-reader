@@ -2,14 +2,16 @@
  * Author: Adam Janda, xjanda26@stud.fit.vutbr.cz
 */
 
-#include "error.h"
 #include "parameter_tests.h"
 
 int test_TP1() {
     char *in_var[] = {"./feedreader"};
-    int argc = 1;
+    int result, argc = 1;
 
-    return test(ERR_OPT_FEW, parse_parameters(argc, in_var, TRUE), "TP1");
+    init_destinations();
+    result = test(ERR_OPT_FEW, parse_parameters(argc, in_var, TRUE), "TP1");
+
+    return result;
 }
 
 int test_TP2() {

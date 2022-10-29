@@ -5,18 +5,12 @@
 #include "parameters.h"
 
 int optFlags[7];
-char *hostName;
-char *port;
 char *filePath;
 
 void init_parameter_variables() {
     for (int i = 0; i < 7; i++) {
         optFlags[i] = 0;
     }
-
-    hostName = NULL;
-    port = NULL;
-    filePath = NULL;
 }
 
 int parse_parameters (int argc, char *argv[], int is_testing) {

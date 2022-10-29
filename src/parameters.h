@@ -22,8 +22,6 @@
 #define DOMAIN_FLAG 6
 
 extern int optFlags[7];
-extern char *hostName;
-extern char *port;
 extern char *filePath;
 
 void init_parameter_variables();
