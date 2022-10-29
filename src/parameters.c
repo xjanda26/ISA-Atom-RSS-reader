@@ -59,7 +59,8 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                     }
             }
         } else {
-            int urlParsingRes = parse_url(argv[optind], is_testing);
+            init_destinations(1);
+            int urlParsingRes = parse_url(argv[optind], 1, is_testing);
 
             if(urlParsingRes) {
                 return urlParsingRes;
@@ -92,5 +93,12 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
         return error_msg(OPT_MUL_DOMAINS, is_testing);
     }
     
+    if (optFlags[F_FLAG]) {
+        int fileReadingRes = parse_url_from_file(filePath, is_testing);
+        if (fileReadingRes) {
+            return fileReadingRes;
+        }
+    }
+
     return 0;
 }

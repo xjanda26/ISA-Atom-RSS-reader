@@ -10,15 +10,14 @@
 int main (int argc, char *argv[]) {
     int result = 0;
 
-    init_destinations();
     result = parse_parameters(argc, argv, 0);
 
     if (!result) {
-        printf("Trying connect\n");
+        printf("Trying to connect to %i dest\n", destinations_counter);
         for (int i = 0; i < destinations_counter; i++){
-            printf("Port %i\n", ports[i]);
-            printf("Hostname: %s\n", hosts[i]);
-            printf("Path: %s\n", paths[i]);
+            printf("Po: %i ", ports[i]);
+            printf(" H: %s ", hosts[i]);
+            printf("Pa: %s\n", paths[i]);
         }
 
         //get_and_print_feed(hosts[0]);

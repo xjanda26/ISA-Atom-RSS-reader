@@ -20,7 +20,11 @@
 // Messages for TCP communication
 #define TCP_UNKNOWN_ADDR "DNS doesn't know domain.\n"
 
-// Error codes
+// File errors
+#define FILE_READING_FAILED "Cannot read file.\n"
+#define FILE_EMPTY_INVALID_URLS "File is empty or not containing valid URLs.\n"
+
+//=== ERROR CODES ===
 #define ERR_GENERIC 1
 #define ERR_REGEX_COMPILE_FAILED 2
 
@@ -33,6 +37,9 @@
 #define ERR_OPT_PATH_MISSING 16
 
 #define ERR_TCP_UNKNOWN_ADDR 20
+
+#define ERR_FILE_READING_FAILED 30
+#define ERR_FILE_EMPTY_INVALID_URLS 31
 
 void print_error_msg (int errorValue, const char* msg);
 int error_msg(const char *msg, int isTesting);

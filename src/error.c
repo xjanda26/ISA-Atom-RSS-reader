@@ -11,6 +11,7 @@ void print_error_msg (int errorValue, const char* msg) {
 int error_msg(const char *msg, int isTesting) {
     int errorValue = ERR_GENERIC;
 
+    // OPT Error
     if (!strcmp(msg,OPT_UNKNOWN)){
         errorValue = ERR_OPT_UNKNOWN;
     }
@@ -46,6 +47,15 @@ int error_msg(const char *msg, int isTesting) {
     // TCP Error
     if (!strcmp(msg, TCP_UNKNOWN_ADDR)) {
         errorValue = ERR_TCP_UNKNOWN_ADDR;
+    }
+
+    // File Error
+    if (!strcmp(msg, FILE_READING_FAILED)) {
+        errorValue = ERR_FILE_READING_FAILED;
+    }
+
+    if (!strcmp(msg, FILE_EMPTY_INVALID_URLS)) {
+        errorValue = ERR_FILE_EMPTY_INVALID_URLS;
     }
 
     if (!isTesting) {

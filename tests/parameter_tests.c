@@ -8,7 +8,6 @@ int test_TP1() {
     char *in_var[] = {"./feedreader"};
     int result, argc = 1;
 
-    init_destinations();
     result = test(ERR_OPT_FEW, parse_parameters(argc, in_var, TRUE), "TP1");
 
     return result;
