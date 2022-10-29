@@ -34,52 +34,66 @@ int test_TP4() {
 }
 
 int test_TP5() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:80/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "http://fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(0, parse_parameters(argc,in_var, TRUE), "TP5");
+    return test(0,parse_parameters(argc,in_var, TRUE), "TP5");
 }
 
 int test_TP6() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65535/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "http://.fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(0, parse_parameters(argc,in_var, TRUE), "TP6");
+    return test(ERR_OPT_URL_INVALID,parse_parameters(argc,in_var, TRUE), "TP6");
 }
 
 int test_TP7() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65536/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:80/fit/news-rss/"};
     int argc = 2;
 
-    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var, TRUE), "TP7");
+    return test(0, parse_parameters(argc,in_var, TRUE), "TP7");
 }
 
 int test_TP8() {
-    char *in_var[] = {"./feedreader", "www.fit.vut.cz/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65535/fit/news-rss/"};
     int argc = 2;
 
-    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var, TRUE), "TP8");
+    return test(0, parse_parameters(argc,in_var, TRUE), "TP8");
 }
 
 int test_TP9() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
-    int argc = 3;
+    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65536/fit/news-rss/"};
+    int argc = 2;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP9");
+    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var, TRUE), "TP9");
 }
 
 int test_TP10() {
-    char *in_var[] = {"./feedreader", "-u", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
-    int argc = 4;
+    char *in_var[] = {"./feedreader", "www.fit.vut.cz/fit/news-rss/"};
+    int argc = 2;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP10");
+    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var, TRUE), "TP10");
 }
 
 int test_TP11() {
+    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
+    int argc = 3;
+
+    return test(0,parse_parameters(argc,in_var, TRUE), "TP11");
+}
+
+int test_TP12() {
+    char *in_var[] = {"./feedreader", "-u", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
+    int argc = 4;
+
+    return test(0,parse_parameters(argc,in_var, TRUE), "TP12");
+}
+
+int test_TP13() {
     char *in_var[] = {"./feedreader", "-T", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 4;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP11");
+    return test(0,parse_parameters(argc,in_var, TRUE), "TP13");
 }
 
 /*
@@ -92,7 +106,7 @@ int test_TP() {
 */
 
 void run_parameter_tests(){
-    int counter = 11;
+    int counter = 13;
     int number_of_passed = 0;
 
     printf("===- Parameter testing -===\n");
@@ -108,6 +122,8 @@ void run_parameter_tests(){
     number_of_passed += test_TP9();
     number_of_passed += test_TP10();
     number_of_passed += test_TP11();
+    number_of_passed += test_TP12();
+    number_of_passed += test_TP13();
     
     int failed = counter - number_of_passed;
     if (failed < 0) {
