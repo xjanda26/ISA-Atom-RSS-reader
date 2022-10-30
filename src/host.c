@@ -6,7 +6,7 @@
 
 char **hosts;
 char **paths;
-int *ports;
+char **ports;
 
 int destinations_counter = 0;
 
@@ -14,13 +14,14 @@ int destinations_counter = 0;
 void init_destinations(int dest_count) {
     hosts = malloc(dest_count * sizeof(char*));
     paths = malloc(dest_count * sizeof(char*));
-    ports = (int*) malloc(dest_count * sizeof(int));
+    ports = malloc(dest_count * sizeof(char*));
 }
 
 void clear_destinations() {
     for (int i = 0; i < destinations_counter; i++) {
         free(hosts[i]);
         free(paths[i]);
+        free(ports[i]);
     }
 
     free(hosts);
@@ -35,7 +36,7 @@ void clear_destinations() {
 int parse_url (char *url, int is_getting_data, int is_testing) {
     regex_t regex;
 
-    int port = 80;
+    char *port = "80";
     char *hostname;
     char *path;
 
@@ -79,10 +80,12 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
                 tmp[w]='\0';
 
                 if ((strcmp("https", tmp)) == 0) {
-                    port = 443;
+                    port = "443";
                 } else if(tmp[0] == ':') {
                     memmove(tmp, tmp+1, strlen(tmp));
-                    port = atoi(tmp);
+                    free(port);
+                    port = (char*) malloc(strlen(tmp) * sizeof(char));
+                    strcpy(port, tmp);
                 } else if (strstr(tmp, "www.")){
                     hostname = (char*) malloc(strlen(tmp) * sizeof(char));
                     strcpy(hostname, tmp);

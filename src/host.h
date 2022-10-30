@@ -11,7 +11,7 @@
 
 extern char **hosts;
 extern char **paths;
-extern int *ports;
+extern char **ports;
 extern int destinations_counter;
 
 void init_destinations(int dest_count);

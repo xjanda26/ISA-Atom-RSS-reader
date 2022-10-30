@@ -2,6 +2,7 @@
  * Author: Adam Janda, xjanda26@stud.fit.vutbr.cz
 */
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "feed.h"
 #include "host.h"
@@ -15,9 +16,10 @@ int main (int argc, char *argv[]) {
     if (!result) {
         printf("Trying to connect to %i dest\n", destinations_counter);
         for (int i = 0; i < destinations_counter; i++){
-            printf("Po: %i ", ports[i]);
+            printf("Po: %s ", ports[i]);
             printf(" H: %s ", hosts[i]);
             printf("Pa: %s\n", paths[i]);
+            get_and_print_feed(hosts[i], ports[i], paths[i]);
         }
 
         //get_and_print_feed(hosts[0]);

@@ -4,13 +4,13 @@
 
 #include "feed.h"
 
-int get_and_print_feed(char *url) {
+int get_and_print_feed(char *host, char *port, char *path) {
     //int sock = 0;
-    int connectRes = connect_to_host("www.theregister.com", "80", 0);
+    int connectRes = connect_to_host(host, port, 0);
     if (connectRes) {
         return connectRes;
     }
-    send_request(sock, "www.theregister.com", "80", "/headlines.atom");
+    send_request(sock, host, port, path);
 
     receive_data(sock);
     return 0;
