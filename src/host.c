@@ -36,7 +36,7 @@ void clear_destinations() {
 int parse_url (char *url, int is_getting_data, int is_testing) {
     regex_t regex;
 
-    char *port = "80";
+    char *port;
     char *hostname;
     char *path;
 
@@ -60,6 +60,10 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
         regoff_t off; 
         regoff_t len;
 
+        port = (char*) malloc(6 * sizeof(char));
+
+        strcpy(port, "80\0");
+
         //printf("URL = \"%.*s\"\n", urlLen, url + matches[0].rm_so);
         for (int i = 1; i < regex.re_nsub; i++) {
             off = matches[i].rm_so;
@@ -80,11 +84,9 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
                 tmp[w]='\0';
 
                 if ((strcmp("https", tmp)) == 0) {
-                    port = "443";
+                    strcpy(port, "443\0");
                 } else if(tmp[0] == ':') {
                     memmove(tmp, tmp+1, strlen(tmp));
-                    free(port);
-                    port = (char*) malloc(strlen(tmp) * sizeof(char));
                     strcpy(port, tmp);
                 } else if (strstr(tmp, "www.")){
                     hostname = (char*) malloc(strlen(tmp) * sizeof(char));

@@ -94,7 +94,7 @@ int receive_data() {
             break;
         }
 
-        printf("Received (%d bytes): '%.*s'", bytes_received, bytes_received, response_b);
+        //printf("Received (%d bytes): '%.*s'\n\n", bytes_received, bytes_received, response_b);
     }
 
     printf("\nClosing socket...\n");
