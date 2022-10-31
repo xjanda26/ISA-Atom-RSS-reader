@@ -58,6 +58,11 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_FILE_EMPTY_INVALID_URLS;
     }
 
+    // Response Error
+    if (strstr(msg, HTTP_RESPONSE_BAD_CODE) != NULL) {
+        errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
+    }
+
     if (!isTesting) {
         print_error_msg(errorValue, msg);
     }

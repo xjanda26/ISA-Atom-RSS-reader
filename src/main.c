@@ -14,12 +14,12 @@ int main (int argc, char *argv[]) {
     result = parse_parameters(argc, argv, 0);
 
     if (!result) {
-        printf("Trying to connect to %i dest\n", destinations_counter);
+        //printf("Trying to connect to %i dest\n", destinations_counter);
         for (int i = 0; i < destinations_counter; i++){
-            printf("Po: %s ", ports[i]);
-            printf(" H: %s ", hosts[i]);
-            printf("Pa: %s\n", paths[i]);
-            get_and_print_feed(hosts[i], ports[i], paths[i]);
+            //printf("Po: %s ", ports[i]);
+            //printf(" H: %s ", hosts[i]);
+            //printf("Pa: %s\n", paths[i]);
+            get_and_print_feed(hosts[i], ports[i], paths[i], 0);
         }
 
         //get_and_print_feed(hosts[0]);

@@ -24,6 +24,9 @@
 #define FILE_READING_FAILED "Cannot read file.\n"
 #define FILE_EMPTY_INVALID_URLS "File is empty or not containing valid URLs.\n"
 
+// HTTP errors
+#define HTTP_RESPONSE_BAD_CODE "Host responsed with stauts code "
+
 //=== ERROR CODES ===
 #define ERR_GENERIC 1
 #define ERR_REGEX_COMPILE_FAILED 2
@@ -40,6 +43,8 @@
 
 #define ERR_FILE_READING_FAILED 30
 #define ERR_FILE_EMPTY_INVALID_URLS 31
+
+#define ERR_HTTP_RESPONSE_BAD_CODE 40
 
 void print_error_msg (int errorValue, const char* msg);
 int error_msg(const char *msg, int isTesting);
