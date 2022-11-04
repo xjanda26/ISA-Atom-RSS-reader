@@ -1,0 +1,285 @@
+DEBUG counter: 0
+
+==
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>tag:theregister.com,2005:feed/theregister.com/</id>
+  <title>The Register</title>
+  <link rel="self" type="application/atom+xml" href="https://www.theregister.com/headlines.atom"/>
+  <link rel="alternate" type="text/html" href="https://www.theregister.com/"/>
+  <rights>Copyright © 2022, Situation Publishing</rights>
+  <author>
+    <name>Team Register</name>
+    <email>webmaster@theregister.co.uk</email>
+    <uri>https://www.theregister.com/odds/about/contact/</uri>
+  </author>
+  <icon>https://www.theregister.com/Design/graphics/icons/favicon.png</icon>
+  <subtitle>Biting the hand that feeds IT — Enterprise Technology News and Analysis</subtitle>
+  <logo>https://www.theregister.com/Design/graphics/Reg_default/The_Register_r.png</logo>
+  <updated>2022-11-04T17:30:08Z</updated>
+  <entry>
+    <id>tag:theregis
+==
+
+==XML builded
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>tag:theregister.com,2005:feed/theregister.com/</id>
+  <title>The Register</title>
+  <link rel="self" type="application/atom+xml" href="https://www.theregister.com/headlines.atom"/>
+  <link rel="alternate" type="text/html" href="https://www.theregister.com/"/>
+  <rights>Copyright © 2022, Situation Publishing</rights>
+  <author>
+    <name>Team Register</name>
+    <email>webmaster@theregister.co.uk</email>
+    <uri>https://www.theregister.com/odds/about/contact/</uri>
+  </author>
+  <icon>https://www.theregister.com/Design/graphics/icons/favicon.png</icon>
+  <subtitle>Biting the hand that feeds IT — Enterprise Technology News and Analysis</subtitle>
+  <logo>https://www.theregister.com/Design/graphics/Reg_default/The_Register_r.png</logo>
+  <updated>2022-11-04T17:30:08Z</updated>
+  <entry>
+    <id>tag:theregis
+
+DEBUG counter: 1
+
+==Response
+ter.com,2005:story224547</id>
+    <updated>2022-11-04T17:30:08Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/mozilla_ventures/"/>
+    <title type="html">Mozilla Foundation launches ethical venture capital fund</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;An unexpected move, but we suspect that Carl Sagan might have approved&lt;/h4&gt; &lt;p&gt;Mozilla has announced the successor to the Mozilla Builders incubator: Mozilla Ventures.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224549</id>
+    <updated>2022-11-04T16:15:25Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/starliner_launch_delay/"/>
+    <title type="html">Boeing's Starliner launch pushed back again... to April 2023</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The official word is 'scheduling conflicts,' but NASA's safety panel has expressed concerns too&lt;/h4&gt; &lt;p&gt;The first crewed launch of Boeing's Starliner has been delayed again, this time 
+==
+
+==XML builded
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>tag:theregister.com,2005:feed/theregister.com/</id>
+  <title>The Register</title>
+  <link rel="self" type="application/atom+xml" href="https://www.theregister.com/headlines.atom"/>
+  <link rel="alternate" type="text/html" href="https://www.theregister.com/"/>
+  <rights>Copyright © 2022, Situation Publishing</rights>
+  <author>
+    <name>Team Register</name>
+    <email>webmaster@theregister.co.uk</email>
+    <uri>https://www.theregister.com/odds/about/contact/</uri>
+  </author>
+  <icon>https://www.theregister.com/Design/graphics/icons/favicon.png</icon>
+  <subtitle>Biting the hand that feeds IT — Enterprise Technology News and Analysis</subtitle>
+  <logo>https://www.theregister.com/Design/graphics/Reg_default/The_Register_r.png</logo>
+  <updated>2022-11-04T17:30:08Z</updated>
+  <entry>
+    <id>tag:theregister.com,2005:story224547</id>
+    <updated>2022-11-04T17:30:08Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/mozilla_ventures/"/>
+    <title type="html">Mozilla Foundation launches ethical venture capital fund</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;An unexpected move, but we suspect that Carl Sagan might have approved&lt;/h4&gt; &lt;p&gt;Mozilla has announced the successor to the Mozilla Builders incubator: Mozilla Ventures.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224549</id>
+    <updated>2022-11-04T16:15:25Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/starliner_launch_delay/"/>
+    <title type="html">Boeing's Starliner launch pushed back again... to April 2023</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The official word is 'scheduling conflicts,' but NASA's safety panel has expressed concerns too&lt;/h4&gt; &lt;p&gt;The first crewed launch of Boeing's Starliner has been delayed again, this time 
+
+DEBUG counter: 2
+
+==Response
+being pushed back to April 2023 from an earlier planned launch date of February.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224545</id>
+    <updated>2022-11-04T15:15:12Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/uk_governement_set_to_extract/"/>
+    <title type="html">UK government set to extract hospital data to Palantir system without patient consent</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;'You'll be hearing from us,' say privacy campaigners who previously forced the government to back down&lt;/h4&gt; &lt;p&gt;The UK government is set to extract patient-identifiable data from NHS hospital systems and share this with its data platform based on technology from Palantir, a move that seems set to provoke another legal challenge.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224548</id>
+    <updated>2022-11-04T14:15:35Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/us_chip_industry_china_ban/"/>
+    <title type="h
+==
+
+==XML builded
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>tag:theregister.com,2005:feed/theregister.com/</id>
+  <title>The Register</title>
+  <link rel="self" type="application/atom+xml" href="https://www.theregister.com/headlines.atom"/>
+  <link rel="alternate" type="text/html" href="https://www.theregister.com/"/>
+  <rights>Copyright © 2022, Situation Publishing</rights>
+  <author>
+    <name>Team Register</name>
+    <email>webmaster@theregister.co.uk</email>
+    <uri>https://www.theregister.com/odds/about/contact/</uri>
+  </author>
+  <icon>https://www.theregister.com/Design/graphics/icons/favicon.png</icon>
+  <subtitle>Biting the hand that feeds IT — Enterprise Technology News and Analysis</subtitle>
+  <logo>https://www.theregister.com/Design/graphics/Reg_default/The_Register_r.png</logo>
+  <updated>2022-11-04T17:30:08Z</updated>
+  <entry>
+    <id>tag:theregister.com,2005:story224547</id>
+    <updated>2022-11-04T17:30:08Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/mozilla_ventures/"/>
+    <title type="html">Mozilla Foundation launches ethical venture capital fund</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;An unexpected move, but we suspect that Carl Sagan might have approved&lt;/h4&gt; &lt;p&gt;Mozilla has announced the successor to the Mozilla Builders incubator: Mozilla Ventures.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224549</id>
+    <updated>2022-11-04T16:15:25Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/starliner_launch_delay/"/>
+    <title type="html">Boeing's Starliner launch pushed back again... to April 2023</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The official word is 'scheduling conflicts,' but NASA's safety panel has expressed concerns too&lt;/h4&gt; &lt;p&gt;The first crewed launch of Boeing's Starliner has been delayed again, this time being pushed back to April 2023 from an earlier planned launch date of February.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224545</id>
+    <updated>2022-11-04T15:15:12Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/uk_governement_set_to_extract/"/>
+    <title type="html">UK government set to extract hospital data to Palantir system without patient consent</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;'You'll be hearing from us,' say privacy campaigners who previously forced the government to back down&lt;/h4&gt; &lt;p&gt;The UK government is set to extract patient-identifiable data from NHS hospital systems and share this with its data platform based on technology from Palantir, a move that seems set to provoke another legal challenge.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224548</id>
+    <updated>2022-11-04T14:15:35Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/us_chip_industry_china_ban/"/>
+    <title type="h
+
+DEBUG counter: 3
+
+==Response
+tml">US chip industry worried it may lose out to rivals over China ban</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Just hang on while we convince the rest of the world, Commerce Sec tells makers&lt;/h4&gt; &lt;p&gt;US companies that build chipmaking equipment have been told to tough it out as they face a ban on selling to customers in China, while their rivals elsewhere in the world currently have no such restrictions.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224541</id>
+    <updated>2022-11-04T13:30:42Z</updated>
+    <author>
+      <name>Jude Karabus</name>
+      <uri>https://search.theregister.com/?author=Jude%20Karabus</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/google_nlrb_complaint/"/>
+    <title type="html">Google cut contractors off from online 'Share My Salary' spreadsheet, union claims</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Alphabet Workers Union says it's an illegal block of workers' right to discuss pay&lt;/h4&gt; &lt;p&gt;The Alphabet Workers Union (AWU) claims the company blocked access to a shared spreadsheet in which it reckons "hundreds" of subcontracted workers had shared their salary details and "up to 50,000" of tho
+==
+
+==XML builded
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>tag:theregister.com,2005:feed/theregister.com/</id>
+  <title>The Register</title>
+  <link rel="self" type="application/atom+xml" href="https://www.theregister.com/headlines.atom"/>
+  <link rel="alternate" type="text/html" href="https://www.theregister.com/"/>
+  <rights>Copyright © 2022, Situation Publishing</rights>
+  <author>
+    <name>Team Register</name>
+    <email>webmaster@theregister.co.uk</email>
+    <uri>https://www.theregister.com/odds/about/contact/</uri>
+  </author>
+  <icon>https://www.theregister.com/Design/graphics/icons/favicon.png</icon>
+  <subtitle>Biting the hand that feeds IT — Enterprise Technology News and Analysis</subtitle>
+  <logo>https://www.theregister.com/Design/graphics/Reg_default/The_Register_r.png</logo>
+  <updated>2022-11-04T17:30:08Z</updated>
+  <entry>
+    <id>tag:theregister.com,2005:story224547</id>
+    <updated>2022-11-04T17:30:08Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/mozilla_ventures/"/>
+    <title type="html">Mozilla Foundation launches ethical venture capital fund</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;An unexpected move, but we suspect that Carl Sagan might have approved&lt;/h4&gt; &lt;p&gt;Mozilla has announced the successor to the Mozilla Builders incubator: Mozilla Ventures.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224549</id>
+    <updated>2022-11-04T16:15:25Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/starliner_launch_delay/"/>
+    <title type="html">Boeing's Starliner launch pushed back again... to April 2023</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The official word is 'scheduling conflicts,' but NASA's safety panel has expressed concerns too&lt;/h4&gt; &lt;p&gt;The first crewed launch of Boeing's Starliner has been delayed again, this time being pushed back to April 2023 from an earlier planned launch date of February.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224545</id>
+    <updated>2022-11-04T15:15:12Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/uk_governement_set_to_extract/"/>
+    <title type="html">UK government set to extract hospital data to Palantir system without patient consent</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;'You'll be hearing from us,' say privacy campaigners who previously forced the government to back down&lt;/h4&gt; &lt;p&gt;The UK government is set to extract patient-identifiable data from NHS hospital systems and share this with its data platform based on technology from Palantir, a move that seems set to provoke another legal challenge.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224548</id>
+    <updated>2022-11-04T14:15:35Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/us_chip_industry_china_ban/"/>
+    <title type="html">US chip industry worried it may lose out to rivals over China ban</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Just hang on while we convince the rest of the world, Commerce Sec tells makers&lt;/h4&gt; &lt;p&gt;US companies that build chipmaking equipment have been told to tough it out as they face a ban on selling to customers in China, while their rivals elsewhere in the world currently have no such restrictions.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224541</id>
+    <updated>2022-11-04T13:30:42Z</updated>
+    <author>
+      <name>Jude Karabus</name>
+      <uri>https://search.theregister.com/?author=Jude%20Karabus</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/04/google_nlrb_complaint/"/>
+    <title type="html">Google cut contractors off from online 'Share My Salary' spreadsheet, union claims</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Alphabet Workers Union says it's an illegal block of workers' right to discuss pay&lt;/h4&gt; &lt;p&gt;The Alphabet Workers Union (AWU) claims the company blocked access to a shared spreadsheet in which it reckons "hundreds" of subcontracted workers had shared their salary details and "up to 50,000" of tho
+
+DEBUG counter: 4

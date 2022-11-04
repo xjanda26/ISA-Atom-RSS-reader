@@ -62,7 +62,7 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
 
         port = (char*) malloc(6 * sizeof(char));
 
-        strcpy(port, "80\0");
+        strcpy(port, "80");
 
         //printf("URL = \"%.*s\"\n", urlLen, url + matches[0].rm_so);
         for (int i = 1; i < regex.re_nsub; i++) {
@@ -81,18 +81,20 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
                     tmp[w] = url[j];
                     w++;
                 }
-                tmp[w]='\0';
 
+                tmp[w] = '\0';
+
+                int tmp_len = strlen(tmp);
                 if ((strcmp("https", tmp)) == 0) {
-                    strcpy(port, "443\0");
+                    strcpy(port, "443");
                 } else if(tmp[0] == ':') {
-                    memmove(tmp, tmp+1, strlen(tmp));
+                    memmove(tmp, tmp + 1, tmp_len);
                     strcpy(port, tmp);
                 } else if (strstr(tmp, "www.")){
-                    hostname = (char*) malloc(strlen(tmp) * sizeof(char));
+                    hostname = (char*) malloc((tmp_len + 1) * sizeof(char));
                     strcpy(hostname, tmp);
                 } else {
-                    hostname = (char*) malloc(strlen(tmp+4) * sizeof(char));
+                    hostname = (char*) malloc((tmp_len + 5) * sizeof(char));
                     strcpy(hostname, "www.");
                     strcat(hostname, tmp);
                 }

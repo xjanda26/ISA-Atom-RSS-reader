@@ -15,10 +15,11 @@
 
 #include "error.h"
 
-#define BUFFER_SIZE 3072
+#define BUFFER_SIZE 1536
 #define TIMEOUT 5.0
 
 extern int sock;
+extern char *xmlResponse;
 
 void send_request(int sock, char *hostname, char *port, char *path);
 int connect_to_host(char *hostname, char *port, int is_testing);

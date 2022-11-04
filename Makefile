@@ -3,7 +3,7 @@ PRJ := feedreader
 TEST := test
 
 CC := gcc
-CFLAGS := -Wall -std=gnu17 -pedantic -lm -g
+CFLAGS := -Wall -std=gnu17 -pedantic -lm -g `xml2-config --cflags` `xml2-config --libs`
 
 PROGS := $(PRJ) $(TEST)
 COMPILE := $(CC) $(CFLAGS)

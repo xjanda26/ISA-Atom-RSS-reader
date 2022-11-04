@@ -12,5 +12,6 @@ int get_and_print_feed(char *host, char *port, char *path, int is_testing) {
     send_request(sock, host, port, path);
 
     receive_data(is_testing);
+    free(xmlResponse);
     return 0;
 }
