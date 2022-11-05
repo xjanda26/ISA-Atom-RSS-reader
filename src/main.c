@@ -19,7 +19,7 @@ int main (int argc, char *argv[]) {
             //printf("Po: %s ", ports[i]);
             //printf(" H: %s ", hosts[i]);
             //printf("Pa: %s\n", paths[i]);
-            get_and_print_feed(hosts[i], ports[i], paths[i], 0);
+            result = get_and_print_feed(hosts[i], ports[i], paths[i], 0);
         }
 
         //get_and_print_feed(hosts[0]);
