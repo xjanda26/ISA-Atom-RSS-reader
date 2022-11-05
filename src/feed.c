@@ -4,40 +4,86 @@
 
 #include "feed.h"
 
-int process_author_node (xmlDocPtr doc, xmlNodePtr authorNode) {
-    printf("\n");
+int isFirstEntry = 1;
+
+void process_author_node (xmlDocPtr doc, xmlNodePtr authorNode) {
     xmlChar *key;
 
     while (authorNode != NULL) {
-        key = xmlNodeListGetString(doc, authorNode->children, 1);
-        printf("\t\t%s, %s\n", authorNode->name, key);
-        authorNode = authorNode->next;
-    }
-
-    xmlFree(key);
-    return 0;
-}
-
-int process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
-    // spracuj uzly
-    while (node != NULL) {
-        printf("%s\n", node->name);
-        if ((!xmlStrcmp(node->name, (const xmlChar *) "entry"))) {
-            xmlNodePtr entryNode = node->children;
-            while (entryNode != NULL) {
-                xmlChar *key;
-                printf("\t%s", entryNode->name);
-                if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "author"))) {
-                    process_author_node(doc, entryNode->children);
-                } else {
-                    key = xmlNodeListGetString(doc, entryNode->children, 1);
-                    printf(", %s\n", key);
-                }
-                
+        if ((xmlStrcmp(authorNode->name, (const xmlChar *) "text"))) {
+            if ((!xmlStrcmp(authorNode->name, (const xmlChar *) "name"))) {
+                key = xmlNodeListGetString(doc, authorNode->children, 1);
+                printf("Autor: %s\n", key);
                 xmlFree(key);
-                entryNode = entryNode->next;
             }
         }
+
+        authorNode = authorNode->next;
+    }
+}
+
+void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
+    if ((!xmlStrcmp(node->name, (const xmlChar *) "entry"))) {
+        xmlChar *key;
+
+        if (isFirstEntry) {
+            isFirstEntry = 0;
+        } else {
+            if (optFlags[A_FLAG] || optFlags[T_FLAG] || optFlags[U_FLAG]) {
+                printf("\n");
+            }
+        }
+
+        //printf("Doc children: %s\n", node->name);
+        xmlNodePtr entryNode = node->children;
+        while (entryNode != NULL) {
+            //printf("Doc children: %s\n", entryNode->name);
+            if ((xmlStrcmp(entryNode->name, (const xmlChar *) "text"))) {
+                if (optFlags[A_FLAG] > 0) {
+                    if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "author"))) {
+                        process_author_node(doc, entryNode->children);
+                    }
+                }
+
+                if (optFlags[T_FLAG] > 0) {
+                    if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "updated"))) {
+                        key = xmlNodeListGetString(doc, entryNode->children, 1);
+                        printf("Aktualizace: %s\n", key);
+                        xmlFree(key);
+                    }
+                }
+
+                /*if (optFlags[U_FLAG] > 0) {
+                    if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "link"))) {
+                        printf("URL: %s\n", (char *) entryNode->nsDef->href);
+                    }
+                }*/
+
+                if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "title"))) {
+                    key = xmlNodeListGetString(doc, entryNode->children, 1);
+                    printf("%s\n", key);
+                    xmlFree(key);
+                }
+            }
+            entryNode = entryNode->next;
+        }
+    }
+}
+
+void process_feed_title_node(xmlDocPtr doc, xmlNodePtr node) {
+    xmlChar *key;
+
+    if ((!xmlStrcmp(node->name, (const xmlChar *) "title"))) {
+        key = xmlNodeListGetString(doc, node->children, 1);
+        printf("*** %s ***\n", key);
+        xmlFree(key);
+    }
+}
+
+int process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
+    while (node != NULL) {
+        process_feed_title_node(doc, node);
+        process_entry_node(doc, node);
         
         node = node->next;
     }
@@ -60,7 +106,7 @@ int process_xml() {
             if (node == NULL) {
                 printf("Empty XML\n");
             } else {
-                process_entry_node(xmlTree, node->children);
+                process_feed_node(xmlTree, node->children);
             }
         } else {
             printf("Error, parsing xml.\n");
