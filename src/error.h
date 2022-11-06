@@ -31,6 +31,10 @@
 
 // SSL errors
 #define SSL_CTX_CONTEXT_FAIL "Fail while creating CTX context.\n"
+#define SSL_OBJECT_FAIL "Fail while creating SSL object.\n"
+#define SSL_CONNECT_FAIL "Cannot SSL connect to destination.\n"
+#define SSL_SERVER_NAME_INDICATION_FAIL "Server Name Indication failed.\n"
+#define SSL_GET_DEST_CERTIFICATE_FAIL "Getting destination certificate failed.\n"
 
 //=== ERROR CODES ===
 #define ERR_GENERIC 1
@@ -54,6 +58,10 @@
 #define ERR_HTTP_RESPONSE_BAD_CODE 40
 
 #define ERR_SSL_CTX_CONTEXT_FAIL 50
+#define ERR_SSL_OBJECT_FAIL 51
+#define ERR_SSL_CONNECT_FAIL 52
+#define ERR_SSL_SERVER_NAME_INDICATION_FAIL 53
+#define ERR_SSL_GET_DEST_CERTIFICATE_FAIL 54
 
 void print_error_msg (int errorValue, const char* msg);
 int error_msg(const char *msg, int isTesting);

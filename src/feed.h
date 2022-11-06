@@ -7,6 +7,7 @@
 
 #include "error.h"
 #include "http_communication.h"
+#include "https_communication.h"
 #include "parameters.h"
 #include "tcp_communication.h"
 

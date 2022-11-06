@@ -119,7 +119,7 @@ int process_xml() {
                 // TODO:
                 printf("Empty XML\n");
             } else {
-                // TODO: XML and ATOM parsing
+                // TODO: ATOM and RSS parsing
                 process_feed_node(xmlTree, node->children);
             }
         } else {
@@ -140,24 +140,53 @@ int get_and_print_feed(char *host, char *port, char *path, int is_secure, int is
     int result;
 
     if (is_secure) {
-        printf("Is secured\n");
-        result = 0;
-    } else {
-        result = connect_to_host(host, port, 0);
+        result = init_ssl(is_testing);
+        if (result) {
+            return error_msg(SSL_CTX_CONTEXT_FAIL, is_testing);
+        }
+    } 
+    
+    result = connect_to_host(host, port, 0);
+    if (result) {
+        return result;
+    }
+    
+    if (is_secure) {
+        result = init_ssl(is_testing);
         if (result) {
             return result;
         }
-        send_request(sock, host, port, path);
+
+        result = init_tls_connection(host, is_testing);
+        if (result) {
+            return result;
+        }
+
+        result = verify_certificate(is_testing);
+        if (result) {
+            return result;
+        }
+
+        send_https_request(host, port, path);
+
+        result = receive_ssl_data(is_testing);
+        if (result) {
+            // TODO: 
+            return result;
+        }
+    } else {       
+        send_http_request(sock, host, port, path);
 
         result = receive_data(is_testing);
         if (result) {
+            // TODO
             return result;
         }
-
-        result = process_xml();
-    
-        free(xmlResponse);
     }
+
+    result = process_xml();
+    
+    free(xmlResponse);
     
     return result;
 }

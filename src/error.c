@@ -75,7 +75,23 @@ int error_msg(const char *msg, int isTesting) {
     if (!strcmp(msg, SSL_CTX_CONTEXT_FAIL)) {
         errorValue = ERR_SSL_CTX_CONTEXT_FAIL;
     }
-    
+
+    if (!strcmp(msg, SSL_OBJECT_FAIL)) {
+        errorValue = ERR_SSL_OBJECT_FAIL;
+    }
+
+    if (!strcmp(msg, SSL_CONNECT_FAIL)) {
+        errorValue = ERR_SSL_CONNECT_FAIL;
+    }
+
+    if (!strcmp(msg, SSL_SERVER_NAME_INDICATION_FAIL)) {
+        errorValue = ERR_SSL_SERVER_NAME_INDICATION_FAIL;
+    }
+
+    if (!strcmp(msg, SSL_GET_DEST_CERTIFICATE_FAIL)) {
+        errorValue = ERR_SSL_GET_DEST_CERTIFICATE_FAIL;
+    }
+
     if (!isTesting) {
         print_error_msg(errorValue, msg);
     }

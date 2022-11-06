@@ -5,6 +5,7 @@
 #include "tcp_communication.h"
 
 int sock;
+char *xmlResponse;
 
 int connect_to_host(char *hostname, char *port, int is_testing) {
     struct addrinfo hints;

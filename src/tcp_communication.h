@@ -13,5 +13,6 @@
 #include "error.h"
 
 extern int sock;
+extern char *xmlResponse;
 
 int connect_to_host(char *hostname, char *port, int is_testing);

@@ -17,7 +17,5 @@
 #define BUFFER_SIZE 1536
 #define TIMEOUT 5.0
 
-extern char *xmlResponse;
-
-void send_request(int sock, char *hostname, char *port, char *path);
+void send_http_request(int sock, char *hostname, char *port, char *path);
 int receive_data(int is_testing);

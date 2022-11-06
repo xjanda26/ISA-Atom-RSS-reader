@@ -4,10 +4,8 @@
 
 #include "http_communication.h"
 
-char *xmlResponse;
-
 // https://www.ibm.com/docs/en/cics-ts/5.3?topic=client-making-get-requests-atom-feeds-collections
-void send_request(int sock, char *hostname, char *port, char *path) {
+void send_http_request(int sock, char *hostname, char *port, char *path) {
     char buffer[BUFFER_SIZE];
 
     sprintf(buffer, "GET %s HTTP/1.0\r\n", path);
