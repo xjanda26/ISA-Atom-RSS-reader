@@ -12,7 +12,8 @@ OBJDIR := bin
 
 FEEDREADER_OBJS := $(addprefix $(OBJDIR)/, \
 						parameters.o feed.o dns_communication.o \
-						error.o host.o http_communication.o)
+						error.o host.o http_communication.o \
+						https_communication.o)
 TEST_OBJS := $(addprefix $(OBJDIR)/, tests.o unit_testing.o parameter_tests.o) $(FEEDREADER_OBJS)
 
 #===- Application source files -===
