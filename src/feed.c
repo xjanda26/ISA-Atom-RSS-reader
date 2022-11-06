@@ -58,6 +58,7 @@ void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
                         xmlBufferPtr nodeBuffer = xmlBufferCreate();
                         int dumpRes = xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
                         
+                        // TODO: dynamic parsing
                         if (dumpRes > 48) {
                             printf("URL: ");
                             for (int i = 45; i < dumpRes - 3 ;i++) {
@@ -115,16 +116,20 @@ int process_xml() {
             xmlNodePtr node;
             node = xmlDocGetRootElement(xmlTree);
             if (node == NULL) {
+                // TODO:
                 printf("Empty XML\n");
             } else {
+                // TODO: XML and ATOM parsing
                 process_feed_node(xmlTree, node->children);
             }
         } else {
+            // TODO:
             printf("Error, parsing xml.\n");
         }
 
         xmlFreeDoc(xmlTree);
     } else {
+        // TODO:
         printf("Error, converting string arr to xml arr\n");
     }
 
