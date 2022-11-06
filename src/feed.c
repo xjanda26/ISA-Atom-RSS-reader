@@ -136,20 +136,28 @@ int process_xml() {
     return 0;
 }
 
-int get_and_print_feed(char *host, char *port, char *path, int is_testing) {
-    int result = connect_to_host(host, port, 0);
-    if (result) {
-        return result;
-    }
-    send_request(sock, host, port, path);
+int get_and_print_feed(char *host, char *port, char *path, int is_secure, int is_testing) {
+    int result;
 
-    result = receive_data(is_testing);
-    if (result) {
-        return result;
-    }
+    if (is_secure) {
+        printf("Is secured\n");
+        result = 0;
+    } else {
+        result = connect_to_host(host, port, 0);
+        if (result) {
+            return result;
+        }
+        send_request(sock, host, port, path);
 
-    result = process_xml();
+        result = receive_data(is_testing);
+        if (result) {
+            return result;
+        }
+
+        result = process_xml();
     
-    free(xmlResponse);
+        free(xmlResponse);
+    }
+    
     return result;
 }

@@ -13,6 +13,7 @@ extern char **hosts;
 extern char **paths;
 extern char **ports;
 extern int destinations_counter;
+extern int *secure;
 
 void init_destinations(int dest_count);
 void clear_destinations();

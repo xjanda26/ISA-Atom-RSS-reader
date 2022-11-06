@@ -20,6 +20,7 @@
 
 // Messages for TCP communication
 #define TCP_UNKNOWN_ADDR "DNS doesn't know domain.\n"
+#define TCP_NO_VALID_DEST "Any valid destination.\n"
 
 // File errors
 #define FILE_READING_FAILED "Cannot read file.\n"
@@ -42,6 +43,7 @@
 #define ERR_OPT_NO_HOST 17
 
 #define ERR_TCP_UNKNOWN_ADDR 20
+#define ERR_TCP_NO_VALID_DEST 21
 
 #define ERR_FILE_READING_FAILED 30
 #define ERR_FILE_EMPTY_INVALID_URLS 31

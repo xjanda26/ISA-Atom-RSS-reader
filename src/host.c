@@ -9,12 +9,13 @@ char **paths;
 char **ports;
 
 int destinations_counter = 0;
-
+int *secure;
 
 void init_destinations(int dest_count) {
     hosts = malloc(dest_count * sizeof(char*));
     paths = malloc(dest_count * sizeof(char*));
     ports = malloc(dest_count * sizeof(char*));
+    secure = (int*) malloc(dest_count * sizeof(int));
 }
 
 void clear_destinations() {
@@ -27,6 +28,7 @@ void clear_destinations() {
     free(hosts);
     free(paths);
     free(ports);
+    free(secure);
 }
 
 /**
@@ -57,6 +59,7 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
     if (is_getting_data) {
         int urlPartIndex = -1;
         int urlLen = matches[0].rm_eo - matches[0].rm_so;
+        int isSecure = 0;
         regoff_t off; 
         regoff_t len;
 
@@ -86,6 +89,7 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
 
                 int tmp_len = strlen(tmp);
                 if ((strcmp("https", tmp)) == 0) {
+                    isSecure = 1;
                     strcpy(port, "443");
                 } else if(tmp[0] == ':') {
                     memmove(tmp, tmp + 1, tmp_len);
@@ -122,6 +126,7 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
         hosts[destinations_counter] = hostname;
         ports[destinations_counter] = port;
         paths[destinations_counter] = path;
+        secure[destinations_counter] = isSecure;
         destinations_counter++;
     }
 

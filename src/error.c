@@ -53,6 +53,10 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_TCP_UNKNOWN_ADDR;
     }
 
+    if (!strcmp(msg, TCP_NO_VALID_DEST)) {
+        errorValue = ERR_TCP_NO_VALID_DEST;
+    }
+
     // File Error
     if (!strcmp(msg, FILE_READING_FAILED)) {
         errorValue = ERR_FILE_READING_FAILED;
