@@ -13,6 +13,20 @@ void init_parameter_variables() {
     }
 }
 
+int parse_hostname(char *argv[], int i, int is_testing) {
+    //printf("rozne\n");
+    
+    init_destinations(1);
+    int urlParsingRes = parse_url(argv[i], 1, is_testing);
+
+    if(urlParsingRes) {
+        return urlParsingRes;
+    }
+
+    optFlags[DOMAIN_FLAG]++;
+    return 0;
+}
+
 int parse_parameters (int argc, char *argv[], int is_testing) {
     extern char *optarg; 
     extern int optind;
@@ -23,14 +37,23 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
     init_parameter_variables();
 
-    int opt, i, optErrFlag = 0, optPathMissFlag = 0;
+    int opt, res, i = 2, optErrFlag = 0, optPathMissFlag = 0;
     
     if (argc < 2) {
         return error_msg(OPT_FEW, is_testing);
     }
 
     while (optind < argc) {
-        if ((opt = getopt(argc, argv, "ac:C:f:Tu")) != -1) {
+        //printf("ARGC: %i\n", argc);
+        //printf("OPTIND start %i\n==\n\n", optind);
+
+        opt = getopt(argc, argv, "ac:C:f:Tu");
+        //printf("OPT case: %c\n", opt);
+        //printf("OPTIND %i, i:%i\n", optind, i);
+
+        if ((opt != -1 && optind == i) || opt == 'f') {
+            //printf("switch-case\n");
+            i++;
             switch(opt) {
                 case 'a':
                     optFlags[A_FLAG]++;
@@ -59,16 +82,27 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                     }
             }
         } else {
-            init_destinations(1);
-            int urlParsingRes = parse_url(argv[optind], 1, is_testing);
-
-            if(urlParsingRes) {
-                return urlParsingRes;
+            if (optFlags[DOMAIN_FLAG] > 1) {
+                return error_msg(OPT_MULTIPLE, is_testing);
+            }
+            res = parse_hostname(argv, i-1, is_testing);
+            
+            if (res) {
+                return res;
             }
 
             optFlags[DOMAIN_FLAG]++;
-            optind++;
+
+            if (i == argc) {
+                optind++;
+            } else {
+                optind--;
+                i++;
+            }
+            
         }
+        
+        //printf("next itera ARGC:%i,OPTIND:%i\n", argc, optind);
     }
 
     if (optErrFlag) {
@@ -90,7 +124,12 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     }
 
     if (optFlags[DOMAIN_FLAG] > 0 && optFlags[F_FLAG] > 0) {
+        clear_destinations();
         return error_msg(OPT_MUL_DOMAINS, is_testing);
+    }
+
+    if (optFlags[DOMAIN_FLAG] == 0 && optFlags[F_FLAG] == 0) {
+        return error_msg(OPT_NO_HOST, is_testing);
     }
     
     if (optFlags[F_FLAG]) {

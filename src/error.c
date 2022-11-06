@@ -44,6 +44,10 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_REGEX_COMPILE_FAILED;
     }
 
+    if (!strcmp(msg, OPT_NO_HOST)) {
+        errorValue = ERR_OPT_NO_HOST;
+    }
+
     // TCP Error
     if (!strcmp(msg, TCP_UNKNOWN_ADDR)) {
         errorValue = ERR_TCP_UNKNOWN_ADDR;

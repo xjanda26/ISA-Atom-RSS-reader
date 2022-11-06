@@ -25,4 +25,5 @@ extern int optFlags[7];
 extern char *filePath;
 
 void init_parameter_variables();
+int parse_hostname(char *argv[], int i, int is_testing);
 int parse_parameters (int argc, char *argv[], int is_testing);

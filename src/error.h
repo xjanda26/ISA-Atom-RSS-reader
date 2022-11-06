@@ -14,6 +14,7 @@
 #define OPT_MUL_DOMAINS "Entered multiple domain sources.\n"
 #define OPT_URL_INVALID "Entered URL is invalid.\n"
 #define OPT_PATH_MISSING "Operator '-f' requires an argument.\n"
+#define OPT_NO_HOST "No hostname nor file with hostnames entered.\n"
 
 #define REGEX_COMPILE_FAILED "Could not compile regex.\n"
 
@@ -38,6 +39,7 @@
 #define ERR_OPT_MUL_DOMAINS 14
 #define ERR_OPT_URL_INVALID 15
 #define ERR_OPT_PATH_MISSING 16
+#define ERR_OPT_NO_HOST 17
 
 #define ERR_TCP_UNKNOWN_ADDR 20
 
