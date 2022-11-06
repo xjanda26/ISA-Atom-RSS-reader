@@ -26,7 +26,7 @@
 #define FILE_EMPTY_INVALID_URLS "File is empty or not containing valid URLs.\n"
 
 // HTTP errors
-#define HTTP_RESPONSE_BAD_CODE "Host responsed with stauts code "
+#define HTTP_RESPONSE_BAD_CODE "Host responsed with status code "
 
 //=== ERROR CODES ===
 #define ERR_GENERIC 1

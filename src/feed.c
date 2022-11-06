@@ -53,11 +53,22 @@ void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
                     }
                 }
 
-                /*if (optFlags[U_FLAG] > 0) {
+                if (optFlags[U_FLAG] > 0) {
                     if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "link"))) {
-                        printf("URL: %s\n", (char *) entryNode->nsDef->href);
+                        xmlBufferPtr nodeBuffer = xmlBufferCreate();
+                        int dumpRes = xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
+                        
+                        if (dumpRes > 48) {
+                            printf("URL: ");
+                            for (int i = 45; i < dumpRes - 3 ;i++) {
+                                printf("%c", nodeBuffer->content[i]);
+                            }
+                            printf("\n");
+                        }
+
+                        xmlBufferFree(nodeBuffer);
                     }
-                }*/
+                }
 
                 if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "title"))) {
                     key = xmlNodeListGetString(doc, entryNode->children, 1);
