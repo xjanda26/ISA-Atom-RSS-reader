@@ -3,7 +3,7 @@ PRJ := feedreader
 TEST := test
 
 CC := gcc
-CFLAGS := -Wall -std=gnu17 -pedantic -lm -g `xml2-config --cflags` `xml2-config --libs`
+CFLAGS := -Wall -std=gnu17 -pedantic -lm -g `xml2-config --cflags` `xml2-config --libs` -lssl -lcrypto
 
 PROGS := $(PRJ) $(TEST)
 COMPILE := $(CC) $(CFLAGS)
@@ -13,7 +13,7 @@ OBJDIR := bin
 FEEDREADER_OBJS := $(addprefix $(OBJDIR)/, \
 						parameters.o feed.o dns_communication.o \
 						error.o host.o http_communication.o \
-						https_communication.o)
+						https_communication.o tcp_communication.o)
 TEST_OBJS := $(addprefix $(OBJDIR)/, tests.o unit_testing.o parameter_tests.o) $(FEEDREADER_OBJS)
 
 #===- Application source files -===

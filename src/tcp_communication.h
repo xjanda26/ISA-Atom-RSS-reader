@@ -9,15 +9,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <time.h>
 
 #include "error.h"
-#include "tcp_communication.h"
 
-#define BUFFER_SIZE 1536
-#define TIMEOUT 5.0
+extern int sock;
 
-extern char *xmlResponse;
-
-void send_request(int sock, char *hostname, char *port, char *path);
-int receive_data(int is_testing);
+int connect_to_host(char *hostname, char *port, int is_testing);

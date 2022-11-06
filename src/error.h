@@ -29,6 +29,9 @@
 // HTTP errors
 #define HTTP_RESPONSE_BAD_CODE "Host responsed with status code "
 
+// SSL errors
+#define SSL_CTX_CONTEXT_FAIL "Fail while creating CTX context.\n"
+
 //=== ERROR CODES ===
 #define ERR_GENERIC 1
 #define ERR_REGEX_COMPILE_FAILED 2
@@ -49,6 +52,8 @@
 #define ERR_FILE_EMPTY_INVALID_URLS 31
 
 #define ERR_HTTP_RESPONSE_BAD_CODE 40
+
+#define ERR_SSL_CTX_CONTEXT_FAIL 50
 
 void print_error_msg (int errorValue, const char* msg);
 int error_msg(const char *msg, int isTesting);

@@ -8,6 +8,7 @@
 #include "error.h"
 #include "http_communication.h"
 #include "parameters.h"
+#include "tcp_communication.h"
 
 void process_author_node (xmlDocPtr doc, xmlNodePtr authorNode);
 void process_entry_node(xmlDocPtr doc, xmlNodePtr node);

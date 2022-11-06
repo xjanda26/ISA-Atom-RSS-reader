@@ -71,6 +71,11 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
     }
 
+    // SSL Error
+    if (!strcmp(msg, SSL_CTX_CONTEXT_FAIL)) {
+        errorValue = ERR_SSL_CTX_CONTEXT_FAIL;
+    }
+    
     if (!isTesting) {
         print_error_msg(errorValue, msg);
     }
