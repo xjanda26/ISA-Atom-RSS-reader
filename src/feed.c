@@ -56,16 +56,22 @@ void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
                 if (optFlags[U_FLAG] > 0) {
                     if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "link"))) {
                         xmlBufferPtr nodeBuffer = xmlBufferCreate();
-                        int dumpRes = xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
+                        xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
+
+                        char *href = strstr((char *) nodeBuffer->content, "href=\"");
+                        //printf("%s\n", href);
                         
-                        // TODO: dynamic parsing
-                        if (dumpRes > 48) {
-                            printf("URL: ");
-                            for (int i = 45; i < dumpRes - 3 ;i++) {
-                                printf("%c", nodeBuffer->content[i]);
+                        int j = 6;
+                        printf("URI: ");
+                        while(1) {
+                            if (href[j] == '\"') {
+                                break;
                             }
-                            printf("\n");
+                            printf("%c", href[j]);
+                            j++;
                         }
+
+                        printf("\n");
 
                         xmlBufferFree(nodeBuffer);
                     }

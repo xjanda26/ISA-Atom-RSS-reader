@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "time.h": "c",
-        "parameters.h": "c"
+        "parameters.h": "c",
+        "http_communication.h": "c"
     }
 }
