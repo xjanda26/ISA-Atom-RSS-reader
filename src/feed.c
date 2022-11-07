@@ -6,14 +6,66 @@
 
 int isFirstEntry = 1;
 
-void process_author_node (xmlDocPtr doc, xmlNodePtr authorNode) {
-    xmlChar *key;
+char *authorName;
+char *updatedAt;
+char *entryTitle;
+char *entryUri;
 
+void print_entry() {
+    printf("%s\n", entryTitle);
+
+    if (optFlags[A_FLAG] > 0) {
+        if (authorName) {
+            printf("%s: %s\n", AUTHOR, authorName);
+        }
+    }
+
+    if (optFlags[U_FLAG] > 0) {
+        if (entryUri) {
+            printf("%s: %s\n", ENTRY_URI, entryUri);
+        }
+    }
+    
+    if (optFlags[T_FLAG] > 0) {
+        if (updatedAt) {
+            printf("%s: %s\n", UPDATED_AT,updatedAt);
+        }
+    }
+
+}
+
+void free_entry_data() {
+    free(entryTitle);
+    if (optFlags[A_FLAG] > 0) {
+        if (authorName) {
+            free(authorName);
+        }
+    }
+
+    if (optFlags[U_FLAG] > 0) {
+        if (entryUri) {
+            free(entryUri);
+        }
+    }
+
+    if (optFlags[T_FLAG] > 0) {
+        if (updatedAt) {
+            free(updatedAt);
+        }
+    }
+}
+
+void process_author_node(xmlDocPtr doc, xmlNodePtr authorNode) {
     while (authorNode != NULL) {
         if ((xmlStrcmp(authorNode->name, (const xmlChar *) "text"))) {
             if ((!xmlStrcmp(authorNode->name, (const xmlChar *) "name"))) {
-                key = xmlNodeListGetString(doc, authorNode->children, 1);
-                printf("Autor: %s\n", key);
+                
+                xmlChar *key = xmlNodeListGetString(doc, authorNode->children, 1);
+                int keyLen = strlen((char *) key);
+
+                authorName = (char *) malloc((keyLen + 1) * sizeof(char));
+                strcpy(authorName, (char *) key);
+
                 xmlFree(key);
             }
         }
@@ -22,9 +74,58 @@ void process_author_node (xmlDocPtr doc, xmlNodePtr authorNode) {
     }
 }
 
+void process_updated_node(xmlDocPtr doc, xmlNodePtr entryNode) {
+    xmlChar *key = xmlNodeListGetString(doc, entryNode->children, 1);
+    int keyLen = strlen((char *) key);
+
+    updatedAt = (char *) malloc((keyLen + 1) * sizeof(char));
+    strcpy(updatedAt, (char *) key);
+
+    xmlFree(key);
+}
+
+void process_link_node(xmlDocPtr doc, xmlNodePtr entryNode) {
+    xmlBufferPtr nodeBuffer = xmlBufferCreate();
+    xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
+
+    char *href = strstr((char *) nodeBuffer->content, "href=\"");
+    
+    int j = 6;
+    int hrefLen = 0;
+
+    while(1) {
+        if (href[j] == '\"') {
+            break;
+        }
+
+        j++;
+        hrefLen++;
+    }
+
+    entryUri = (char *) malloc((hrefLen + 1) * sizeof(char));
+    int i = 0;
+    for (j = 6; j < hrefLen + 6; j++) {
+        entryUri[i] = href[j];
+        i++;
+    }
+
+    entryUri[i] = '\0';
+
+    xmlBufferFree(nodeBuffer);
+}
+
+void process_entry_title_node(xmlDocPtr doc, xmlNodePtr entryNode) {
+    xmlChar *key = xmlNodeListGetString(doc, entryNode->children, 1);
+    int keyLen = strlen((char *) key);
+
+    entryTitle = (char *) malloc((keyLen + 1) * sizeof(char));
+    strcpy(entryTitle, (char *) key);
+    
+    xmlFree(key);
+}
+
 void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
     if ((!xmlStrcmp(node->name, (const xmlChar *) "entry"))) {
-        xmlChar *key;
 
         if (isFirstEntry) {
             isFirstEntry = 0;
@@ -47,44 +148,26 @@ void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
 
                 if (optFlags[T_FLAG] > 0) {
                     if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "updated"))) {
-                        key = xmlNodeListGetString(doc, entryNode->children, 1);
-                        printf("Aktualizace: %s\n", key);
-                        xmlFree(key);
+                        process_updated_node(doc, entryNode);
                     }
                 }
 
                 if (optFlags[U_FLAG] > 0) {
                     if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "link"))) {
-                        xmlBufferPtr nodeBuffer = xmlBufferCreate();
-                        xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
-
-                        char *href = strstr((char *) nodeBuffer->content, "href=\"");
-                        //printf("%s\n", href);
-                        
-                        int j = 6;
-                        printf("URI: ");
-                        while(1) {
-                            if (href[j] == '\"') {
-                                break;
-                            }
-                            printf("%c", href[j]);
-                            j++;
-                        }
-
-                        printf("\n");
-
-                        xmlBufferFree(nodeBuffer);
+                        process_link_node(doc, entryNode);
                     }
                 }
 
                 if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "title"))) {
-                    key = xmlNodeListGetString(doc, entryNode->children, 1);
-                    printf("%s\n", key);
-                    xmlFree(key);
+                    process_entry_title_node(doc, entryNode);
                 }
             }
+            
             entryNode = entryNode->next;
         }
+
+        print_entry();
+        free_entry_data();
     }
 }
 

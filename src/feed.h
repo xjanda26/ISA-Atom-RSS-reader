@@ -11,7 +11,11 @@
 #include "parameters.h"
 #include "tcp_communication.h"
 
-void process_author_node (xmlDocPtr doc, xmlNodePtr authorNode);
+#define AUTHOR "Autor"
+#define UPDATED_AT "Aktualizace"
+#define ENTRY_URI "URI"
+
+void process_author_node(xmlDocPtr doc, xmlNodePtr authorNode);
 void process_entry_node(xmlDocPtr doc, xmlNodePtr node);
 void process_feed_title_node(xmlDocPtr doc, xmlNodePtr node);
 int process_feed_node(xmlDocPtr doc, xmlNodePtr node);

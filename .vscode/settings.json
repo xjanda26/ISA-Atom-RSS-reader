@@ -3,6 +3,7 @@
     "files.associations": {
         "time.h": "c",
         "parameters.h": "c",
-        "http_communication.h": "c"
+        "http_communication.h": "c",
+        "tcp_communication.h": "c"
     }
 }
