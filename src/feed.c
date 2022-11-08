@@ -11,6 +11,7 @@ char *updatedAt;
 char *entryTitle;
 char *entryUri;
 
+/// @brief Function prints saved data about an article if their were provided in reposnse.
 void print_entry() {
     printf("%s\n", entryTitle);
 
@@ -25,7 +26,7 @@ void print_entry() {
             printf("%s: %s\n", ENTRY_URI, entryUri);
         }
     }
-    
+
     if (optFlags[T_FLAG] > 0) {
         if (updatedAt) {
             printf("%s: %s\n", UPDATED_AT,updatedAt);
@@ -34,6 +35,7 @@ void print_entry() {
 
 }
 
+/// @brief Function free dynamicly allocated memory
 void free_entry_data() {
     free(entryTitle);
     if (optFlags[A_FLAG] > 0) {
@@ -55,6 +57,9 @@ void free_entry_data() {
     }
 }
 
+/// @brief Function processes and saves data about author of article
+/// @param doc Parsed XML object
+/// @param authorNode XML element within article
 void process_author_node(xmlDocPtr doc, xmlNodePtr authorNode) {
     while (authorNode != NULL) {
         if ((xmlStrcmp(authorNode->name, (const xmlChar *) "text"))) {
@@ -74,6 +79,9 @@ void process_author_node(xmlDocPtr doc, xmlNodePtr authorNode) {
     }
 }
 
+/// @brief Function processes and saves data about publishing date of arcticle
+/// @param doc Parsed XML object
+/// @param entryNode XML element of article
 void process_updated_node(xmlDocPtr doc, xmlNodePtr entryNode) {
     xmlChar *key = xmlNodeListGetString(doc, entryNode->children, 1);
     int keyLen = strlen((char *) key);
@@ -84,6 +92,9 @@ void process_updated_node(xmlDocPtr doc, xmlNodePtr entryNode) {
     xmlFree(key);
 }
 
+/// @brief Function processes and saves data about URI that refers to arcticle
+/// @param doc Parsed XML object
+/// @param entryNode Processed XML element
 void process_link_node(xmlDocPtr doc, xmlNodePtr entryNode) {
     xmlBufferPtr nodeBuffer = xmlBufferCreate();
     xmlNodeDump(nodeBuffer, doc, entryNode,0,0);
@@ -114,6 +125,9 @@ void process_link_node(xmlDocPtr doc, xmlNodePtr entryNode) {
     xmlBufferFree(nodeBuffer);
 }
 
+/// @brief Function processes and save data about title of arcticle
+/// @param doc Parsed XML object
+/// @param entryNode Processed XML entry element (article node)
 void process_entry_title_node(xmlDocPtr doc, xmlNodePtr entryNode) {
     xmlChar *key = xmlNodeListGetString(doc, entryNode->children, 1);
     int keyLen = strlen((char *) key);
@@ -124,6 +138,9 @@ void process_entry_title_node(xmlDocPtr doc, xmlNodePtr entryNode) {
     xmlFree(key);
 }
 
+/// @brief Function goes through every element of article. Pick only author, updated, link and title element.
+/// @param doc Parsed XML object
+/// @param node XML element within feed element
 void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
     if ((!xmlStrcmp(node->name, (const xmlChar *) "entry"))) {
 
@@ -171,6 +188,9 @@ void process_entry_node(xmlDocPtr doc, xmlNodePtr node) {
     }
 }
 
+/// @brief Function processes title of feed and prints it on STDOUT
+/// @param doc Parsed XML object
+/// @param node XML element within feed element
 void process_feed_title_node(xmlDocPtr doc, xmlNodePtr node) {
     xmlChar *key;
 
@@ -181,6 +201,11 @@ void process_feed_title_node(xmlDocPtr doc, xmlNodePtr node) {
     }
 }
 
+
+/// @brief Function goes through every element of ATOM XML
+/// @param doc Parsed XML object
+/// @param node Feed element
+/// @return 
 int process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
     while (node != NULL) {
         process_feed_title_node(doc, node);

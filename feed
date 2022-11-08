@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Software Testing Magazine</title>
+	<atom:link href="https://www.softwaretestingmagazine.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.softwaretestingmagazine.com</link>
+	<description></description>
+	<lastBuildDate>Mon, 07 Nov 2022 13:05:04 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+
+<image>
+	<url>https://www.softwaretestingmagazine.com/wp-content/uploads/favicon.png</url>
+	<title>Software Testing Magazine</title>
+	<link>https://www.softwaretestingmagazine.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Tools for Distributed Software Testing Teams</title>
+		<link>https://www.softwaretestingmagazine.com/tools/tools-for-distributed-software-testing-teams/</link>
+					<comments>https://www.softwaretestingmagazine.com/tools/tools-for-distributed-software-testing-teams/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Mon, 07 Nov 2022 13:05:04 +0000</pubDate>
+				<category><![CDATA[Headline]]></category>
+		<category><![CDATA[Software Testing Tools]]></category>
+		<category><![CDATA[team]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8650</guid>
+
+					<description><![CDATA[<p>Even before Covid, there was a trend to distributed software development and software testing teams. In this article, we are going to list some tools that can be useful for distributed software testing teams. Author: Franco Martinig There are multiple existing sources about tools for distributed software development teams or remote working. In this article, we will focus on free or inexpensive tools that are available to small distributed software testing teams that operate outside a major organizational framework. We do not discuss the tools needed for testing which depend on the target to be tested (mobile app, website, API), but rather the tools that distributed software testers will use to communicate or plan and perform the test activities. You could naturally rent your own space on the web and install some open-source tools, but we will limit the scope to tools that teams can quickly use without having to spend a lot of time and efforts for installation and configuration. Team communication  Besides the traditional email communication, distributed software testing teams can also need to use other tools for real-time messaging, chat, or video conferencing. For instant messaging or continuous conversations, Discord, Slack, Rocket Chat, Mattermost, Bitrix24 or Chanty are the best know tools that are available for free. If all team members use Gmail, Google Chat and Google Meet can also be options. Microsoft Teams has also a free option with limited features that can be used by small teams for chat, videoconferencing and document sharing. People working <a class="mh-excerpt-more" href="https://www.softwaretestingmagazine.com/tools/tools-for-distributed-software-testing-teams/" title="Tools for Distributed Software Testing Teams">[...]</a></p>
+The post <a href="https://www.softwaretestingmagazine.com/tools/tools-for-distributed-software-testing-teams/">Tools for Distributed Software Testing Teams</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/tools/tools-for-distributed-software-testing-teams/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>New Partnership Between LambdaTest and Katalon</title>
+		<link>https://www.softwaretestingmagazine.com/news/new-partnership-between-lambdatest-and-katalon/</link>
+					<comments>https://www.softwaretestingmagazine.com/news/new-partnership-between-lambdatest-and-katalon/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Mon, 07 Nov 2022 09:56:19 +0000</pubDate>
+				<category><![CDATA[Software Testing News]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8648</guid>
+
+					<description><![CDATA[<p>LambdaTest has announced a partnership integration with Katalon quality management platform, to enable seamless experiences for enterprises &#8211; from writing test scripts to test execution and reporting. Software developers and testers typically switch between multiple platforms to write test scripts and execute them, leading to constant friction and interruptions, and ultimately resulting in delayed time to market and bad customer experiences. With LamdaTest integrating with Katalon, users can write test scripts in Katalon Studio, an automation solution for web, API, mobile, and desktop applications testing, and then run tests on the LambdaTest’s HyperExecute Selenium Grid directly from their Katalon Studio instance without having to shift between multiple platforms. HyperExecute is LambdaTest’s test orchestration platform. LambdaTest recently raised $45 million in a venture round led by Premji Invest with participation from existing investors.</p>
+The post <a href="https://www.softwaretestingmagazine.com/news/new-partnership-between-lambdatest-and-katalon/">New Partnership Between LambdaTest and Katalon</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/news/new-partnership-between-lambdatest-and-katalon/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>New Cerberus Testing 4.15 Accelerates Open-Source Test Automation</title>
+		<link>https://www.softwaretestingmagazine.com/tools/new-cerberus-testing-4-15-accelerates-open-source-test-automation/</link>
+					<comments>https://www.softwaretestingmagazine.com/tools/new-cerberus-testing-4-15-accelerates-open-source-test-automation/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Fri, 04 Nov 2022 14:29:35 +0000</pubDate>
+				<category><![CDATA[Software Testing Tools]]></category>
+		<category><![CDATA[feature2]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8639</guid>
+
+					<description><![CDATA[<p>The world of automated testing is booming. With a worldwide market of 20.70 billion euros in 2021¹ and an estimated annualized growth of 19% by 2030¹, the deployment of automated tests is becoming part of the top priorities to help companies accelerate their transformation. Author: Antoine Craske The significant contributions of test automation reported in the World Quality Report 2022-23² are to contribute to the implementation of a CI/CD approach (55%²) and the improvement of the value of tests while reducing their number (53%²). The best value of automated tests is captured through the implementation of functional tests (46%²) and integration tests (45%²). These test typologies are precisely those supported by Cerberus Testing, the 100% open-source test automation platform. The new Cerberus Testing 4.15 release offers a series of new features and improvements to allow as many people as possible to accelerate with quality by improving the accessibility and ease of setting up automated tests of modern software engineering teams. More intuitive user journeys The philosophy of Cerberus Testing is to facilitate cross-functional collaboration on automated tests around a shared interface. Usability, intuitivity, and onboarding have been a major focus of this new version, especially for easing the adoption for new users of the platform. The vision of the experience is that of an “Amazon 1-click” allowing to “create, execute, visualize an automated test in less than 30 seconds” for any user, whether or not they are familiar with the solution, removing any friction on automation journeys. Figure 1: The Cerberus Testing test journey becomes <a class="mh-excerpt-more" href="https://www.softwaretestingmagazine.com/tools/new-cerberus-testing-4-15-accelerates-open-source-test-automation/" title="New Cerberus Testing 4.15 Accelerates Open-Source Test Automation">[...]</a></p>
+The post <a href="https://www.softwaretestingmagazine.com/tools/new-cerberus-testing-4-15-accelerates-open-source-test-automation/">New Cerberus Testing 4.15 Accelerates Open-Source Test Automation</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/tools/new-cerberus-testing-4-15-accelerates-open-source-test-automation/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>How to Prevent Reliably Damages from Cyberattacks</title>
+		<link>https://www.softwaretestingmagazine.com/knowledge/how-to-prevent-reliably-damages-from-cyberattacks/</link>
+					<comments>https://www.softwaretestingmagazine.com/knowledge/how-to-prevent-reliably-damages-from-cyberattacks/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Mon, 31 Oct 2022 16:57:44 +0000</pubDate>
+				<category><![CDATA[Articles]]></category>
+		<category><![CDATA[Headline]]></category>
+		<category><![CDATA[Knowledge]]></category>
+		<category><![CDATA[security testing]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8633</guid>
+
+					<description><![CDATA[<p>As soon as your application is linked to a network, it will become the target of cyberattacks by hackers. This article explains how to mitigate the effects of cyberattacks and how to prevent them with security testing practices. Author: Nataliia Syvynska, TestMatick, https://testmatick.com/ According to recent sociological studies, in the past 2021, the price of damage from global cyberattacks was about $15 trillion. Simply put, every 11 seconds, various ransomware attacks web businesses. The cumulative number of attacks worldwide is increasing by 15% annually. Cybercriminals mostly look to financial and banking digital wallets, Decentralized finance (DeFi) projects, smart contracts, and cyber theft of personal data. Few Words about Cyberattacks and How They Are Carried Out  In short, a cyberattack is the manipulation of digital systems that aims at malicious action. Usually, it starts with the hacker hiding his physical IP address. As a rule, all sorts of proxies and VPN programs are used for this purpose. Then a virtual machine is used instead of a real PC. Hackers use software that can emulate the work of a desktop computer. The virtual software is easy to change, and even on one physical device, you can run up to 10 simultaneously working machines. Also, it is possible to use a real PC to which you can connect remotely. A hacker who can control a third-party PC not only hides but can also easily compromise a potential victim (for example, by hacking a personal account in social networks or by transferring funds without permission). How <a class="mh-excerpt-more" href="https://www.softwaretestingmagazine.com/knowledge/how-to-prevent-reliably-damages-from-cyberattacks/" title="How to Prevent Reliably Damages from Cyberattacks">[...]</a></p>
+The post <a href="https://www.softwaretestingmagazine.com/knowledge/how-to-prevent-reliably-damages-from-cyberattacks/">How to Prevent Reliably Damages from Cyberattacks</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/knowledge/how-to-prevent-reliably-damages-from-cyberattacks/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Tests That Help you Find Defects Faster</title>
+		<link>https://www.softwaretestingmagazine.com/videos/tests-that-help-you-find-defects-faster/</link>
+					<comments>https://www.softwaretestingmagazine.com/videos/tests-that-help-you-find-defects-faster/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Mon, 24 Oct 2022 14:42:39 +0000</pubDate>
+				<category><![CDATA[Videos]]></category>
+		<category><![CDATA[feature1]]></category>
+		<category><![CDATA[Javascript]]></category>
+		<category><![CDATA[test automation]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8630</guid>
+
+					<description><![CDATA[<p>This presentation is about the common mistakes that people make when writing tests. It highlights more aspects like bloated tests which make it hard to figure out what they are about and proper usage of assertions to get better error messages. Especially if you don&#8217;t work with Test-Driven Development (TDD), it can be easy to come up with a test that looks good but stands in your way when it fails. The talk explores four scenarios that are outlined above, explain why it makes sense to think about them and actionable suggestions how to improve tests. Video producer: https://www.testjssummit.com</p>
+The post <a href="https://www.softwaretestingmagazine.com/videos/tests-that-help-you-find-defects-faster/">Tests That Help you Find Defects Faster</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/videos/tests-that-help-you-find-defects-faster/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Open Source Model-Based Testing Tools</title>
+		<link>https://www.softwaretestingmagazine.com/tools/open-source-model-based-testing-tools/</link>
+					<comments>https://www.softwaretestingmagazine.com/tools/open-source-model-based-testing-tools/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Mon, 17 Oct 2022 16:10:30 +0000</pubDate>
+				<category><![CDATA[Software Testing Tools]]></category>
+		<category><![CDATA[functional testing]]></category>
+		<category><![CDATA[test automation]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8616</guid>
+
+					<description><![CDATA[<p>Model-based testing is a software testing approach that is based on models of the system under test and its environment to define, manually or automatically, the test cases. The models explicitly represent the intended behavior of a system and its environment. The use of explicit models is aimed to avoid the problems caused by a traditional process of defining tests cases that tends to be unstructured, lacking explicit motivations, not reproducible, not documented, and largely influenced by the level of skills of software testers. Model-based testing tools allow defining the model of the system and provide an automatic generation of the test cases derived from this model. This article lists the main open source model-based testing tools available and recently maintained today. Use our contact form to make us aware of some open source test automation tools for model-based testing that we should add to this list. Fastbot Fastbot is an open source model-based testing tool for modeling GUI transitions to discover app stability problems in Android and iOS applications. The model is build via graph transition with the consideration of high reward choice selection. Fastbot combines machine learning and reinforcement learning techniques to assist discovery in a more intelligent way. Fastbot is compatible with multiple Android OS systems, including original Android, Android 5-12 and a variation of modified Android-based system by domestic manufacturers. Inherited from original Monkey, Fastbot allows for fast action insertion as high as 12 actions per second. Expert system is equipped with the ability to customize <a class="mh-excerpt-more" href="https://www.softwaretestingmagazine.com/tools/open-source-model-based-testing-tools/" title="Open Source Model-Based Testing Tools">[...]</a></p>
+The post <a href="https://www.softwaretestingmagazine.com/tools/open-source-model-based-testing-tools/">Open Source Model-Based Testing Tools</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/tools/open-source-model-based-testing-tools/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Structure and Interpretation of Test Cases</title>
+		<link>https://www.softwaretestingmagazine.com/videos/structure-and-interpretation-of-test-cases/</link>
+					<comments>https://www.softwaretestingmagazine.com/videos/structure-and-interpretation-of-test-cases/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Mon, 10 Oct 2022 15:30:40 +0000</pubDate>
+				<category><![CDATA[Videos]]></category>
+		<category><![CDATA[test management]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8613</guid>
+
+					<description><![CDATA[<p>Throw a line of code into many codebases and it is sure to hit one or more testing frameworks. There is no shortage of frameworks for testing, each with their particular spin and set of conventions, but that glut is not always matched by a clear vision of how to structure and use tests cases. A testing framework is a vehicle, but you still need to know how to drive. The computer science classic, Structure and Interpretation of Computer Programs, points out that &#8220;programs must be written for people to read, and only incidentally for machines to execute&#8221;. The same is true of test code. This presentation takes a deep dive into unit testing, looking at examples and counterexamples across a range of languages and frameworks, from naming to nesting, exploring the benefits of data-driven testing, the trade-offs between example-based and property-based testing, how to get the most out of the common given-when-then refrain and knowing how far to follow it. Video producer: https://gotoams.nl/</p>
+The post <a href="https://www.softwaretestingmagazine.com/videos/structure-and-interpretation-of-test-cases/">Structure and Interpretation of Test Cases</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/videos/structure-and-interpretation-of-test-cases/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>The Best Software Testing Videos on YouTube – Part 1 Conferences</title>
+		<link>https://www.softwaretestingmagazine.com/resources/the-best-software-videos-on-youtube-part-1-conferences/</link>
+					<comments>https://www.softwaretestingmagazine.com/resources/the-best-software-videos-on-youtube-part-1-conferences/#respond</comments>
+		
+		<dc:creator><![CDATA[Software Testing Magazine]]></dc:creator>
+		<pubDate>Tue, 04 Oct 2022 16:11:29 +0000</pubDate>
+				<category><![CDATA[Resources]]></category>
+		<category><![CDATA[Videos]]></category>
+		<category><![CDATA[test automation]]></category>
+		<guid isPermaLink="false">https://www.softwaretestingmagazine.com/?p=8605</guid>
+
+					<description><![CDATA[<p>Software testing conferences are organized all over the world and many capture their sessions on videos that they share on YouTube. This article presents a list of the best software testing video channels available on YouTube from software testing conferences. Software testers and software quality assurance engineers don’t necessarily have the time or the budget to attend conferences. Even if you miss the personal touch and the networking feature that come with participating at one of these conferences, you can enjoy the wisdom of the presenters watching their recorded presentations on YouTube. This article is focused on the software testing conferences videos available on YouTube. Future articles will also present other software testing material available on YouTube and conferences videos hosted on other platforms like Vimeo. Use the contact form to tell us about software testing conferences publishing good videos on YouTube and that are missing from the list below. Agile Testing Days The Agile Testing Days conferences take place both in Europe and in the USA. They cover all kinds of relevant topics for Agile software testers. Conference website: https://agiletestingdays.com/, https://agiletestingdays.us/ YouTube Channel: https://www.youtube.com/c/Agiletestingdaysconf Appium Conference The Appium conference is a great opportunity to gain valuable insight to help your own automation strategy, make connections with other Appium users from around the globe and learn from Appium specialists on a variety of topics. Search for #AppiumConf on the YouTube channel to find the videos of the Appium conference. Conference website: https://appiumconf.com/ YouTube Channel: https://www.youtube.com/user/AgileIndia2012/ Association for Software Testing CAST <a class="mh-excerpt-more" href="https://www.softwaretestingmagazine.com/resources/the-best-software-videos-on-youtube-part-1-conferences/" title="The Best Software Testing Videos on YouTube – Part 1 Conferences">[...]</a></p>
+The post <a href="https://www.softwaretestingmagazine.com/resources/the-best-software-videos-on-youtube-part-1-conferences/">The Best Software Testing Videos on YouTube – Part 1 Conferences</a> first appeared on <a href="https://www.softwaretestingmagazine.com">Software Testing Magazine</a>.]]></description>
+		
+					<wfw:commentRss>https://www.softwaretestingmagazine.com/resources/the-best-software-videos-on-youtube-part-1-conferences/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Page Caching using disk: enhanced 
+Minified using disk
+Database Caching 1/59 queries in 0.067 seconds using disk (Request-wide modification query)
+
+Served from: www.softwaretestingmagazine.com @ 2022-11-07 17:04:01 by W3 Total Cache
+-->
