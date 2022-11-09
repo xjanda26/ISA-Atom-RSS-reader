@@ -252,13 +252,6 @@ int process_xml() {
 
 int get_and_print_feed(char *host, char *port, char *path, int is_secure, int is_testing) {
     int result;
-
-    if (is_secure) {
-        result = init_ssl(is_testing);
-        if (result) {
-            return error_msg(SSL_CTX_CONTEXT_FAIL, is_testing);
-        }
-    } 
     
     result = connect_to_host(host, port, 0);
     if (result) {
@@ -268,7 +261,7 @@ int get_and_print_feed(char *host, char *port, char *path, int is_secure, int is
     if (is_secure) {
         result = init_ssl(is_testing);
         if (result) {
-            return result;
+            return error_msg(SSL_CTX_CONTEXT_FAIL, is_testing);
         }
 
         result = init_tls_connection(host, is_testing);
