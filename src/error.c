@@ -48,6 +48,14 @@ int error_msg(const char *msg, int isTesting) {
         errorValue = ERR_OPT_NO_HOST;
     }
 
+    if (!strcmp(msg, OPT_CERT_PATH_MISSING)) {
+        errorValue = ERR_OPT_CERT_PATH_MISSING;
+    }
+
+    if (!strcmp(msg, OPT_FOLDER_PATH_MISSING)) {
+        errorValue = ERR_OPT_FOLDER_PATH_MISSING;
+    }
+
     // TCP Error
     if (!strcmp(msg, TCP_UNKNOWN_ADDR)) {
         errorValue = ERR_TCP_UNKNOWN_ADDR;

@@ -20,15 +20,29 @@ void init_destinations(int dest_count) {
 
 void clear_destinations() {
     for (int i = 0; i < destinations_counter; i++) {
-        free(hosts[i]);
-        free(paths[i]);
-        free(ports[i]);
+        if (hosts[i]) {
+            free(hosts[i]);
+        }
+        if (paths[i]) {
+            free(paths[i]);
+        }
+        if (ports[i]) {
+            free(ports[i]);
+        }
     }
 
-    free(hosts);
-    free(paths);
-    free(ports);
-    free(secure);
+    if (hosts) {
+        free(hosts);
+    }
+    if (paths) {
+        free(paths);
+    }
+    if (ports) {
+        free(ports);
+    }
+    if (secure) {
+        free(secure);
+    }
 }
 
 /**

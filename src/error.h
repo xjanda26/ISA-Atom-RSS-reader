@@ -15,6 +15,8 @@
 #define OPT_URL_INVALID "Entered URL is invalid.\n"
 #define OPT_PATH_MISSING "Operator '-f' requires an argument.\n"
 #define OPT_NO_HOST "No hostname nor file with hostnames entered.\n"
+#define OPT_CERT_PATH_MISSING "Operator '-c' requires an argument with file name.\n"
+#define OPT_FOLDER_PATH_MISSING "Operator '-C' requires an argument with folder name.\n"
 
 #define REGEX_COMPILE_FAILED "Could not compile regex.\n"
 
@@ -48,6 +50,8 @@
 #define ERR_OPT_URL_INVALID 15
 #define ERR_OPT_PATH_MISSING 16
 #define ERR_OPT_NO_HOST 17
+#define ERR_OPT_CERT_PATH_MISSING 18
+#define ERR_OPT_FOLDER_PATH_MISSING 19
 
 #define ERR_TCP_UNKNOWN_ADDR 20
 #define ERR_TCP_NO_VALID_DEST 21

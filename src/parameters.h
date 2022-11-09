@@ -23,6 +23,8 @@
 
 extern int optFlags[7];
 extern char *filePath;
+extern char *certPath;
+extern char *certFolder;
 
 void init_parameter_variables();
 int parse_hostname(char *argv[], int i, int is_testing);

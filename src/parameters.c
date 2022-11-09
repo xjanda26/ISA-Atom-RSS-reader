@@ -6,6 +6,8 @@
 
 int optFlags[7];
 char *filePath;
+char *certPath;
+char *certFolder;
 
 void init_parameter_variables() {
     for (int i = 0; i < 7; i++) {
@@ -34,10 +36,12 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     extern int optopt;
 
     opterr = 0;
-    optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
+    //optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
     init_parameter_variables();
 
-    int opt, res, i = 2, optErrFlag = 0, optPathMissFlag = 0;
+    int opt, res, i = 2;
+    int optErrFlag = 0, optPathMissFlag = 0;
+    int optCertFileMissFlag = 0, optCertFolderMissFlag = 0;
     
     if (argc < 2) {
         return error_msg(OPT_FEW, is_testing);
@@ -51,7 +55,7 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
         //printf("OPT case: %c\n", opt);
         //printf("OPTIND %i, i:%i\n", optind, i);
 
-        if ((opt != -1 && optind == i) || opt == 'f') {
+        if(opt != -1 && (optind == i || (optind == i + 1 && (opt =='c' || opt == 'C' || opt == 'f')))) {
             //printf("switch-case\n");
             i++;
             switch(opt) {
@@ -60,13 +64,27 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                     break;
                 case 'c':
                     optFlags[C_FLAG]++;
+                    certPath = optarg;
+                    if (certPath[0] == '-') {
+                        optCertFileMissFlag = 1;
+                    }
+                    i++;
                     break;
                 case 'C':
                     optFlags[CC_FLAG]++;
+                    certFolder = optarg;
+                    if (certFolder[0] == '-') {
+                        optCertFolderMissFlag = 1;
+                    }
+                    i++;
                     break;
                 case 'f':
                     optFlags[F_FLAG]++;
                     filePath = optarg;
+                    if (filePath[0] == '-') {
+                        optPathMissFlag = 1;
+                    }
+                    i++;
                     break;
                 case 'T':
                     optFlags[T_FLAG]++;
@@ -77,12 +95,17 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                 case '?':
                     if (optopt == 'f') {
                         optPathMissFlag = 1;
+                    } else if (optopt == 'c') {
+                        optCertFileMissFlag = 1;
+                    } else if (optopt == 'C') {
+                        optCertFolderMissFlag = 1;
                     } else {
                         optErrFlag = 1;
                     }
             }
         } else {
-            if (optFlags[DOMAIN_FLAG] > 1) {
+            if (optFlags[DOMAIN_FLAG] > 0 || optFlags[F_FLAG] > 0) {
+                clear_destinations();
                 return error_msg(OPT_MULTIPLE, is_testing);
             }
             res = parse_hostname(argv, i-1, is_testing);
@@ -94,8 +117,10 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
             optFlags[DOMAIN_FLAG]++;
 
             if (i == argc) {
+                printf("optind ++\n");
                 optind++;
             } else {
+                printf("optind --\n");
                 optind--;
                 i++;
             }
@@ -106,20 +131,34 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     }
 
     if (optErrFlag) {
+        clear_destinations();
         return error_msg(OPT_UNKNOWN, is_testing);
     }
 
+    if (optCertFileMissFlag) {
+        clear_destinations();
+        return error_msg(OPT_CERT_PATH_MISSING, is_testing);
+    }
+    
+    if (optCertFolderMissFlag) {
+        clear_destinations();
+        return error_msg(OPT_FOLDER_PATH_MISSING, is_testing);
+    }
+
     if (optPathMissFlag) {
+        clear_destinations();
         return error_msg(OPT_PATH_MISSING, is_testing);
     }
 
     for (i = 0; i < 6; i++) {
         if (optFlags[i] > 1) {
+            clear_destinations();
             return error_msg(OPT_MULTIPLE, is_testing);
         }
     }
 
     if (optFlags[C_FLAG] > 0 && optFlags[CC_FLAG] > 0) {
+        clear_destinations();
         return error_msg(OPT_MUL_COMBINATION, is_testing);
     }
 
@@ -129,12 +168,14 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     }
 
     if (optFlags[DOMAIN_FLAG] == 0 && optFlags[F_FLAG] == 0) {
+        clear_destinations();
         return error_msg(OPT_NO_HOST, is_testing);
     }
     
     if (optFlags[F_FLAG]) {
         int fileReadingRes = parse_url_from_file(filePath, is_testing);
         if (fileReadingRes) {
+            clear_destinations();
             return fileReadingRes;
         }
     }
