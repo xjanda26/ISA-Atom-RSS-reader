@@ -4,6 +4,54 @@
 
 #include "error.h"
 
+char *errorMgs[] = {
+    OPT_FEW,
+    OPT_UNKNOWN,
+    OPT_MULTIPLE,
+    OPT_MUL_COMBINATION,
+    OPT_MUL_DOMAINS,
+    OPT_URL_INVALID,
+    OPT_PATH_MISSING,
+    OPT_NO_HOST,
+    OPT_CERT_PATH_MISSING,
+    OPT_FOLDER_PATH_MISSING,
+    REGEX_COMPILE_FAILED,
+    TCP_UNKNOWN_ADDR,
+    TCP_NO_VALID_DEST,
+    FILE_READING_FAILED,
+    FILE_EMPTY_INVALID_URLS,
+    SSL_CTX_CONTEXT_FAIL,
+    SSL_OBJECT_FAIL,
+    SSL_CONNECT_FAIL,
+    SSL_SERVER_NAME_INDICATION_FAIL,
+    SSL_GET_DEST_CERTIFICATE_FAIL
+};
+
+int errorValues[] = {
+    ERR_OPT_FEW,
+    ERR_OPT_UNKNOWN,
+    ERR_OPT_MULTIPLE,
+    ERR_OPT_MUL_COMBINATION,
+    ERR_OPT_MUL_DOMAINS,
+    ERR_OPT_URL_INVALID,
+    ERR_OPT_PATH_MISSING,
+    ERR_OPT_NO_HOST,
+    ERR_OPT_CERT_PATH_MISSING,
+    ERR_OPT_FOLDER_PATH_MISSING,
+    ERR_REGEX_COMPILE_FAILED,
+    ERR_TCP_UNKNOWN_ADDR,
+    ERR_TCP_NO_VALID_DEST,
+    ERR_FILE_READING_FAILED,
+    ERR_FILE_EMPTY_INVALID_URLS,
+    ERR_SSL_CTX_CONTEXT_FAIL,
+    ERR_SSL_OBJECT_FAIL,
+    ERR_SSL_CONNECT_FAIL,
+    ERR_SSL_SERVER_NAME_INDICATION_FAIL,
+    ERR_SSL_GET_DEST_CERTIFICATE_FAIL
+};
+
+int errVariants = 20;
+
 void print_error_msg (int errorValue, const char* msg) {
     fprintf(stderr,"Error (code: %i). %s", errorValue, msg);
 }
@@ -11,93 +59,16 @@ void print_error_msg (int errorValue, const char* msg) {
 int error_msg(const char *msg, int isTesting) {
     int errorValue = ERR_GENERIC;
 
-    // OPT Error
-    if (!strcmp(msg,OPT_UNKNOWN)){
-        errorValue = ERR_OPT_UNKNOWN;
-    }
-
-    if (!strcmp(msg, OPT_MULTIPLE)) {
-        errorValue = ERR_OPT_MULTIPLE;
-    }
-
-    if (!strcmp(msg, OPT_FEW)) {
-        errorValue = ERR_OPT_FEW;
-    }
-
-    if (!strcmp(msg, OPT_MUL_COMBINATION)) {
-        errorValue = ERR_OPT_MUL_COMBINATION;
-    }
-
-    if (!strcmp(msg, OPT_MUL_DOMAINS)) {
-        errorValue = ERR_OPT_MUL_DOMAINS;
-    }
-
-    if (!strcmp(msg, OPT_URL_INVALID)) {
-        errorValue = ERR_OPT_URL_INVALID;
-    }
-
-    if (!strcmp(msg, OPT_PATH_MISSING)) {
-        errorValue = ERR_OPT_PATH_MISSING;
-    }
-
-    if (!strcmp(msg, REGEX_COMPILE_FAILED)) {
-        errorValue = ERR_REGEX_COMPILE_FAILED;
-    }
-
-    if (!strcmp(msg, OPT_NO_HOST)) {
-        errorValue = ERR_OPT_NO_HOST;
-    }
-
-    if (!strcmp(msg, OPT_CERT_PATH_MISSING)) {
-        errorValue = ERR_OPT_CERT_PATH_MISSING;
-    }
-
-    if (!strcmp(msg, OPT_FOLDER_PATH_MISSING)) {
-        errorValue = ERR_OPT_FOLDER_PATH_MISSING;
-    }
-
-    // TCP Error
-    if (!strcmp(msg, TCP_UNKNOWN_ADDR)) {
-        errorValue = ERR_TCP_UNKNOWN_ADDR;
-    }
-
-    if (!strcmp(msg, TCP_NO_VALID_DEST)) {
-        errorValue = ERR_TCP_NO_VALID_DEST;
-    }
-
-    // File Error
-    if (!strcmp(msg, FILE_READING_FAILED)) {
-        errorValue = ERR_FILE_READING_FAILED;
-    }
-
-    if (!strcmp(msg, FILE_EMPTY_INVALID_URLS)) {
-        errorValue = ERR_FILE_EMPTY_INVALID_URLS;
-    }
-
     // Response Error
     if (strstr(msg, HTTP_RESPONSE_BAD_CODE) != NULL) {
         errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
-    }
-
-    // SSL Error
-    if (!strcmp(msg, SSL_CTX_CONTEXT_FAIL)) {
-        errorValue = ERR_SSL_CTX_CONTEXT_FAIL;
-    }
-
-    if (!strcmp(msg, SSL_OBJECT_FAIL)) {
-        errorValue = ERR_SSL_OBJECT_FAIL;
-    }
-
-    if (!strcmp(msg, SSL_CONNECT_FAIL)) {
-        errorValue = ERR_SSL_CONNECT_FAIL;
-    }
-
-    if (!strcmp(msg, SSL_SERVER_NAME_INDICATION_FAIL)) {
-        errorValue = ERR_SSL_SERVER_NAME_INDICATION_FAIL;
-    }
-
-    if (!strcmp(msg, SSL_GET_DEST_CERTIFICATE_FAIL)) {
-        errorValue = ERR_SSL_GET_DEST_CERTIFICATE_FAIL;
+    } else {
+        for (int i = 0; i < errVariants; i++) {
+            if (!strcmp(msg,errorMgs[i])){
+                errorValue = errorValues[i];
+                break;
+            }
+        }
     }
 
     if (!isTesting) {
