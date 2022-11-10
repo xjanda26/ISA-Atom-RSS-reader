@@ -14,7 +14,7 @@ int main (int argc, char *argv[]) {
     result = parse_parameters(argc, argv, 0);
 
     if (!result) {
-        printf("Trying to connect to %i dest\n", destinations_counter);
+        //printf("Trying to connect to %i dest\n", destinations_counter);
 
         if (destinations_counter < 1) {
             return error_msg(TCP_NO_VALID_DEST, 0);

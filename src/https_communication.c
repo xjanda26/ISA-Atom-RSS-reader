@@ -18,6 +18,26 @@ int init_ssl(int is_testing) {
         return error_msg(SSL_CTX_CONTEXT_FAIL, is_testing);
     }
 
+    if (optFlags[C_FLAG] > 0) {
+        if (certPath) {
+            if (SSL_CTX_load_verify_file(ctx, certPath) != 1) {
+                printf("Failed to load cert file\n");
+                return 1;
+            }
+        }
+    } else if (optFlags[CC_FLAG] > 0) {
+        if (certFolder) {
+            if (SSL_CTX_load_verify_dir(ctx, certFolder) != 1) {
+                printf("Failed to load cert folder\n");
+                return 1;
+            }
+        }
+    } else if (SSL_CTX_set_default_verify_paths(ctx) != 1) {
+        SSL_CTX_free(ctx);
+        printf("Failed while setting default path\n");
+        return 1;
+    }
+
     return 0;
 }
 
@@ -47,7 +67,7 @@ int verify_certificate(int is_testing) {
         return error_msg(SSL_GET_DEST_CERTIFICATE_FAIL, is_testing);
     }
 
-    char *tmp;
+    /*char *tmp;
     if ((tmp = X509_NAME_oneline(X509_get_subject_name(cert),0,0))) {
         printf("subject: %s\n", tmp);
         OPENSSL_free(tmp);
@@ -56,9 +76,17 @@ int verify_certificate(int is_testing) {
     if ((tmp = X509_NAME_oneline(X509_get_issuer_name(cert), 0, 0))) {
         printf("issuer: %s\n", tmp);
         OPENSSL_free(tmp);
-    }
+    }*/
+
 
     X509_free(cert);
+
+    int verifyResult = SSL_get_verify_result(ssl);
+    if (verifyResult != X509_V_OK) {
+        printf("Error while verifying  cert\n");
+        return 1;
+    }
+
     return 0;
 }
 
@@ -106,7 +134,7 @@ int receive_ssl_data(int is_testing) {
 
         int bytes_received = SSL_read(ssl, response, sizeof(response));
         //printf("%s\n\n", response);
-        response[BUFFER_SIZE] = '\0';
+        response[BUFFER_SIZE+1] = '\0';
         //printf("\nB: %i, HF:%i\n", bytes_received, header_flag);
         if (bytes_received < 1) {
             //printf("\nConnection closed by peer.\n");
@@ -118,14 +146,13 @@ int receive_ssl_data(int is_testing) {
             //printf("%s\n\n", response);
             if (body) {
                 header_flag++;
-                *body = 0;
+                //*body = 0;
                 body += 4; // shift pointer after "\r\n\r\n"
                 //printf("Received Headers:\n%s\n====\n\n\n\n", response);
-
                 // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
                 tmp_respo_pointer = strstr(response, "HTTP/1.1 200 OK");
                 if (tmp_respo_pointer) {
-                    tmp_respo_pointer = strstr(response, "\nContent-Length: ");
+                    /*tmp_respo_pointer = strstr(response, "\nContent-Length: ");
                     if (tmp_respo_pointer) {
                             //encoding = length;
                             tmp_respo_pointer = strchr(tmp_respo_pointer, ' ');
@@ -136,14 +163,14 @@ int receive_ssl_data(int is_testing) {
                         tmp_respo_pointer = strstr(response, "\nTransfer-Encoding: chunked");
                         if (tmp_respo_pointer) {
                             //encoding = chunked;
-                            body += 6; // skip chunk lenght
+                            //body += 6; // skip chunk lenght
                         } else {
                             //encoding = connection;
                         }
-                    }
-                    //printf("\nReceived Body:\n");
+                    }*/
+                    //printf("\nReceived Body2:\n\n%s\n\n", body);
                 } else {
-                    tmp_respo_pointer = strstr(response, "HTTP/1.1 ");
+                    tmp_respo_pointer = strstr(response, "HTTP/1.");
                     char http_status_s[4]; 
                     for (int i = 0; i < 3; i++) {
                         http_status_s[i] = tmp_respo_pointer[i+9];
@@ -167,13 +194,14 @@ int receive_ssl_data(int is_testing) {
 
         if (body && !is_body_without_h) {
             //printf("%.*s", bytes_received, body);
-            //printf("Body-h length: %i\n", strlen(body));
+            //printf("\nBody-h length: %i\n", strlen(body));
             //printf("Body-h Bytes: %i\n", bytes_received);
             //printf("BODY\n\n\n");
             xmlResponse = (char*) malloc((strlen(body) + 1) * sizeof(char));
-            strcpy(xmlResponse, body);
-            strcat(xmlResponse, "\0");
-            //printf("\n==Body L:%i\n%s\n==\n",strlen(body), body);
+            //strcpy(xmlResponse, body);
+            memcpy(xmlResponse, body, strlen(body) + 1);
+            //strcat(xmlResponse, "\0");
+            //printf("\n==Body L:%i\n%s\n==\nStrlen copied XML: %i\n\n",sizeof(body), body, sizeof(xmlResponse));
             is_body_without_h = 1;
             if (debug > 0) {
                 printf("%s", xmlResponse);
@@ -197,11 +225,14 @@ int receive_ssl_data(int is_testing) {
                 //printf("TMP poiner is null\n");
                 //printf("%s\n\n", response);
                 //printf("Builded XML size before: %i\n", strlen(xmlResponse));
-                xmlResponse = (char*) realloc(xmlResponse, (strlen(response) + strlen(xmlResponse) + 1) * sizeof(char));
+                xmlResponse = (char*) realloc(xmlResponse, (strlen(response) + strlen(xmlResponse) + 2) * sizeof(char));
                 //printf("Builded XML size after: %i\n", strlen(xmlResponse));
                 strcat(xmlResponse, response);
                 
-                //printf("\n==Response L:%i\n%s\n==\n",strlen(response), response);
+                /*if (is_body_without_h == 1) {
+                    printf("\n==Response L:%i\n%s\n==\n",strlen(response), response);
+                    is_body_without_h++;
+                }*/
 
             }
             //printf("%s\n\n\n\n", xmlResponse);
@@ -221,12 +252,13 @@ int receive_ssl_data(int is_testing) {
     }
 
     //printf("\n\n\n==FINAL L:%i\n%s", strlen(xmlResponse), xmlResponse);
-    //printf("%s", xmlResponse);
+    printf("%s", xmlResponse);
 
     //printf("\nClosing socket...\n");
     SSL_shutdown(ssl);
     close(sock);
     SSL_free(ssl);
     SSL_CTX_free(ctx);
+
     return 0;
 }

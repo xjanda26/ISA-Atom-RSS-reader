@@ -14,7 +14,7 @@
 #include "error.h"
 #include "tcp_communication.h"
 
-#define BUFFER_SIZE 1536
+#define BUFFER_SIZE 2048
 #define TIMEOUT 5.0
 
 void send_http_request(int sock, char *hostname, char *port, char *path);

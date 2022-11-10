@@ -42,22 +42,35 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     int opt, res, i = 2;
     int optErrFlag = 0, optPathMissFlag = 0;
     int optCertFileMissFlag = 0, optCertFolderMissFlag = 0;
+    int nextOpt = 1;
     
     if (argc < 2) {
         return error_msg(OPT_FEW, is_testing);
     }
 
     while (optind < argc) {
-        //printf("ARGC: %i\n", argc);
+        //printf("\nARGC: %i\n", argc);
         //printf("OPTIND start %i\n==\n\n", optind);
 
-        opt = getopt(argc, argv, "ac:C:f:Tu");
+        if (nextOpt) {
+            opt = getopt(argc, argv, "ac:C:f:Tu");
+        }
+
         //printf("OPT case: %c\n", opt);
+        //printf("OPTOPT case: %c\n", optopt);
         //printf("OPTIND %i, i:%i\n", optind, i);
+
+        /*if (opt == -1) {
+            if (optopt == 'c' || optopt == 'C' || optopt == 'f') {
+                opt = optopt;
+                printf("New OPT case: %c\n", opt);
+            }
+        }*/
 
         if(opt != -1 && (optind == i || (optind == i + 1 && (opt =='c' || opt == 'C' || opt == 'f')))) {
             //printf("switch-case\n");
             i++;
+            nextOpt = 1;
             switch(opt) {
                 case 'a':
                     optFlags[A_FLAG]++;
@@ -105,7 +118,6 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
             }
         } else {
             if (optFlags[DOMAIN_FLAG] > 0 ) {
-                clear_destinations();
                 if (optFlags[F_FLAG] > 0) {
                     return error_msg(OPT_MUL_DOMAINS, is_testing);
                 }
@@ -121,11 +133,14 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
             optFlags[DOMAIN_FLAG]++;
 
             if (i == argc) {
-                printf("optind ++\n");
+                //printf("optind ++\n");
                 optind++;
             } else {
-                printf("optind --\n");
-                optind--;
+                //printf("Something after written hostname\n");
+                if (optind == argc) {
+                    optind--;
+                }
+                nextOpt = 0;
                 i++;
             }
             
@@ -135,51 +150,42 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     }
 
     if (optErrFlag) {
-        clear_destinations();
         return error_msg(OPT_UNKNOWN, is_testing);
     }
 
     if (optCertFileMissFlag) {
-        clear_destinations();
         return error_msg(OPT_CERT_PATH_MISSING, is_testing);
     }
     
     if (optCertFolderMissFlag) {
-        clear_destinations();
         return error_msg(OPT_FOLDER_PATH_MISSING, is_testing);
     }
 
     if (optPathMissFlag) {
-        clear_destinations();
         return error_msg(OPT_PATH_MISSING, is_testing);
     }
 
     for (i = 0; i < 6; i++) {
         if (optFlags[i] > 1) {
-            clear_destinations();
             return error_msg(OPT_MULTIPLE, is_testing);
         }
     }
 
     if (optFlags[C_FLAG] > 0 && optFlags[CC_FLAG] > 0) {
-        clear_destinations();
         return error_msg(OPT_MUL_COMBINATION, is_testing);
     }
 
     if (optFlags[DOMAIN_FLAG] > 0 && optFlags[F_FLAG] > 0) {
-        clear_destinations();
         return error_msg(OPT_MUL_DOMAINS, is_testing);
     }
 
     if (optFlags[DOMAIN_FLAG] == 0 && optFlags[F_FLAG] == 0) {
-        clear_destinations();
         return error_msg(OPT_NO_HOST, is_testing);
     }
     
     if (optFlags[F_FLAG]) {
         int fileReadingRes = parse_url_from_file(filePath, is_testing);
         if (fileReadingRes) {
-            clear_destinations();
             return fileReadingRes;
         }
     }
