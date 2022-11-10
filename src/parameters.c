@@ -36,7 +36,7 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     extern int optopt;
 
     opterr = 0;
-    //optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
+    optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
     init_parameter_variables();
 
     int opt, res, i = 2;
@@ -104,8 +104,12 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
                     }
             }
         } else {
-            if (optFlags[DOMAIN_FLAG] > 0 || optFlags[F_FLAG] > 0) {
+            if (optFlags[DOMAIN_FLAG] > 0 ) {
                 clear_destinations();
+                if (optFlags[F_FLAG] > 0) {
+                    return error_msg(OPT_MUL_DOMAINS, is_testing);
+                }
+                
                 return error_msg(OPT_MULTIPLE, is_testing);
             }
             res = parse_hostname(argv, i-1, is_testing);
