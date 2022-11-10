@@ -10,8 +10,10 @@
 #include "http_communication.h"
 #include "https_communication.h"
 #include "parameters.h"
+#include "rss.h"
 #include "tcp_communication.h"
 
-int process_feed_node(xmlDocPtr doc, xmlNodePtr node);
+void process_feed_node(xmlDocPtr doc, xmlNodePtr node);
+void process_rss_node(xmlDocPtr doc, xmlNodePtr node);
 int process_xml();
 int get_and_print_feed(char *host, char *port, char *path, int is_secure, int is_testing);

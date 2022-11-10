@@ -57,7 +57,7 @@ int init_tls_connection(char *hostname, int is_testing) {
         return error_msg(SSL_CONNECT_FAIL, is_testing);
     }
 
-    printf ("SSL/TLS using %s\n", SSL_get_cipher(ssl));
+    //printf ("SSL/TLS using %s\n", SSL_get_cipher(ssl));
     return 0;
 }
 
@@ -252,7 +252,7 @@ int receive_ssl_data(int is_testing) {
     }
 
     //printf("\n\n\n==FINAL L:%i\n%s", strlen(xmlResponse), xmlResponse);
-    printf("%s", xmlResponse);
+    //printf("%s", xmlResponse);
 
     //printf("\nClosing socket...\n");
     SSL_shutdown(ssl);

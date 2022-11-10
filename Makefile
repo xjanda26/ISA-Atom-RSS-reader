@@ -11,7 +11,7 @@ COMPILE := $(CC) $(CFLAGS)
 OBJDIR := bin
 
 FEEDREADER_OBJS := $(addprefix $(OBJDIR)/, \
-						parameters.o feed.o atom.o \
+						parameters.o feed.o atom.o rss.o\
 						error.o host.o http_communication.o \
 						https_communication.o tcp_communication.o)
 TEST_OBJS := $(addprefix $(OBJDIR)/, tests.o unit_testing.o parameter_tests.o) $(FEEDREADER_OBJS)

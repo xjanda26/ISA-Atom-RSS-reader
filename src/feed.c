@@ -8,15 +8,38 @@
 /// @param doc Parsed XML object
 /// @param node Feed element
 /// @return 
-int process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
+void process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
     while (node != NULL) {
         process_feed_title_node(doc, node);
         process_entry_node(doc, node);
         
         node = node->next;
     }
+}
 
-    return 0;
+/// @brief Function goes through every element of RSS XML
+/// @param doc Parsed XML object
+/// @param node Rss element
+/// @return 
+void process_rss_node(xmlDocPtr doc, xmlNodePtr node) {
+    while (node != NULL) {
+        if ((!xmlStrcmp(node->name, (const xmlChar *) "channel"))) {
+            xmlNodePtr channelChild = node->children;
+
+            
+            while (channelChild != NULL) {
+                if ((xmlStrcmp(channelChild->name, (const xmlChar *) "text"))) {
+                    process_rss_title_node(doc, channelChild);
+                    process_item_nodes(doc, channelChild);
+                }
+
+                channelChild = channelChild->next;
+            }
+            
+        }
+        
+        node = node->next;
+    }
 }
 
 int process_xml() {
@@ -35,9 +58,11 @@ int process_xml() {
                 // TODO:
                 printf("Empty XML\n");
             } else {
-                // TODO: ATOM and RSS parsing
-                printf("Root name: %s\n", node->name);
-                process_feed_node(xmlTree, node->children);
+                if ((!xmlStrcmp(node->name, (const xmlChar *) "rss"))) {
+                    process_rss_node(xmlTree, node->children);
+                } else {
+                    process_feed_node(xmlTree, node->children);
+                }
             }
         } else {
             // TODO:
