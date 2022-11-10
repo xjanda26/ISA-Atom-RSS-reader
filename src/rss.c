@@ -11,7 +11,7 @@ char *itemUpdatedAt;
 char *itemTitle;
 char *itemUri;
 
-/// @brief Function prints saved data about an article if their were provided in reposnse.
+/// @brief Function prints saved data about an article if their were provided in response.
 void print_item() {
     if (itemTitle) {
         printf("%s\n", itemTitle);
@@ -59,6 +59,7 @@ void free_item_data() {
     }
 }
 
+///TODO: dokumentacia
 void process_item_node(xmlDocPtr doc, xmlNodePtr itemNode, char *type) {
     xmlChar *key = xmlNodeListGetString(doc, itemNode->children, 1);
     int keyLen = strlen((char *) key);

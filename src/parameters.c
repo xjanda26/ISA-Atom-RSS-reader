@@ -9,12 +9,14 @@ char *filePath;
 char *certPath;
 char *certFolder;
 
+///TODO: dokumentacia
 void init_parameter_variables() {
     for (int i = 0; i < 7; i++) {
         optFlags[i] = 0;
     }
 }
 
+///TODO: dokumentacia
 int parse_hostname(char *argv[], int i, int is_testing) {
     //printf("rozne\n");
     
@@ -29,6 +31,7 @@ int parse_hostname(char *argv[], int i, int is_testing) {
     return 0;
 }
 
+///TODO: dokumentacia
 int parse_parameters (int argc, char *argv[], int is_testing) {
     extern char *optarg; 
     extern int optind;

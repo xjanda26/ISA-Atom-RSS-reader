@@ -1,7 +1,7 @@
 /**
  * Author: Adam Janda, xjanda26@stud.fit.vutbr.cz
 */
-
+///TODO: vsetko
 #include "parameter_tests.h"
 
 int test_TP1() {

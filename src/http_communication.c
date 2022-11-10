@@ -19,6 +19,7 @@ void send_http_request(int sock, char *hostname, char *port, char *path) {
     send(sock, buffer, strlen(buffer), 0);
 }
 
+///TODO: zjednotit s https (pridavanie \0 pre prijate data), odstranit komentare, dokumentacia
 int receive_data(int is_testing) {
     char response[BUFFER_SIZE+1];
     char *response_b = response, *tmp_respo_pointer;
@@ -42,12 +43,14 @@ int receive_data(int is_testing) {
         //    break;
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
             fprintf(stderr, "timeout after %.2f seconds\n", TIMEOUT);
-            return 1; //TODO
+            ///TODO:
+            return 1;
         }
 
         if (response_b == response_end) {
             fprintf(stderr, "out of buffer space\n");
-            return 1; //TODO
+            ///TODO:
+            return 1;
         }
 
         int bytes_received = recv(sock, response_b, response_end - response_b, 0);
@@ -69,7 +72,8 @@ int receive_data(int is_testing) {
                 //printf("Received Headers:\n%s\n====\n\n\n\n", response);
 
                 // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
-                tmp_respo_pointer = strstr(response, "HTTP/1.1 200 OK");
+                ///TODO: otetsovat aj pre http 1.0
+                tmp_respo_pointer = strstr(response, "200 OK");
                 if (tmp_respo_pointer) {
                     tmp_respo_pointer = strstr(response, "\nContent-Length: ");
                     if (tmp_respo_pointer) {
@@ -89,7 +93,8 @@ int receive_data(int is_testing) {
                     }
                     //printf("\nReceived Body:\n");
                 } else {
-                    tmp_respo_pointer = strstr(response, "HTTP/1.1 ");
+                    ///TODO: otestovat pre http 1.0/1.1
+                    tmp_respo_pointer = strstr(response, "HTTP/1.");
                     char http_status_s[4]; 
                     for (int i = 0; i < 3; i++) {
                         http_status_s[i] = tmp_respo_pointer[i+9];

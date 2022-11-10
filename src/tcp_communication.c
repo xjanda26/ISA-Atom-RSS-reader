@@ -7,6 +7,7 @@
 int sock;
 char *xmlResponse;
 
+///TODO: dokumentacia
 int connect_to_host(char *hostname, char *port, int is_testing) {
     struct addrinfo hints;
     struct addrinfo *peer_address;
@@ -34,14 +35,16 @@ int connect_to_host(char *hostname, char *port, int is_testing) {
     if ((sock = socket(peer_address->ai_family, peer_address->ai_socktype, peer_address->ai_protocol)) == -1) {
         freeaddrinfo(peer_address);
         fprintf(stderr, "Cannot create socket\n");
-        return 1; //TODO
+        ///TODO:
+        return 1;
     }
 
     if (connect(sock, peer_address->ai_addr, peer_address->ai_addrlen)) {
         freeaddrinfo(peer_address);
         close(sock);
         fprintf(stderr, "connect() failed\n");
-        return 1; //TODO
+        ///TODO:
+        return 1;
     }
 
     //printf("Socket varr: %i\n", sock);

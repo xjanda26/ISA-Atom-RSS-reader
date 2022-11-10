@@ -11,7 +11,7 @@ char *updatedAt;
 char *entryTitle;
 char *entryUri;
 
-/// @brief Function prints saved data about an article if their were provided in reposnse.
+/// @brief Function prints saved data about an article if their were provided in response.
 void print_entry() {
     printf("%s\n", entryTitle);
 

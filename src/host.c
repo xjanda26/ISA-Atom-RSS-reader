@@ -11,6 +11,7 @@ char **ports;
 int destinations_counter = 0;
 int *secure;
 
+///TODO: dokumentacia
 void init_destinations(int dest_count) {
     hosts = malloc(dest_count * sizeof(char*));
     paths = malloc(dest_count * sizeof(char*));
@@ -18,6 +19,7 @@ void init_destinations(int dest_count) {
     secure = (int*) malloc(dest_count * sizeof(int));
 }
 
+///TODO: dokumentacia
 void clear_destinations() {
     for (int i = 0; i < destinations_counter; i++) {
         if (hosts[i]) {
@@ -47,7 +49,7 @@ void clear_destinations() {
 
 /**
  * Regex inspiration: https://man7.org/linux/man-pages/man3/regexec.3.html
- * 
+ * //TODO: dokumentacia
 */
 int parse_url (char *url, int is_getting_data, int is_testing) {
     regex_t regex;
@@ -108,7 +110,8 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
                 } else if(tmp[0] == ':') {
                     memmove(tmp, tmp + 1, tmp_len);
                     strcpy(port, tmp);
-                } else if (strstr(tmp, "www.")){
+                } else if (strstr(tmp, "www.")){ 
+                    ///TODO: nepridávat www. (vyjadril sa k tomu Polcak)
                     hostname = (char*) malloc((tmp_len + 1) * sizeof(char));
                     strcpy(hostname, tmp);
                 } else {
@@ -148,6 +151,7 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
     return 0;
 }
 
+///TODO: dokumentacia
 int read_urls(FILE *fp, int is_getting_data, int is_printing) {
     char *line;
     size_t len = 0;
@@ -170,8 +174,9 @@ int read_urls(FILE *fp, int is_getting_data, int is_printing) {
     return urlCount;
 }
 
+///TODO: dokumentacia
 int parse_url_from_file(char *file_name, int is_testing) {
-    printf("File reading\n");
+    //printf("File reading\n");
 
     FILE *fp;
     int urlCount = 0;
@@ -184,7 +189,7 @@ int parse_url_from_file(char *file_name, int is_testing) {
 
     urlCount = read_urls(fp, 0, is_testing);
 
-    printf("Number of corrent URLs: %i\n", urlCount);
+    //printf("Number of corrent URLs: %i\n", urlCount);
 
     if (urlCount) {
         fp = fopen(file_name, "r");

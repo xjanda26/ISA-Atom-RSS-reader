@@ -14,6 +14,7 @@ int main (int argc, char *argv[]) {
     result = parse_parameters(argc, argv, 0);
 
     if (!result) {
+        ///TODO:
         //printf("Trying to connect to %i dest\n", destinations_counter);
 
         if (destinations_counter < 1) {
@@ -21,6 +22,7 @@ int main (int argc, char *argv[]) {
         }
 
         for (int i = 0; i < destinations_counter; i++){
+            ///TODO:
             //printf("Po: %s ", ports[i]);
             //printf(" H: %s ", hosts[i]);
             //printf("Pa: %s\n", paths[i]);

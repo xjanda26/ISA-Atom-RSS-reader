@@ -7,7 +7,7 @@
 SSL *ssl;
 SSL_CTX *ctx;
 
-
+///TODO: dokumentacia
 int init_ssl(int is_testing) {
     SSL_library_init();
     OpenSSL_add_all_algorithms();
@@ -22,6 +22,7 @@ int init_ssl(int is_testing) {
         if (certPath) {
             if (SSL_CTX_load_verify_file(ctx, certPath) != 1) {
                 printf("Failed to load cert file\n");
+                ///TODO:
                 return 1;
             }
         }
@@ -29,18 +30,21 @@ int init_ssl(int is_testing) {
         if (certFolder) {
             if (SSL_CTX_load_verify_dir(ctx, certFolder) != 1) {
                 printf("Failed to load cert folder\n");
+                ///TODO:
                 return 1;
             }
         }
     } else if (SSL_CTX_set_default_verify_paths(ctx) != 1) {
         SSL_CTX_free(ctx);
         printf("Failed while setting default path\n");
+        ///TODO:
         return 1;
     }
 
     return 0;
 }
 
+///TODO: dokumentacia
 int init_tls_connection(char *hostname, int is_testing) {
     ssl = SSL_new(ctx);
 
@@ -61,6 +65,7 @@ int init_tls_connection(char *hostname, int is_testing) {
     return 0;
 }
 
+///TODO: dokumentacia
 int verify_certificate(int is_testing) {
     X509 *cert = SSL_get_peer_certificate(ssl);
     if (!cert) {
@@ -83,13 +88,15 @@ int verify_certificate(int is_testing) {
 
     int verifyResult = SSL_get_verify_result(ssl);
     if (verifyResult != X509_V_OK) {
-        printf("Error while verifying  cert\n");
+        printf("Error while verifying cert\n");
+        ///TODO:
         return 1;
     }
 
     return 0;
 }
 
+///TODO: dokumentacia
 void send_https_request(char *hostname, char *port, char *path) {
     char buffer[BUFFER_SIZE];
 
@@ -101,6 +108,7 @@ void send_https_request(char *hostname, char *port, char *path) {
     SSL_write(ssl, buffer, strlen(buffer));
 }
 
+///TODO: dokumentacia
 int receive_ssl_data(int is_testing) {
     char response[BUFFER_SIZE+1];
     char *response_b = response, *tmp_respo_pointer;
@@ -124,12 +132,14 @@ int receive_ssl_data(int is_testing) {
         //    break;
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
             fprintf(stderr, "timeout after %.2f seconds\n", TIMEOUT);
-            return 1; //TODO
+            ///TODO:
+            return 1;
         }
 
         if (response_b == response_end) {
             fprintf(stderr, "out of buffer space\n");
-            return 1; //TODO
+            ///TODO:
+            return 1;
         }
 
         int bytes_received = SSL_read(ssl, response, sizeof(response));
@@ -203,6 +213,7 @@ int receive_ssl_data(int is_testing) {
             //strcat(xmlResponse, "\0");
             //printf("\n==Body L:%i\n%s\n==\nStrlen copied XML: %i\n\n",sizeof(body), body, sizeof(xmlResponse));
             is_body_without_h = 1;
+            ///TODO:
             if (debug > 0) {
                 printf("%s", xmlResponse);
                 printf("\n\n\n WTF... %i\n", debug);
@@ -242,6 +253,7 @@ int receive_ssl_data(int is_testing) {
 
         memset(response, '\0', sizeof(response));
         //printf("\n==XML builded\n%s\n\n", xmlResponse);
+        ///TODO:
         debug++;
 
         //printf("%s", xmlResponse);
