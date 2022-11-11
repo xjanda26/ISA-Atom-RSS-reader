@@ -7,7 +7,10 @@
 int sock;
 char *xmlResponse;
 
-///TODO: dokumentacia
+/// @brief Function gets host's IP address and creates TCP connection.
+/// @param hostname Name of remote host
+/// @param port Destination port
+/// @return Zero value on success or TCP error type defined in error.h
 int connect_to_host(char *hostname, char *port) {
     struct addrinfo hints;
     struct addrinfo *peer_address;
