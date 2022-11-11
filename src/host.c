@@ -11,7 +11,8 @@ char **ports;
 int destinations_counter = 0;
 int *secure;
 
-///TODO: dokumentacia
+/// @brief Function allocates application array with length defiend by dest_count.
+/// @param dest_count Number of remote hosts
 void init_destinations(int dest_count) {
     hosts = malloc(dest_count * sizeof(char*));
     paths = malloc(dest_count * sizeof(char*));
@@ -19,7 +20,7 @@ void init_destinations(int dest_count) {
     secure = (int*) malloc(dest_count * sizeof(int));
 }
 
-///TODO: dokumentacia
+/// @brief Function deallocates reserved memory.
 void clear_destinations() {
     for (int i = 0; i < destinations_counter; i++) {
         if (hosts[i]) {
@@ -49,8 +50,16 @@ void clear_destinations() {
 
 /**
  * Regex inspiration: https://man7.org/linux/man-pages/man3/regexec.3.html
- * //TODO: dokumentacia
+ * 
 */
+/// @brief Function checks entered URL and saves its metadata for later use.
+///        Function works in 2 modes controlled by @param is_getting_data.
+///        If @param is_getting_data is zero then function just checks URL syntax.
+///        If @param is_getting_data is bigger than zero, function checks URL and 
+///        saves data for later use.
+/// @param url Checked URL
+/// @param is_getting_data Mode flag
+/// @return Zero on success or regex or url error types defined in error.h
 int parse_url (char *url, int is_getting_data) {
     regex_t regex;
 
@@ -151,7 +160,14 @@ int parse_url (char *url, int is_getting_data) {
     return SUCCESS;
 }
 
-///TODO: dokumentacia
+/// @brief Function reads file for URLs, ignoring lines started with '#' (comment).
+///        Function works in 2 modes controlled by @param is_getting_data.
+///        If @param is_getting_data is zero then function just checks URL syntax.
+///        If @param is_getting_data is bigger than zero, function checks URL and 
+///        saves data for later use.
+/// @param fp File stream
+/// @param is_getting_data Mode flag
+/// @return Number of valid URLs stored in file
 int read_urls(FILE *fp, int is_getting_data) {
     char *line;
     size_t len = 0;
@@ -174,10 +190,12 @@ int read_urls(FILE *fp, int is_getting_data) {
     return urlCount;
 }
 
-///TODO: dokumentacia
+/// @brief Function reads file and validates its contain. 
+///        On any valid URL format, function creates metadata
+///        for later communication.
+/// @param file_name Path to the file
+/// @return Zero on success or any FILE error type defined in error.h
 int parse_url_from_file(char *file_name) {
-    //printf("File reading\n");
-
     FILE *fp;
     int urlCount = 0;
 
@@ -188,8 +206,6 @@ int parse_url_from_file(char *file_name) {
     }
 
     urlCount = read_urls(fp, 0);
-
-    //printf("Number of corrent URLs: %i\n", urlCount);
 
     if (urlCount) {
         fp = fopen(file_name, "r");

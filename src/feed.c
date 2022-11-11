@@ -4,7 +4,7 @@
 
 #include "feed.h"
 
-/// @brief Function goes through every element of ATOM XML
+/// @brief Function goes through every element of ATOM XML.
 /// @param doc Parsed XML object
 /// @param node Feed element
 void process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
@@ -16,7 +16,7 @@ void process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
     }
 }
 
-/// @brief Function goes through every element of RSS XML
+/// @brief Function goes through every element of RSS XML.
 /// @param doc Parsed XML object
 /// @param node Rss element
 void process_rss_node(xmlDocPtr doc, xmlNodePtr node) {
@@ -41,7 +41,7 @@ void process_rss_node(xmlDocPtr doc, xmlNodePtr node) {
 
 /// @brief Function converts received data into XML object and parses it.
 ///        Distinguishes between RSS and Atom feed types.
-/// @return Zero value on success or any of XML error types
+/// @return Zero value on success or any of XML error types defined in error.h
 int process_xml() {
     ///TODO: ak nepracujeme s UTF-8, musíme convertovat do UTF-8
     xmlChar *xml = xmlCharStrdup(xmlResponse);
