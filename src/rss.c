@@ -37,7 +37,7 @@ void print_item() {
 
 }
 
-/// @brief Function free dynamicly allocated memory
+/// @brief Function free dynamicly allocated memory.
 void free_item_data() {
     free(itemTitle);
     if (optFlags[A_FLAG] > 0) {
@@ -59,7 +59,11 @@ void free_item_data() {
     }
 }
 
-///TODO: dokumentacia
+/// @brief General function that processes elements of RSS item element.
+///        Processes only link, pubDate, author and title elements.
+/// @param doc Parsed XML object
+/// @param itemNode RSS item element
+/// @param type Type of item element
 void process_item_node(xmlDocPtr doc, xmlNodePtr itemNode, char *type) {
     xmlChar *key = xmlNodeListGetString(doc, itemNode->children, 1);
     int keyLen = strlen((char *) key);
@@ -81,9 +85,10 @@ void process_item_node(xmlDocPtr doc, xmlNodePtr itemNode, char *type) {
     xmlFree(key);
 }
 
-/// @brief Function goes through every element of article. Pick only author, updated, link and title element.
+/// @brief Function goes through every element of article. 
+///        Picks only author, pubDate, link and title element.
 /// @param doc Parsed XML object
-/// @param node XML element within feed element
+/// @param node XML element within rss element
 void process_item_nodes(xmlDocPtr doc, xmlNodePtr node) {
     if ((!xmlStrcmp(node->name, (const xmlChar *) "item"))) {
 
@@ -95,7 +100,6 @@ void process_item_nodes(xmlDocPtr doc, xmlNodePtr node) {
             }
         }
 
-        //printf("Doc children: %s\n", node->name);
         xmlNodePtr entryNode = node->children;
         while (entryNode != NULL) {
             if ((xmlStrcmp(entryNode->name, (const xmlChar *) "text"))) {
@@ -106,8 +110,8 @@ void process_item_nodes(xmlDocPtr doc, xmlNodePtr node) {
                 }
 
                 if (optFlags[T_FLAG] > 0) {
-                    if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "updated"))) {
-                        process_item_node(doc, entryNode, "updated");
+                    if ((!xmlStrcmp(entryNode->name, (const xmlChar *) "pubDate"))) {
+                        process_item_node(doc, entryNode, "pubDate");
                     }
                 }
 
@@ -130,7 +134,7 @@ void process_item_nodes(xmlDocPtr doc, xmlNodePtr node) {
     }
 }
 
-/// @brief Function processes title of RSS element and prints it on STDOUT
+/// @brief Function processes title of RSS element and prints it on STDOUT.
 /// @param doc Parsed XML object
 /// @param node XML element within rss element
 void process_rss_title_node(xmlDocPtr doc, xmlNodePtr node) {
