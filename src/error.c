@@ -73,10 +73,18 @@ int errorValues[] = {
 
 int errVariants = 29;
 
+/// @brief Function prints on STDERR error message.
+///        Message contains return value and error description. 
+/// @param errorValue Return value with wich application exits
+/// @param msg Error description
 void print_error_msg (int errorValue, const char* msg) {
     fprintf(stderr,"Error (code: %i). %s", errorValue, msg);
 }
 
+/// @brief Function generates return value and error message 
+///        based on predefined word.
+/// @param msg Predefined error word
+/// @return Error value
 int error_msg(const char *msg) {
     int errorValue = ERR_GENERIC;
 
