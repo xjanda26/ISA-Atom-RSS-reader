@@ -23,7 +23,12 @@ int main (int argc, char *argv[]) {
         }
 
         for (int i = 0; i < destinations_counter; i++){
-            get_and_print_feed(hosts[i], ports[i], paths[i], secure[i]);
+            int res = get_and_print_feed(hosts[i], ports[i], paths[i], secure[i]);
+
+            //Separate different sources with empty line if previous was valid and printed out
+            if ((i + 1 < destinations_counter) && !res) {
+                printf("\n");
+            }
         }
     }
     
