@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+//=== Collection of error messages ===
 // Messages for operator errors
 #define OPT_FEW "No argument on STDIN.\n"
 #define OPT_UNKNOWN "Unknown operator.\n"
@@ -51,7 +52,7 @@
 #define CERT_DEFAULT_FOLDER_FAIL "Fail while setting default certificates folder.\n"
 #define CERT_VERIFY_FAIL "Failed to verify certificate.\n"
 
-//=== ERROR CODES ===
+//=== Collection of error values ===
 #define SUCCESS 0
 #define ERR_GENERIC 1
 #define ERR_REGEX_COMPILE_FAILED 2

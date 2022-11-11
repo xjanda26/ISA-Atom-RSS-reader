@@ -4,9 +4,11 @@
 
 #include "error.h"
 
+// Global variables
 int exit_value = 0;
 int is_testing = 0;
 
+/// @brief Collection of error messages
 char *errorMgs[] = {
     OPT_FEW,
     OPT_UNKNOWN,
@@ -39,6 +41,7 @@ char *errorMgs[] = {
     CERT_VERIFY_FAIL
 };
 
+/// @brief Collection of error values
 int errorValues[] = {
     ERR_OPT_FEW,
     ERR_OPT_UNKNOWN,
@@ -71,6 +74,7 @@ int errorValues[] = {
     ERR_CERT_VERIFY_FAIL
 };
 
+///@brief Number of simple error cases
 int errVariants = 29;
 
 /// @brief Function prints on STDERR error message.
