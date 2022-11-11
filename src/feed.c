@@ -39,6 +39,9 @@ void process_rss_node(xmlDocPtr doc, xmlNodePtr node) {
     }
 }
 
+/// @brief Function converts received data into XML object and parses it.
+///        Distinguishes between RSS and Atom feed types.
+/// @return Zero value on success or any of XML error types
 int process_xml() {
     ///TODO: ak nepracujeme s UTF-8, musíme convertovat do UTF-8
     xmlChar *xml = xmlCharStrdup(xmlResponse);
@@ -74,6 +77,13 @@ int process_xml() {
     return SUCCESS;
 }
 
+/// @brief Function creates socket, connection, receives data, parses data 
+///        and prints it on STDOUT.
+/// @param host Name of host
+/// @param port Destination port
+/// @param path Path to the feed on the remote host
+/// @param is_secure Flag indicating whether the communication is secure or not
+/// @return Zero value on success or any of error types defined in error.h
 int get_and_print_feed(char *host, char *port, char *path, int is_secure) {
     if (connect_to_host(host, port)) {
         return exit_value;
@@ -109,5 +119,5 @@ int get_and_print_feed(char *host, char *port, char *path, int is_secure) {
     
     free(xmlResponse);
     
-    return SUCCESS;
+    return exit_value;
 }
