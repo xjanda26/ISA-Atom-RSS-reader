@@ -9,17 +9,18 @@ char *filePath;
 char *certPath;
 char *certFolder;
 
-///TODO: dokumentacia
+/// @brief Function initializes array of application flags.
 void init_parameter_variables() {
     for (int i = 0; i < 7; i++) {
         optFlags[i] = 0;
     }
 }
 
-///TODO: dokumentacia
+/// @brief Function initializes and parse remote host name.
+/// @param argv String of entered arguments
+/// @param i Hostname position
+/// @return Zero value on success or OPT, REGEX or FILE error type defined in error.h
 int parse_hostname(char *argv[], int i) {
-    //printf("rozne\n");
-    
     init_destinations(1);
 
     if(parse_url(argv[i], 1)) {
@@ -30,7 +31,10 @@ int parse_hostname(char *argv[], int i) {
     return SUCCESS;
 }
 
-///TODO: dokumentacia
+/// @brief Function parses entered arguments by user.
+/// @param argc Number of entered arguments
+/// @param argv String of entered arguments
+/// @return Zero value on success or OPT, REGEX or FILE error type defined in error.h
 int parse_parameters (int argc, char *argv[]) {
     extern char *optarg; 
     extern int optind;
