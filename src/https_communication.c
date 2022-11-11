@@ -7,7 +7,9 @@
 SSL *ssl;
 SSL_CTX *ctx;
 
-///TODO: dokumentacia
+/// @brief Function initializes SSL libraries and loads one or more
+///        certificates depends on input from user.
+/// @return Zero value on success or SSL or CERT error type defined in error.h
 int init_ssl() {
     SSL_library_init();
     OpenSSL_add_all_algorithms();
@@ -41,7 +43,9 @@ int init_ssl() {
     return SUCCESS;
 }
 
-///TODO: dokumentacia
+/// @brief Function initializes SSL communication and starts it
+/// @param hostname Name of remote host
+/// @return Zero value on success or SSL error type defined in error.h
 int init_tls_connection(char *hostname) {
     ssl = SSL_new(ctx);
 
@@ -61,7 +65,8 @@ int init_tls_connection(char *hostname) {
     return SUCCESS;
 }
 
-///TODO: dokumentacia
+/// @brief Function gets host's certificate and verify it with loaded certificates
+/// @return Zero value on success or SSL or CERT error type defined in error.h
 int verify_certificate() {
     X509 *cert = SSL_get_peer_certificate(ssl);
     if (!cert) {
@@ -79,7 +84,11 @@ int verify_certificate() {
     return SUCCESS;
 }
 
-///TODO: dokumentacia
+/// @brief Function creates HTTPv1.0 request and sends it by socket.
+/// @param sock Socket
+/// @param hostname Name of remote host
+/// @param port Destination port
+/// @param path Path to the resource on remote host
 void send_https_request(char *hostname, char *port, char *path) {
     char buffer[BUFFER_SIZE];
 
@@ -91,71 +100,50 @@ void send_https_request(char *hostname, char *port, char *path) {
     SSL_write(ssl, buffer, strlen(buffer));
 }
 
-///TODO: dokumentacia
+/// @brief Function saves received data by SSL function on socket
+///        into dynamically enlarged array. Function saves data only
+///        if HTTP status is 200, otherwise it returns an error.
+///        An error might occur even after timeout of 5 seconds.
+/// @return Zero value on success or TCP or HTTP error type defined in error.h
 int receive_ssl_data() {
     char response[BUFFER_SIZE+1];
     char *tmp_respo_pointer;
     char *body = 0;
 
-    //enum {length, chunked, connection};
-
-    //int encoding = 0;
-    //int remaining = 0;
     int header_flag = 0;
     int is_body_without_h = 0;
-    //int chunk_flag = 0;
+
     const clock_t start_time = clock();
 
     memset(response, '\0', sizeof(response));
     while (1) {
-        //printf("DEBUG counter: %i\n", debug);
-        //if (debug == 4)
-        //    break;
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
             fprintf(stderr, "timeout after %.2f seconds.\n", TIMEOUT);
             return ERR_TCP_TIMEOUT;
         }
 
         int bytes_received = SSL_read(ssl, response, sizeof(response));
-        //printf("%s\n\n", response);
         response[BUFFER_SIZE+1] = '\0';
-        //printf("\nB: %i, HF:%i\n", bytes_received, header_flag);
+
+        // Connection closed by peer
         if (bytes_received < 1) {
-            //printf("\nConnection closed by peer.\n");
             break;
         }
 
         if(!header_flag) {
             body = strstr(response, "\r\n\r\n");
-            //printf("%s\n\n", response);
             if (body) {
                 header_flag++;
-                //*body = 0;
+                *body = 0;
                 body += 4; // shift pointer after "\r\n\r\n"
-                //printf("Received Headers:\n%s\n====\n\n\n\n", response);
+                
                 // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
-                tmp_respo_pointer = strstr(response, "HTTP/1.1 200 OK");
-                if (tmp_respo_pointer) {
-                    /*tmp_respo_pointer = strstr(response, "\nContent-Length: ");
-                    if (tmp_respo_pointer) {
-                            //encoding = length;
-                            tmp_respo_pointer = strchr(tmp_respo_pointer, ' ');
-                            tmp_respo_pointer += 1;
-                            //remaining = strtol(tmp_respo_pointer, 0, 10);
-
-                    } else {
-                        tmp_respo_pointer = strstr(response, "\nTransfer-Encoding: chunked");
-                        if (tmp_respo_pointer) {
-                            //encoding = chunked;
-                            //body += 6; // skip chunk lenght
-                        } else {
-                            //encoding = connection;
-                        }
-                    }*/
-                    //printf("\nReceived Body2:\n\n%s\n\n", body);
-                } else {
+                tmp_respo_pointer = strstr(response, "200 OK");
+                if (!tmp_respo_pointer) {
                     tmp_respo_pointer = strstr(response, "HTTP/1.");
-                    char http_status_s[4]; 
+                    char http_status_s[4];
+
+                    // Extracting HTTP STATUS and creating error msg
                     for (int i = 0; i < 3; i++) {
                         http_status_s[i] = tmp_respo_pointer[i+9];
                     }
@@ -171,68 +159,34 @@ int receive_ssl_data() {
                     close(sock);
                     return exit_value;
                 }
-
-                
             }
         }
 
         if (body && !is_body_without_h) {
-            //printf("%.*s", bytes_received, body);
-            //printf("\nBody-h length: %i\n", strlen(body));
-            //printf("Body-h Bytes: %i\n", bytes_received);
-            //printf("BODY\n\n\n");
+            // Part of data right after HTTP header
             xmlResponse = (char*) malloc((strlen(body) + 1) * sizeof(char));
-            //strcpy(xmlResponse, body);
             memcpy(xmlResponse, body, strlen(body) + 1);
-            //strcat(xmlResponse, "\0");
-            //printf("\n==Body L:%i\n%s\n==\nStrlen copied XML: %i\n\n",sizeof(body), body, sizeof(xmlResponse));
             is_body_without_h = 1;        
         } else {
             size_t respo_len = strlen(response);
             tmp_respo_pointer = strstr(response, "\r\n0");
 
             if (tmp_respo_pointer) {
-                //printf("TMP poiner is ==NOT== null\n");
-                //printf("Debug counter stops on: %i\n", debug);
-                //printf("%s\n", tmp_respo_pointer);
-                //break;
+                // The end of received data
                 size_t respo_len_until_end = respo_len - strlen(tmp_respo_pointer);
                 xmlResponse = (char*) realloc(xmlResponse, (strlen(xmlResponse) + respo_len_until_end + 1) * sizeof(char));
                 strncat(xmlResponse, response, respo_len_until_end);
-                //printf("\n==\n%s\n==\n", response);
             } else {
-                //printf("TMP poiner is null\n");
-                //printf("%s\n\n", response);
-                //printf("Builded XML size before: %i\n", strlen(xmlResponse));
+                // The middle of received data
                 xmlResponse = (char*) realloc(xmlResponse, (strlen(response) + strlen(xmlResponse) + 2) * sizeof(char));
-                //printf("Builded XML size after: %i\n", strlen(xmlResponse));
                 strcat(xmlResponse, response);
-                
-                /*if (is_body_without_h == 1) {
-                    printf("\n==Response L:%i\n%s\n==\n",strlen(response), response);
-                    is_body_without_h++;
-                }*/
-
             }
-            //printf("%s\n\n\n\n", xmlResponse);
-            //printf("XML length: %i\n", (strlen(response) + strlen(xmlResponse)));
-            //printf("Body Bytes: %i\n", bytes_received);
         }
 
+        // Clearing an array for new incoming data
         memset(response, '\0', sizeof(response));
-        //printf("\n==XML builded\n%s\n\n", xmlResponse);
-
-        //printf("%s", xmlResponse);
-        //strcpy(response,"");
-
-        //printf("Received (%d bytes): '%.*s'\n\n", bytes_received, bytes_received, response_b);
-        //printf("=================================================\n");
     }
 
-    //printf("\n\n\n==FINAL L:%i\n%s", strlen(xmlResponse), xmlResponse);
-    //printf("%s", xmlResponse);
-
-    //printf("\nClosing socket...\n");
     SSL_shutdown(ssl);
     close(sock);
     SSL_free(ssl);

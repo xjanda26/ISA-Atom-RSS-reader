@@ -83,7 +83,7 @@ int process_xml() {
 /// @param port Destination port
 /// @param path Path to the feed on the remote host
 /// @param is_secure Flag indicating whether the communication is secure or not
-/// @return Zero value on success or any of error types defined in error.h
+/// @return Zero value on success or any of error type defined in error.h
 int get_and_print_feed(char *host, char *port, char *path, int is_secure) {
     if (connect_to_host(host, port)) {
         return exit_value;

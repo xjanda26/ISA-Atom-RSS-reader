@@ -5,41 +5,40 @@
 #include "http_communication.h"
 
 // https://www.ibm.com/docs/en/cics-ts/5.3?topic=client-making-get-requests-atom-feeds-collections
+
+/// @brief Function creates HTTPv1.0 request and sends it by socket.
+/// @param sock Socket
+/// @param hostname Name of remote host
+/// @param port Destination port
+/// @param path Path to the resource on remote host
 void send_http_request(int sock, char *hostname, char *port, char *path) {
     char buffer[BUFFER_SIZE];
 
     sprintf(buffer, "GET %s HTTP/1.0\r\n", path);
     sprintf(buffer + strlen(buffer), "Host: %s:%s\r\n", hostname, port);
     sprintf(buffer + strlen(buffer), "Connection: close\r\n");
-    //sprintf(buffer + strlen(buffer), "User-Agent: honpwc web_get 1.0\r\n");
     sprintf(buffer + strlen(buffer), "\r\n");
-
-    //printf("HTTP request:\n%s\n", buffer);
 
     send(sock, buffer, strlen(buffer), 0);
 }
 
-///TODO: zjednotit s https (pridavanie \0 pre prijate data), odstranit komentare, dokumentacia
+/// @brief Function saves received data on socket into dynamically enlarged array.
+///        Function saves data only if HTTP status is 200, otherwise it returns an error.
+///        An error might occur even after timeout of 5 seconds.
+/// @return Zero value on success or TCP or HTTP error type defined in error.h
 int receive_data() {
     char response[BUFFER_SIZE+1];
     char *response_b = response, *tmp_respo_pointer;
     char *response_end = response + BUFFER_SIZE;
     char *body = 0;
 
-    //enum {length, chunked, connection};
-
-    //int encoding = 0;
-    //int remaining = 0;
     int header_flag = 0;
     int is_body_without_h = 0;
-    //int chunk_flag = 0;
+
     const clock_t start_time = clock();
 
     memset(response, '\0', sizeof(response));
     while (1) {
-        //printf("DEBUG counter: %i\n", debug);
-        //if (debug == 4)
-        //    break;
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
             fprintf(stderr, "timeout after %.2f seconds.\n", TIMEOUT);
             close(sock);
@@ -47,48 +46,29 @@ int receive_data() {
         }
 
         int bytes_received = recv(sock, response_b, response_end - response_b, 0);
-        //printf("%s\n\n", response);
-        response[BUFFER_SIZE] = '\0';
-        //printf("\nB: %i, HF:%i\n", bytes_received, header_flag);
+        response[BUFFER_SIZE+1] = '\0';
+
+        // Connection closed by peer
         if (bytes_received < 1) {
-            //printf("\nConnection closed by peer.\n");
             break;
         }
 
         if(!header_flag) {
             body = strstr(response, "\r\n\r\n");
-            //printf("%s\n\n", response);
             if (body) {
                 header_flag++;
                 *body = 0;
                 body += 4; // shift pointer after "\r\n\r\n"
-                //printf("Received Headers:\n%s\n====\n\n\n\n", response);
 
                 // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
                 ///TODO: otetsovat aj pre http 1.0
                 tmp_respo_pointer = strstr(response, "200 OK");
-                if (tmp_respo_pointer) {
-                    tmp_respo_pointer = strstr(response, "\nContent-Length: ");
-                    if (tmp_respo_pointer) {
-                            //encoding = length;
-                            tmp_respo_pointer = strchr(tmp_respo_pointer, ' ');
-                            tmp_respo_pointer += 1;
-                            //remaining = strtol(tmp_respo_pointer, 0, 10);
-
-                    } else {
-                        tmp_respo_pointer = strstr(response, "\nTransfer-Encoding: chunked");
-                        if (tmp_respo_pointer) {
-                            //encoding = chunked;
-                            body += 6; // skip chunk lenght
-                        } else {
-                            //encoding = connection;
-                        }
-                    }
-                    //printf("\nReceived Body:\n");
-                } else {
+                if (!tmp_respo_pointer) {
                     ///TODO: otestovat pre http 1.0/1.1
                     tmp_respo_pointer = strstr(response, "HTTP/1.");
-                    char http_status_s[4]; 
+                    char http_status_s[4];
+
+                    // Extracting HTTP STATUS and creating error msg
                     for (int i = 0; i < 3; i++) {
                         http_status_s[i] = tmp_respo_pointer[i+9];
                     }
@@ -104,64 +84,35 @@ int receive_data() {
                     close(sock);
                     return exit_value;
                 }
-
-                
             }
         }
 
         if (body && !is_body_without_h) {
-            //printf("%.*s", bytes_received, body);
-            //printf("Body-h length: %i\n", strlen(body));
-            //printf("Body-h Bytes: %i\n", bytes_received);
-            //printf("BODY\n\n\n");
+            // Part of data right after HTTP header
             xmlResponse = (char*) malloc((strlen(body) + 1) * sizeof(char));
             strcpy(xmlResponse, body);
             strcat(xmlResponse, "\0");
-            //printf("\n==Body L:%i\n%s\n==\n",strlen(body), body);
             is_body_without_h = 1;        
         } else {
             size_t respo_len = strlen(response);
             tmp_respo_pointer = strstr(response, "\r\n0");
 
             if (tmp_respo_pointer) {
-                //printf("TMP poiner is ==NOT== null\n");
-                //printf("Debug counter stops on: %i\n", debug);
-                //printf("%s\n", tmp_respo_pointer);
-                //break;
+                // The end of received data
                 size_t respo_len_until_end = respo_len - strlen(tmp_respo_pointer);
                 xmlResponse = (char*) realloc(xmlResponse, (strlen(xmlResponse) + respo_len_until_end + 1) * sizeof(char));
                 strncat(xmlResponse, response, respo_len_until_end);
-                //printf("\n==\n%s\n==\n", response);
             } else {
-                //printf("TMP poiner is null\n");
-                //printf("%s\n\n", response);
-                //printf("Builded XML size before: %i\n", strlen(xmlResponse));
+                // The middle of received data
                 xmlResponse = (char*) realloc(xmlResponse, (strlen(response) + strlen(xmlResponse) + 1) * sizeof(char));
-                //printf("Builded XML size after: %i\n", strlen(xmlResponse));
                 strcat(xmlResponse, response);
-                
-                //printf("\n==Response L:%i\n%s\n==\n",strlen(response), response);
-
             }
-            //printf("%s\n\n\n\n", xmlResponse);
-            //printf("XML length: %i\n", (strlen(response) + strlen(xmlResponse)));
-            //printf("Body Bytes: %i\n", bytes_received);
         }
 
+        // Clearing an array for new incoming data
         memset(response, '\0', sizeof(response));
-        //printf("\n==XML builded\n%s\n\n", xmlResponse);
-
-        //printf("%s", xmlResponse);
-        //strcpy(response,"");
-
-        //printf("Received (%d bytes): '%.*s'\n\n", bytes_received, bytes_received, response_b);
-        //printf("=================================================\n");
     }
 
-    //printf("\n\n\n==FINAL L:%i\n%s", strlen(xmlResponse), xmlResponse);
-    //printf("%s", xmlResponse);
-
-    //printf("\nClosing socket...\n");
     close(sock);
     return SUCCESS;
 }
