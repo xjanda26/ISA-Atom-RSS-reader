@@ -92,7 +92,6 @@ int parse_url (char *url, int is_getting_data) {
 
         strcpy(port, "80");
 
-        //printf("URL = \"%.*s\"\n", urlLen, url + matches[0].rm_so);
         for (int i = 1; i < regex.re_nsub; i++) {
             off = matches[i].rm_so;
             len = matches[i].rm_eo - matches[i].rm_so;
@@ -119,14 +118,9 @@ int parse_url (char *url, int is_getting_data) {
                 } else if(tmp[0] == ':') {
                     memmove(tmp, tmp + 1, tmp_len);
                     strcpy(port, tmp);
-                } else if (strstr(tmp, "www.")){ 
-                    ///TODO: nepridávat www. (vyjadril sa k tomu Polcak)
+                } else { 
                     hostname = (char*) malloc((tmp_len + 1) * sizeof(char));
                     strcpy(hostname, tmp);
-                } else {
-                    hostname = (char*) malloc((tmp_len + 5) * sizeof(char));
-                    strcpy(hostname, "www.");
-                    strcat(hostname, tmp);
                 }
 
                 free(tmp);
@@ -161,9 +155,9 @@ int parse_url (char *url, int is_getting_data) {
 }
 
 /// @brief Function reads file for URLs, ignoring lines started with '#' (comment).
-///        Function works in 2 modes controlled by @param is_getting_data.
-///        If @param is_getting_data is zero then function just checks URL syntax.
-///        If @param is_getting_data is bigger than zero, function checks URL and 
+///        Function works in 2 modes controlled by is_getting_data.
+///        If is_getting_data is zero then function just checks URL syntax.
+///        If is_getting_data is bigger than zero, function checks URL and 
 ///        saves data for later use.
 /// @param fp File stream
 /// @param is_getting_data Mode flag
