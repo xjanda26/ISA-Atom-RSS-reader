@@ -21,6 +21,8 @@ char *errorMgs[] = {
     REGEX_COMPILE_FAILED,
     TCP_UNKNOWN_ADDR,
     TCP_NO_VALID_DEST,
+    TCP_CREATE_SOCK_FAIL,
+    TCP_CONNECTION_FAIL,
     FILE_READING_FAILED,
     FILE_EMPTY_INVALID_URLS,
     SSL_CTX_CONTEXT_FAIL,
@@ -30,7 +32,11 @@ char *errorMgs[] = {
     SSL_GET_DEST_CERTIFICATE_FAIL,
     XML_EMPTY,
     XML_PARSING_FAIL,
-    XML_CONVERT_FAIL
+    XML_CONVERT_FAIL,
+    CERT_LOAD_FILE_FAIL,
+    CERT_LOAD_FOLDER_FAIL,
+    CERT_DEFAULT_FOLDER_FAIL,
+    CERT_VERIFY_FAIL
 };
 
 int errorValues[] = {
@@ -47,6 +53,8 @@ int errorValues[] = {
     ERR_REGEX_COMPILE_FAILED,
     ERR_TCP_UNKNOWN_ADDR,
     ERR_TCP_NO_VALID_DEST,
+    ERR_TCP_CREATE_SOCK_FAIL,
+    ERR_TCP_CONNECTION_FAIL,
     ERR_FILE_READING_FAILED,
     ERR_FILE_EMPTY_INVALID_URLS,
     ERR_SSL_CTX_CONTEXT_FAIL,
@@ -56,10 +64,14 @@ int errorValues[] = {
     ERR_SSL_GET_DEST_CERTIFICATE_FAIL,
     ERR_XML_EMPTY,
     ERR_XML_PARSING_FAIL,
-    ERR_XML_CONVERT_FAIL
+    ERR_XML_CONVERT_FAIL,
+    ERR_CERT_LOAD_FILE_FAIL,
+    ERR_CERT_LOAD_FOLDER_FAIL,
+    ERR_CERT_DEFAULT_FOLDER_FAIL,
+    ERR_CERT_VERIFY_FAIL
 };
 
-int errVariants = 23;
+int errVariants = 29;
 
 void print_error_msg (int errorValue, const char* msg) {
     fprintf(stderr,"Error (code: %i). %s", errorValue, msg);

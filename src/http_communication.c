@@ -35,22 +35,15 @@ int receive_data() {
     //int chunk_flag = 0;
     const clock_t start_time = clock();
 
-    int debug = 0;
     memset(response, '\0', sizeof(response));
     while (1) {
         //printf("DEBUG counter: %i\n", debug);
         //if (debug == 4)
         //    break;
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
-            fprintf(stderr, "timeout after %.2f seconds\n", TIMEOUT);
-            ///TODO:
-            return 1;
-        }
-
-        if (response_b == response_end) {
-            fprintf(stderr, "out of buffer space\n");
-            ///TODO:
-            return 1;
+            fprintf(stderr, "timeout after %.2f seconds.\n", TIMEOUT);
+            close(sock);
+            return ERR_TCP_TIMEOUT;
         }
 
         int bytes_received = recv(sock, response_b, response_end - response_b, 0);

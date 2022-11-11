@@ -21,24 +21,21 @@ int init_ssl() {
     if (optFlags[C_FLAG] > 0) {
         if (certPath) {
             if (SSL_CTX_load_verify_file(ctx, certPath) != 1) {
-                printf("Failed to load cert file\n");
-                ///TODO:
-                return 1;
+                error_msg(CERT_LOAD_FILE_FAIL);
+                return exit_value;
             }
         }
     } else if (optFlags[CC_FLAG] > 0) {
         if (certFolder) {
             if (SSL_CTX_load_verify_dir(ctx, certFolder) != 1) {
-                printf("Failed to load cert folder\n");
-                ///TODO:
-                return 1;
+                error_msg(CERT_LOAD_FOLDER_FAIL);
+                return exit_value;
             }
         }
     } else if (SSL_CTX_set_default_verify_paths(ctx) != 1) {
         SSL_CTX_free(ctx);
-        printf("Failed while setting default path\n");
-        ///TODO:
-        return 1;
+        error_msg(CERT_DEFAULT_FOLDER_FAIL);
+        return exit_value;
     }
 
     return SUCCESS;
@@ -61,7 +58,6 @@ int init_tls_connection(char *hostname) {
         return error_msg(SSL_CONNECT_FAIL);
     }
 
-    //printf ("SSL/TLS using %s\n", SSL_get_cipher(ssl));
     return SUCCESS;
 }
 
@@ -72,25 +68,12 @@ int verify_certificate() {
         return error_msg(SSL_GET_DEST_CERTIFICATE_FAIL);
     }
 
-    /*char *tmp;
-    if ((tmp = X509_NAME_oneline(X509_get_subject_name(cert),0,0))) {
-        printf("subject: %s\n", tmp);
-        OPENSSL_free(tmp);
-    }
-
-    if ((tmp = X509_NAME_oneline(X509_get_issuer_name(cert), 0, 0))) {
-        printf("issuer: %s\n", tmp);
-        OPENSSL_free(tmp);
-    }*/
-
-
     X509_free(cert);
 
     int verifyResult = SSL_get_verify_result(ssl);
     if (verifyResult != X509_V_OK) {
-        printf("Error while verifying cert\n");
-        ///TODO:
-        return 1;
+        error_msg(CERT_VERIFY_FAIL);
+        return exit_value;
     }
 
     return SUCCESS;
@@ -111,8 +94,7 @@ void send_https_request(char *hostname, char *port, char *path) {
 ///TODO: dokumentacia
 int receive_ssl_data() {
     char response[BUFFER_SIZE+1];
-    char *response_b = response, *tmp_respo_pointer;
-    char *response_end = response + BUFFER_SIZE;
+    char *tmp_respo_pointer;
     char *body = 0;
 
     //enum {length, chunked, connection};
@@ -124,22 +106,14 @@ int receive_ssl_data() {
     //int chunk_flag = 0;
     const clock_t start_time = clock();
 
-    int debug = 0;
     memset(response, '\0', sizeof(response));
     while (1) {
         //printf("DEBUG counter: %i\n", debug);
         //if (debug == 4)
         //    break;
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
-            fprintf(stderr, "timeout after %.2f seconds\n", TIMEOUT);
-            ///TODO:
-            return 1;
-        }
-
-        if (response_b == response_end) {
-            fprintf(stderr, "out of buffer space\n");
-            ///TODO:
-            return 1;
+            fprintf(stderr, "timeout after %.2f seconds.\n", TIMEOUT);
+            return ERR_TCP_TIMEOUT;
         }
 
         int bytes_received = SSL_read(ssl, response, sizeof(response));

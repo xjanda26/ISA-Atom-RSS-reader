@@ -11,7 +11,6 @@ char *xmlResponse;
 int connect_to_host(char *hostname, char *port) {
     struct addrinfo hints;
     struct addrinfo *peer_address;
-    //struct addrinfo *res;
 
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
@@ -19,34 +18,24 @@ int connect_to_host(char *hostname, char *port) {
     hints.ai_flags = 0;
     hints.ai_protocol = 0;
     
-    //printf("DNS res code: %i\n",getaddRes);
     if (getaddrinfo(hostname, port, &hints, &peer_address) != 0) {
         fprintf(stderr, "Host name: %s\n", hostname);
         return error_msg(TCP_UNKNOWN_ADDR);
     }
 
-    // nepotrebne zatial
-    /*for (res = peer_address; res != NULL; res = res->ai_next) {
-        printf("DNS cicle\n");
-    }*/
-
-
     if ((sock = socket(peer_address->ai_family, peer_address->ai_socktype, peer_address->ai_protocol)) == -1) {
+        error_msg(TCP_CREATE_SOCK_FAIL);
         freeaddrinfo(peer_address);
-        fprintf(stderr, "Cannot create socket\n");
-        ///TODO:
-        return 1;
+        return exit_value;
     }
 
     if (connect(sock, peer_address->ai_addr, peer_address->ai_addrlen)) {
+        error_msg(TCP_CONNECTION_FAIL);
         freeaddrinfo(peer_address);
         close(sock);
-        fprintf(stderr, "connect() failed\n");
-        ///TODO:
-        return 1;
+        return exit_value;
     }
 
-    //printf("Socket varr: %i\n", sock);
     freeaddrinfo(peer_address);
     return SUCCESS;
 }

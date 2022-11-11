@@ -23,6 +23,8 @@
 // Messages for TCP communication
 #define TCP_UNKNOWN_ADDR "DNS doesn't know domain.\n"
 #define TCP_NO_VALID_DEST "Any valid destination.\n"
+#define TCP_CREATE_SOCK_FAIL "Failed to create socked.\n"
+#define TCP_CONNECTION_FAIL "Failed while creating connection to host.\n"
 
 // File errors
 #define FILE_READING_FAILED "Cannot read file.\n"
@@ -43,6 +45,12 @@
 #define XML_PARSING_FAIL "Parsing XML file failed.\n"
 #define XML_CONVERT_FAIL "Converting to XML string failed.\n"
 
+// Certificate errors
+#define CERT_LOAD_FILE_FAIL "Fail while loading certificate file.\n"
+#define CERT_LOAD_FOLDER_FAIL "Fail while loading certificates folder.\n"
+#define CERT_DEFAULT_FOLDER_FAIL "Fail while setting default certificates folder.\n"
+#define CERT_VERIFY_FAIL "Failed to verify certificate.\n"
+
 //=== ERROR CODES ===
 #define SUCCESS 0
 #define ERR_GENERIC 1
@@ -62,6 +70,11 @@
 #define ERR_TCP_UNKNOWN_ADDR 20
 #define ERR_TCP_NO_VALID_DEST 21
 
+#define ERR_TCP_TIMEOUT 22
+
+#define ERR_TCP_CREATE_SOCK_FAIL 23
+#define ERR_TCP_CONNECTION_FAIL 24
+
 #define ERR_FILE_READING_FAILED 30
 #define ERR_FILE_EMPTY_INVALID_URLS 31
 
@@ -76,6 +89,11 @@
 #define ERR_XML_EMPTY 60
 #define ERR_XML_PARSING_FAIL 61
 #define ERR_XML_CONVERT_FAIL 62
+
+#define ERR_CERT_LOAD_FILE_FAIL 70
+#define ERR_CERT_LOAD_FOLDER_FAIL 71
+#define ERR_CERT_DEFAULT_FOLDER_FAIL 72
+#define ERR_CERT_VERIFY_FAIL 73
 
 extern int exit_value;
 extern int is_testing;
