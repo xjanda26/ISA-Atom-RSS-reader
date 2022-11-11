@@ -8,14 +8,14 @@ SSL *ssl;
 SSL_CTX *ctx;
 
 ///TODO: dokumentacia
-int init_ssl(int is_testing) {
+int init_ssl() {
     SSL_library_init();
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
 
     ctx = SSL_CTX_new(TLSv1_2_client_method());
     if(!ctx) {
-        return error_msg(SSL_CTX_CONTEXT_FAIL, is_testing);
+        return error_msg(SSL_CTX_CONTEXT_FAIL);
     }
 
     if (optFlags[C_FLAG] > 0) {
@@ -41,35 +41,35 @@ int init_ssl(int is_testing) {
         return 1;
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 ///TODO: dokumentacia
-int init_tls_connection(char *hostname, int is_testing) {
+int init_tls_connection(char *hostname) {
     ssl = SSL_new(ctx);
 
     if (!ssl) {
-        return error_msg(SSL_OBJECT_FAIL, is_testing);
+        return error_msg(SSL_OBJECT_FAIL);
     }
 
     if (!SSL_set_tlsext_host_name(ssl, hostname)) {
-        return error_msg(SSL_SERVER_NAME_INDICATION_FAIL, is_testing);
+        return error_msg(SSL_SERVER_NAME_INDICATION_FAIL);
     }
 
     SSL_set_fd(ssl, sock);
     if (SSL_connect(ssl) == -1) {
-        return error_msg(SSL_CONNECT_FAIL, is_testing);
+        return error_msg(SSL_CONNECT_FAIL);
     }
 
     //printf ("SSL/TLS using %s\n", SSL_get_cipher(ssl));
-    return 0;
+    return SUCCESS;
 }
 
 ///TODO: dokumentacia
-int verify_certificate(int is_testing) {
+int verify_certificate() {
     X509 *cert = SSL_get_peer_certificate(ssl);
     if (!cert) {
-        return error_msg(SSL_GET_DEST_CERTIFICATE_FAIL, is_testing);
+        return error_msg(SSL_GET_DEST_CERTIFICATE_FAIL);
     }
 
     /*char *tmp;
@@ -93,7 +93,7 @@ int verify_certificate(int is_testing) {
         return 1;
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 ///TODO: dokumentacia
@@ -109,7 +109,7 @@ void send_https_request(char *hostname, char *port, char *path) {
 }
 
 ///TODO: dokumentacia
-int receive_ssl_data(int is_testing) {
+int receive_ssl_data() {
     char response[BUFFER_SIZE+1];
     char *response_b = response, *tmp_respo_pointer;
     char *response_end = response + BUFFER_SIZE;
@@ -192,10 +192,10 @@ int receive_ssl_data(int is_testing) {
                     strcat(tmp, http_status_s);
                     strcat(tmp, "\n");
 
-                    int res = error_msg(tmp, is_testing);
+                    error_msg(tmp);
                     free(tmp);
                     close(sock);
-                    return res;
+                    return exit_value;
                 }
 
                 
@@ -212,13 +212,7 @@ int receive_ssl_data(int is_testing) {
             memcpy(xmlResponse, body, strlen(body) + 1);
             //strcat(xmlResponse, "\0");
             //printf("\n==Body L:%i\n%s\n==\nStrlen copied XML: %i\n\n",sizeof(body), body, sizeof(xmlResponse));
-            is_body_without_h = 1;
-            ///TODO:
-            if (debug > 0) {
-                printf("%s", xmlResponse);
-                printf("\n\n\n WTF... %i\n", debug);
-            }
-        
+            is_body_without_h = 1;        
         } else {
             size_t respo_len = strlen(response);
             tmp_respo_pointer = strstr(response, "\r\n0");
@@ -253,8 +247,6 @@ int receive_ssl_data(int is_testing) {
 
         memset(response, '\0', sizeof(response));
         //printf("\n==XML builded\n%s\n\n", xmlResponse);
-        ///TODO:
-        debug++;
 
         //printf("%s", xmlResponse);
         //strcpy(response,"");
@@ -272,5 +264,5 @@ int receive_ssl_data(int is_testing) {
     SSL_free(ssl);
     SSL_CTX_free(ctx);
 
-    return 0;
+    return SUCCESS;
 }

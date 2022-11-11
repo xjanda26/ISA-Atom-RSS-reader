@@ -17,5 +17,5 @@ extern int *secure;
 
 void init_destinations(int dest_count);
 void clear_destinations();
-int parse_url (char *url, int is_getting_data, int is_testing);
-int parse_url_from_file(char *file_name, int is_testing);
+int parse_url (char *url, int is_getting_data);
+int parse_url_from_file(char *file_name);

@@ -17,8 +17,8 @@
 
 extern SSL_CTX *ctx;
 
-int init_ssl(int is_testing);
-int init_tls_connection(char *hostname, int is_testing);
-int verify_certificate(int is_testing);
+int init_ssl();
+int init_tls_connection(char *hostname);
+int verify_certificate();
 void send_https_request(char *hostname, char *port, char *path);
-int receive_ssl_data(int is_testing);
+int receive_ssl_data();

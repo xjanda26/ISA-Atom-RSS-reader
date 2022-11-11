@@ -39,6 +39,7 @@
 #define SSL_GET_DEST_CERTIFICATE_FAIL "Getting destination certificate failed.\n"
 
 //=== ERROR CODES ===
+#define SUCCESS 0
 #define ERR_GENERIC 1
 #define ERR_REGEX_COMPILE_FAILED 2
 
@@ -67,5 +68,8 @@
 #define ERR_SSL_SERVER_NAME_INDICATION_FAIL 53
 #define ERR_SSL_GET_DEST_CERTIFICATE_FAIL 54
 
+extern int exit_value;
+extern int is_testing;
+
 void print_error_msg (int errorValue, const char* msg);
-int error_msg(const char *msg, int isTesting);
+int error_msg(const char *msg);

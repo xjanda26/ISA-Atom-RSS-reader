@@ -7,8 +7,6 @@
 #include "../src/host.h"
 #include "../src/parameters.h"
 
-#define TRUE 1
-
 int test_TP1();
 int test_TP2();
 int test_TP3();

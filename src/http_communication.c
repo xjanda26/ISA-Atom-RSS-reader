@@ -20,7 +20,7 @@ void send_http_request(int sock, char *hostname, char *port, char *path) {
 }
 
 ///TODO: zjednotit s https (pridavanie \0 pre prijate data), odstranit komentare, dokumentacia
-int receive_data(int is_testing) {
+int receive_data() {
     char response[BUFFER_SIZE+1];
     char *response_b = response, *tmp_respo_pointer;
     char *response_end = response + BUFFER_SIZE;
@@ -106,10 +106,10 @@ int receive_data(int is_testing) {
                     strcat(tmp, http_status_s);
                     strcat(tmp, "\n");
 
-                    int res = error_msg(tmp, is_testing);
+                    error_msg(tmp);
                     free(tmp);
                     close(sock);
-                    return res;
+                    return exit_value;
                 }
 
                 
@@ -125,12 +125,7 @@ int receive_data(int is_testing) {
             strcpy(xmlResponse, body);
             strcat(xmlResponse, "\0");
             //printf("\n==Body L:%i\n%s\n==\n",strlen(body), body);
-            is_body_without_h = 1;
-            if (debug > 0) {
-                printf("%s", xmlResponse);
-                printf("\n\n\n WTF... %i\n", debug);
-            }
-        
+            is_body_without_h = 1;        
         } else {
             size_t respo_len = strlen(response);
             tmp_respo_pointer = strstr(response, "\r\n0");
@@ -162,7 +157,6 @@ int receive_data(int is_testing) {
 
         memset(response, '\0', sizeof(response));
         //printf("\n==XML builded\n%s\n\n", xmlResponse);
-        debug++;
 
         //printf("%s", xmlResponse);
         //strcpy(response,"");
@@ -176,5 +170,5 @@ int receive_data(int is_testing) {
 
     //printf("\nClosing socket...\n");
     close(sock);
-    return 0;
+    return SUCCESS;
 }

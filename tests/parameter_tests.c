@@ -8,7 +8,7 @@ int test_TP1() {
     char *in_var[] = {"./feedreader"};
     int result, argc = 1;
 
-    result = test(ERR_OPT_FEW, parse_parameters(argc, in_var, TRUE), "TP1");
+    result = test(ERR_OPT_FEW, parse_parameters(argc, in_var), "TP1");
 
     return result;
 }
@@ -17,84 +17,84 @@ int test_TP2() {
     char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/", "-f", "files/test.txt"};
     int argc = 4;
 
-    return test(ERR_OPT_MUL_DOMAINS, parse_parameters(argc, in_var, TRUE), "TP2");
+    return test(ERR_OPT_MUL_DOMAINS, parse_parameters(argc, in_var), "TP2");
 }
 
 int test_TP3() {
     char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(0, parse_parameters(argc,in_var, TRUE), "TP3");
+    return test(0, parse_parameters(argc,in_var), "TP3");
 }
 
 int test_TP4() {
     char *in_var[] = {"./feedreader", "http://www.fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(0, parse_parameters(argc,in_var, TRUE), "TP4");
+    return test(0, parse_parameters(argc,in_var), "TP4");
 }
 
 int test_TP5() {
     char *in_var[] = {"./feedreader", "http://fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP5");
+    return test(0,parse_parameters(argc,in_var), "TP5");
 }
 
 int test_TP6() {
     char *in_var[] = {"./feedreader", "http://.fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(ERR_OPT_URL_INVALID,parse_parameters(argc,in_var, TRUE), "TP6");
+    return test(ERR_OPT_URL_INVALID,parse_parameters(argc,in_var), "TP6");
 }
 
 int test_TP7() {
     char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:80/fit/news-rss/"};
     int argc = 2;
 
-    return test(0, parse_parameters(argc,in_var, TRUE), "TP7");
+    return test(0, parse_parameters(argc,in_var), "TP7");
 }
 
 int test_TP8() {
     char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65535/fit/news-rss/"};
     int argc = 2;
 
-    return test(0, parse_parameters(argc,in_var, TRUE), "TP8");
+    return test(0, parse_parameters(argc,in_var), "TP8");
 }
 
 int test_TP9() {
     char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65536/fit/news-rss/"};
     int argc = 2;
 
-    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var, TRUE), "TP9");
+    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var), "TP9");
 }
 
 int test_TP10() {
     char *in_var[] = {"./feedreader", "www.fit.vut.cz/fit/news-rss/"};
     int argc = 2;
 
-    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var, TRUE), "TP10");
+    return test(ERR_OPT_URL_INVALID, parse_parameters(argc,in_var), "TP10");
 }
 
 int test_TP11() {
     char *in_var[] = {"./feedreader", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 3;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP11");
+    return test(0,parse_parameters(argc,in_var), "TP11");
 }
 
 int test_TP12() {
     char *in_var[] = {"./feedreader", "-u", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 4;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP12");
+    return test(0,parse_parameters(argc,in_var), "TP12");
 }
 
 int test_TP13() {
     char *in_var[] = {"./feedreader", "-T", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 4;
 
-    return test(0,parse_parameters(argc,in_var, TRUE), "TP13");
+    return test(0,parse_parameters(argc,in_var), "TP13");
 }
 
 /*

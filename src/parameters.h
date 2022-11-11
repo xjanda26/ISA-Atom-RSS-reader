@@ -27,5 +27,5 @@ extern char *certPath;
 extern char *certFolder;
 
 void init_parameter_variables();
-int parse_hostname(char *argv[], int i, int is_testing);
-int parse_parameters (int argc, char *argv[], int is_testing);
+int parse_hostname(char *argv[], int i);
+int parse_parameters (int argc, char *argv[]);

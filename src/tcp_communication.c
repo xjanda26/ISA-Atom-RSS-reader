@@ -8,7 +8,7 @@ int sock;
 char *xmlResponse;
 
 ///TODO: dokumentacia
-int connect_to_host(char *hostname, char *port, int is_testing) {
+int connect_to_host(char *hostname, char *port) {
     struct addrinfo hints;
     struct addrinfo *peer_address;
     //struct addrinfo *res;
@@ -19,11 +19,10 @@ int connect_to_host(char *hostname, char *port, int is_testing) {
     hints.ai_flags = 0;
     hints.ai_protocol = 0;
     
-    int getaddRes = getaddrinfo(hostname, port, &hints, &peer_address);
     //printf("DNS res code: %i\n",getaddRes);
-    if (getaddRes != 0) {
+    if (getaddrinfo(hostname, port, &hints, &peer_address) != 0) {
         fprintf(stderr, "Host name: %s\n", hostname);
-        return error_msg(TCP_UNKNOWN_ADDR, is_testing);
+        return error_msg(TCP_UNKNOWN_ADDR);
     }
 
     // nepotrebne zatial
@@ -49,5 +48,5 @@ int connect_to_host(char *hostname, char *port, int is_testing) {
 
     //printf("Socket varr: %i\n", sock);
     freeaddrinfo(peer_address);
-    return 0;
+    return SUCCESS;
 }

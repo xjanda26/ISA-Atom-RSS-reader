@@ -18,4 +18,4 @@
 #define TIMEOUT 5.0
 
 void send_http_request(int sock, char *hostname, char *port, char *path);
-int receive_data(int is_testing);
+int receive_data();

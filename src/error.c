@@ -4,6 +4,9 @@
 
 #include "error.h"
 
+int exit_value = 0;
+int is_testing = 0;
+
 char *errorMgs[] = {
     OPT_FEW,
     OPT_UNKNOWN,
@@ -56,7 +59,7 @@ void print_error_msg (int errorValue, const char* msg) {
     fprintf(stderr,"Error (code: %i). %s", errorValue, msg);
 }
 
-int error_msg(const char *msg, int isTesting) {
+int error_msg(const char *msg) {
     int errorValue = ERR_GENERIC;
 
     // Response Error
@@ -71,9 +74,10 @@ int error_msg(const char *msg, int isTesting) {
         }
     }
 
-    if (!isTesting) {
+    if (!is_testing) {
         print_error_msg(errorValue, msg);
     }
 
+    exit_value = errorValue;
     return errorValue;
 }

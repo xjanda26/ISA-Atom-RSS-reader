@@ -17,22 +17,21 @@ void init_parameter_variables() {
 }
 
 ///TODO: dokumentacia
-int parse_hostname(char *argv[], int i, int is_testing) {
+int parse_hostname(char *argv[], int i) {
     //printf("rozne\n");
     
     init_destinations(1);
-    int urlParsingRes = parse_url(argv[i], 1, is_testing);
 
-    if(urlParsingRes) {
-        return urlParsingRes;
+    if(parse_url(argv[i], 1)) {
+        return exit_value;
     }
 
     optFlags[DOMAIN_FLAG]++;
-    return 0;
+    return SUCCESS;
 }
 
 ///TODO: dokumentacia
-int parse_parameters (int argc, char *argv[], int is_testing) {
+int parse_parameters (int argc, char *argv[]) {
     extern char *optarg; 
     extern int optind;
     extern int opterr;
@@ -48,7 +47,7 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     int nextOpt = 1;
     
     if (argc < 2) {
-        return error_msg(OPT_FEW, is_testing);
+        return error_msg(OPT_FEW);
     }
 
     while (optind < argc) {
@@ -122,12 +121,12 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
         } else {
             if (optFlags[DOMAIN_FLAG] > 0 ) {
                 if (optFlags[F_FLAG] > 0) {
-                    return error_msg(OPT_MUL_DOMAINS, is_testing);
+                    return error_msg(OPT_MUL_DOMAINS);
                 }
                 
-                return error_msg(OPT_MULTIPLE, is_testing);
+                return error_msg(OPT_MULTIPLE);
             }
-            res = parse_hostname(argv, i-1, is_testing);
+            res = parse_hostname(argv, i-1);
             
             if (res) {
                 return res;
@@ -153,45 +152,44 @@ int parse_parameters (int argc, char *argv[], int is_testing) {
     }
 
     if (optErrFlag) {
-        return error_msg(OPT_UNKNOWN, is_testing);
+        return error_msg(OPT_UNKNOWN);
     }
 
     if (optCertFileMissFlag) {
-        return error_msg(OPT_CERT_PATH_MISSING, is_testing);
+        return error_msg(OPT_CERT_PATH_MISSING);
     }
     
     if (optCertFolderMissFlag) {
-        return error_msg(OPT_FOLDER_PATH_MISSING, is_testing);
+        return error_msg(OPT_FOLDER_PATH_MISSING);
     }
 
     if (optPathMissFlag) {
-        return error_msg(OPT_PATH_MISSING, is_testing);
+        return error_msg(OPT_PATH_MISSING);
     }
 
     for (i = 0; i < 6; i++) {
         if (optFlags[i] > 1) {
-            return error_msg(OPT_MULTIPLE, is_testing);
+            return error_msg(OPT_MULTIPLE);
         }
     }
 
     if (optFlags[C_FLAG] > 0 && optFlags[CC_FLAG] > 0) {
-        return error_msg(OPT_MUL_COMBINATION, is_testing);
+        return error_msg(OPT_MUL_COMBINATION);
     }
 
     if (optFlags[DOMAIN_FLAG] > 0 && optFlags[F_FLAG] > 0) {
-        return error_msg(OPT_MUL_DOMAINS, is_testing);
+        return error_msg(OPT_MUL_DOMAINS);
     }
 
     if (optFlags[DOMAIN_FLAG] == 0 && optFlags[F_FLAG] == 0) {
-        return error_msg(OPT_NO_HOST, is_testing);
+        return error_msg(OPT_NO_HOST);
     }
     
     if (optFlags[F_FLAG]) {
-        int fileReadingRes = parse_url_from_file(filePath, is_testing);
-        if (fileReadingRes) {
-            return fileReadingRes;
+        if (parse_url_from_file(filePath)) {
+            return exit_value;
         }
     }
 
-    return 0;
+    return SUCCESS;
 }

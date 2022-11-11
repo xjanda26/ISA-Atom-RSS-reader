@@ -51,7 +51,7 @@ void clear_destinations() {
  * Regex inspiration: https://man7.org/linux/man-pages/man3/regexec.3.html
  * //TODO: dokumentacia
 */
-int parse_url (char *url, int is_getting_data, int is_testing) {
+int parse_url (char *url, int is_getting_data) {
     regex_t regex;
 
     char *port;
@@ -59,17 +59,17 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
     char *path;
 
     if(regcomp(&regex, REGEX_URL, REG_EXTENDED)) {
-        return error_msg(REGEX_COMPILE_FAILED, is_testing);
+        return error_msg(REGEX_COMPILE_FAILED);
     }
 
     if ((regexec(&regex, url, 0, NULL, 0)) == REG_NOMATCH) {
-        return error_msg(OPT_URL_INVALID, is_testing);
+        return error_msg(OPT_URL_INVALID);
     }
 
     regmatch_t matches[regex.re_nsub];
 
     if ((regexec(&regex, url, regex.re_nsub, matches, 0)) == REG_NOMATCH) {
-        return error_msg(OPT_URL_INVALID, is_testing);
+        return error_msg(OPT_URL_INVALID);
     }
     
     if (is_getting_data) {
@@ -148,11 +148,11 @@ int parse_url (char *url, int is_getting_data, int is_testing) {
     }
 
     regfree(&regex);
-    return 0;
+    return SUCCESS;
 }
 
 ///TODO: dokumentacia
-int read_urls(FILE *fp, int is_getting_data, int is_printing) {
+int read_urls(FILE *fp, int is_getting_data) {
     char *line;
     size_t len = 0;
 
@@ -160,7 +160,7 @@ int read_urls(FILE *fp, int is_getting_data, int is_printing) {
     while ((getline(&line, &len, fp)) != -1) {
         if(strlen(line) > 1) {
             if (line[0] != '#') {
-                if(!parse_url(line,is_getting_data, is_printing)){
+                if(!parse_url(line,is_getting_data)){
                     urlCount++;
                 }
             }            
@@ -175,7 +175,7 @@ int read_urls(FILE *fp, int is_getting_data, int is_printing) {
 }
 
 ///TODO: dokumentacia
-int parse_url_from_file(char *file_name, int is_testing) {
+int parse_url_from_file(char *file_name) {
     //printf("File reading\n");
 
     FILE *fp;
@@ -184,10 +184,10 @@ int parse_url_from_file(char *file_name, int is_testing) {
     fp = fopen(file_name, "r");
 
     if(fp == NULL) {
-        return error_msg(FILE_READING_FAILED, is_testing);
+        return error_msg(FILE_READING_FAILED);
     }
 
-    urlCount = read_urls(fp, 0, is_testing);
+    urlCount = read_urls(fp, 0);
 
     //printf("Number of corrent URLs: %i\n", urlCount);
 
@@ -195,16 +195,16 @@ int parse_url_from_file(char *file_name, int is_testing) {
         fp = fopen(file_name, "r");
 
         if(fp == NULL) {
-            return error_msg(FILE_READING_FAILED, is_testing);
+            return error_msg(FILE_READING_FAILED);
         }
 
         init_destinations(urlCount);
-        read_urls(fp, 1, 1);
+        read_urls(fp, 1);
 
         fclose(fp);
     } else {
-        return error_msg(FILE_EMPTY_INVALID_URLS, is_testing);
+        return error_msg(FILE_EMPTY_INVALID_URLS);
     }
 
-    return 0;
+    return SUCCESS;
 }

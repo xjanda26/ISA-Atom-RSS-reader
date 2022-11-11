@@ -72,51 +72,43 @@ int process_xml() {
         printf("Error, converting string arr to xml arr\n");
     }
 
-    return 0;
+    return SUCCESS;
 }
 
-int get_and_print_feed(char *host, char *port, char *path, int is_secure, int is_testing) {
-    int result;
-    
-    result = connect_to_host(host, port, 0);
-    if (result) {
-        return result;
+int get_and_print_feed(char *host, char *port, char *path, int is_secure) {
+    if (connect_to_host(host, port)) {
+        return exit_value;
     }
     
     if (is_secure) {
-        result = init_ssl(is_testing);
-        if (result) {
-            return error_msg(SSL_CTX_CONTEXT_FAIL, is_testing);
+        if (init_ssl()) {
+            return error_msg(SSL_CTX_CONTEXT_FAIL);
         }
 
-        result = init_tls_connection(host, is_testing);
-        if (result) {
-            return result;
+        if (init_tls_connection(host)) {
+            return exit_value;
         }
 
-        result = verify_certificate(is_testing);
-        if (result) {
-            return result;
+        if (verify_certificate()) {
+            return exit_value;
         }
 
         send_https_request(host, port, path);
 
-        result = receive_ssl_data(is_testing);
-        if (result) {
-            return result;
+        if (receive_ssl_data()) {
+            return exit_value;
         }
     } else {       
         send_http_request(sock, host, port, path);
 
-        result = receive_data(is_testing);
-        if (result) {
-            return result;
+        if (receive_data()) {
+            return exit_value;
         }
     }
 
-    result = process_xml();
+    process_xml();
     
     free(xmlResponse);
     
-    return result;
+    return SUCCESS;
 }
