@@ -38,6 +38,11 @@
 #define SSL_SERVER_NAME_INDICATION_FAIL "Server Name Indication failed.\n"
 #define SSL_GET_DEST_CERTIFICATE_FAIL "Getting destination certificate failed.\n"
 
+// XML errors
+#define XML_EMPTY "XML file is empty.\n"
+#define XML_PARSING_FAIL "Parsing XML file failed.\n"
+#define XML_CONVERT_FAIL "Converting to XML string failed.\n"
+
 //=== ERROR CODES ===
 #define SUCCESS 0
 #define ERR_GENERIC 1
@@ -67,6 +72,10 @@
 #define ERR_SSL_CONNECT_FAIL 52
 #define ERR_SSL_SERVER_NAME_INDICATION_FAIL 53
 #define ERR_SSL_GET_DEST_CERTIFICATE_FAIL 54
+
+#define ERR_XML_EMPTY 60
+#define ERR_XML_PARSING_FAIL 61
+#define ERR_XML_CONVERT_FAIL 62
 
 extern int exit_value;
 extern int is_testing;

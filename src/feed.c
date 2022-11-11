@@ -48,12 +48,11 @@ int process_xml() {
         xmlTree = xmlParseDoc(xml);
 
         if(xmlTree) {
-            //ok
             xmlNodePtr node;
             node = xmlDocGetRootElement(xmlTree);
             if (node == NULL) {
-                ///TODO:
-                printf("Empty XML\n");
+                error_msg(XML_EMPTY);
+                return exit_value;
             } else {
                 if ((!xmlStrcmp(node->name, (const xmlChar *) "rss"))) {
                     process_rss_node(xmlTree, node->children);
@@ -62,14 +61,14 @@ int process_xml() {
                 }
             }
         } else {
-            ///TODO:
-            printf("Error, parsing xml.\n");
+            error_msg(XML_PARSING_FAIL);
+            return exit_value;
         }
 
         xmlFreeDoc(xmlTree);
     } else {
-        ///TODO:
-        printf("Error, converting string arr to xml arr\n");
+        error_msg(XML_CONVERT_FAIL);
+        return exit_value;
     }
 
     return SUCCESS;
@@ -82,7 +81,7 @@ int get_and_print_feed(char *host, char *port, char *path, int is_secure) {
     
     if (is_secure) {
         if (init_ssl()) {
-            return error_msg(SSL_CTX_CONTEXT_FAIL);
+            return exit_value;
         }
 
         if (init_tls_connection(host)) {

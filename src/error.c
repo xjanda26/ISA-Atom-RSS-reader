@@ -27,7 +27,10 @@ char *errorMgs[] = {
     SSL_OBJECT_FAIL,
     SSL_CONNECT_FAIL,
     SSL_SERVER_NAME_INDICATION_FAIL,
-    SSL_GET_DEST_CERTIFICATE_FAIL
+    SSL_GET_DEST_CERTIFICATE_FAIL,
+    XML_EMPTY,
+    XML_PARSING_FAIL,
+    XML_CONVERT_FAIL
 };
 
 int errorValues[] = {
@@ -50,10 +53,13 @@ int errorValues[] = {
     ERR_SSL_OBJECT_FAIL,
     ERR_SSL_CONNECT_FAIL,
     ERR_SSL_SERVER_NAME_INDICATION_FAIL,
-    ERR_SSL_GET_DEST_CERTIFICATE_FAIL
+    ERR_SSL_GET_DEST_CERTIFICATE_FAIL,
+    ERR_XML_EMPTY,
+    ERR_XML_PARSING_FAIL,
+    ERR_XML_CONVERT_FAIL
 };
 
-int errVariants = 20;
+int errVariants = 23;
 
 void print_error_msg (int errorValue, const char* msg) {
     fprintf(stderr,"Error (code: %i). %s", errorValue, msg);
