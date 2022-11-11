@@ -8,7 +8,12 @@
 #include "host.h"
 #include "parameters.h"
 
+/// @brief Main function of application. Usage is described in README file.
+/// @param argc Number of entered arguments
+/// @param argv String of entered arguments
+/// @return Zero value on success or any error type defined in error.h
 int main (int argc, char *argv[]) {
+    // Initializing global flags
     exit_value = 0;
     is_testing = 0;
 
