@@ -107,7 +107,7 @@ int get_and_print_feed(char *host, char *port, char *path, int is_secure) {
         if (receive_ssl_data()) {
             return exit_value;
         }
-    } else {       
+    } else {   
         send_http_request(sock, host, port, path);
 
         if (receive_data()) {

@@ -14,6 +14,7 @@ int *secure;
 /// @brief Function allocates application array with length defiend by dest_count.
 /// @param dest_count Number of remote hosts
 void init_destinations(int dest_count) {
+    destinations_counter = 0;
     hosts = malloc(dest_count * sizeof(char*));
     paths = malloc(dest_count * sizeof(char*));
     ports = malloc(dest_count * sizeof(char*));
@@ -46,6 +47,11 @@ void clear_destinations() {
     if (secure) {
         free(secure);
     }
+
+    hosts = NULL;
+    paths = NULL;
+    ports = NULL;
+    secure = NULL;
 }
 
 /**
@@ -142,7 +148,7 @@ int parse_url (char *url, int is_getting_data) {
         } else {
             path = "/\0";
         }
-    
+        
         hosts[destinations_counter] = hostname;
         ports[destinations_counter] = port;
         paths[destinations_counter] = path;

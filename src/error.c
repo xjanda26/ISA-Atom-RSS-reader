@@ -98,12 +98,23 @@ int error_msg(const char *msg) {
     int msgIndex;
 
     // Response Error
-    if (strstr(msg, HTTP_RESPONSE_BAD_CODE) != NULL) {
-        errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
-        if (!is_testing) {
-            print_error_msg(errorValue, msg);
+    if (LANG) {
+        if (strstr(msg, HTTP_RESPONSE_BAD_CODE_CZ) != NULL) {
+            errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
+            if (!is_testing) {
+                print_error_msg(errorValue, msg);
+            }
         }
     } else {
+        if (strstr(msg, HTTP_RESPONSE_BAD_CODE) != NULL) {
+            errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
+            if (!is_testing) {
+                print_error_msg(errorValue, msg);
+            }
+        }
+    }
+    
+    if (errorValue == ERR_GENERIC) {
         for (msgIndex = 0; msgIndex < errVariants; msgIndex++) {
             if (!strcmp(msg,errorMgs[msgIndex][0])){
                 errorValue = errorValues[msgIndex];

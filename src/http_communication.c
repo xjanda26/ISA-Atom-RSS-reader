@@ -46,6 +46,7 @@ int receive_data() {
                 fprintf(stderr, "Error (code: %i). Response timeout after %.2f seconds.\n", ERR_TCP_TIMEOUT, TIMEOUT);
             }
             close(sock);
+            exit_value = ERR_TCP_TIMEOUT;
             return ERR_TCP_TIMEOUT;
         }
 
@@ -88,7 +89,6 @@ int receive_data() {
                     }
                     
                     strcat(tmp, http_status_s);
-                    strcat(tmp, "\n");
 
                     error_msg(tmp);
                     free(tmp);

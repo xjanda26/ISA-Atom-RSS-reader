@@ -107,7 +107,7 @@ int test_TP() {
 */
 
 void run_parameter_tests(){
-    int counter = 4;
+    int counter = 13;
     int number_of_passed = 0;
 
     if (LANG) {
@@ -120,7 +120,7 @@ void run_parameter_tests(){
     number_of_passed += test_TP2();
     number_of_passed += test_TP3();
     number_of_passed += test_TP4();
-    /*number_of_passed += test_TP5();
+    number_of_passed += test_TP5();
     number_of_passed += test_TP6();
     number_of_passed += test_TP7();
     number_of_passed += test_TP8();
@@ -128,7 +128,7 @@ void run_parameter_tests(){
     number_of_passed += test_TP10();
     number_of_passed += test_TP11();
     number_of_passed += test_TP12();
-    number_of_passed += test_TP13();*/
+    number_of_passed += test_TP13();
     
     int failed = counter - number_of_passed;
     if (failed < 0) {
