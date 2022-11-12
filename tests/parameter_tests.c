@@ -145,7 +145,7 @@ int test_TP23() {
 int test_TP24() {
     char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-C", "-u", "tests"};
 
-    return test(ERR_OPT_FOLDER_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP24");
+    return test(ERR_OPT_MULTIPLE, parse_parameters(ARGV_LEN(in_var), in_var), "TP24");
 }
 
 int test_TP25() {
