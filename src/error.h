@@ -25,10 +25,10 @@
 
 #define REGEX_COMPILE_FAILED "Could not compile regex."
 // CZ
-#define OPT_FEW_CZ "Žádný argument na standarním vstupu."
+#define OPT_FEW_CZ "Žádný argument na standardním vstupu."
 #define OPT_UNKNOWN_CZ "Neznámý vstupní argument."
 #define OPT_MULTIPLE_CZ "Vstupní argument byl použit vícekrát."
-#define OPT_MUL_COMBINATION_CZ "Vícenásobná kombinace vstupních argumentů rovnakého typu."
+#define OPT_MUL_COMBINATION_CZ "Vícenásobná kombinace vstupních argumentů stejného typu."
 #define OPT_MUL_DOMAINS_CZ "Vloženo více zdrojů cílových destinací."
 #define OPT_URL_INVALID_CZ "Vložena URL není ve validním tvaru."
 #define OPT_PATH_MISSING_CZ "Vstupní argument '-f' vyžaduje soubor."
@@ -46,10 +46,10 @@
 #define TCP_CONNECTION_FAIL "Failed while creating connection to host."
 
 // CZ
-#define TCP_UNKNOWN_ADDR_CZ "DNS doesn't know domain."
-#define TCP_NO_VALID_DEST_CZ "Any valid destination."
-#define TCP_CREATE_SOCK_FAIL_CZ "Failed to create socked."
-#define TCP_CONNECTION_FAIL_CZ "Failed while creating connection to host."
+#define TCP_UNKNOWN_ADDR_CZ "DNS rezoluce nezná cílovou destinaci."
+#define TCP_NO_VALID_DEST_CZ "Žádná validní cílová destinace nebyla vložena."
+#define TCP_CREATE_SOCK_FAIL_CZ "Selhání při tvoření schránky."
+#define TCP_CONNECTION_FAIL_CZ "Selhání při vytváření spojení s cílovou destinací."
 
 // File errors
 // EN
@@ -57,15 +57,15 @@
 #define FILE_EMPTY_INVALID_URLS "File is empty or not containing valid URLs."
 
 //CZ
-#define FILE_READING_FAILED_CZ "Cannot read file."
-#define FILE_EMPTY_INVALID_URLS_CZ "File is empty or not containing valid URLs."
+#define FILE_READING_FAILED_CZ "Nepodařilo se přečíst vložený soubor."
+#define FILE_EMPTY_INVALID_URLS_CZ "Soubor je prázdný nebo neobsahuje validní URL."
 
 // HTTP errors
 // EN
 #define HTTP_RESPONSE_BAD_CODE "Host responsed with status code "
 
 // CZ
-#define HTTP_RESPONSE_BAD_CODE_CZ "Host responsed with status code "
+#define HTTP_RESPONSE_BAD_CODE_CZ "Cílová destinace odpověděla s kódem "
 
 // SSL errors
 // EN
@@ -76,11 +76,11 @@
 #define SSL_GET_DEST_CERTIFICATE_FAIL "Getting destination certificate failed."
 
 // CZ
-#define SSL_CTX_CONTEXT_FAIL_CZ "Fail while creating CTX context."
-#define SSL_OBJECT_FAIL_CZ "Fail while creating SSL object."
-#define SSL_CONNECT_FAIL_CZ "Cannot SSL connect to destination."
-#define SSL_SERVER_NAME_INDICATION_FAIL_CZ "Server Name Indication failed."
-#define SSL_GET_DEST_CERTIFICATE_FAIL_CZ "Getting destination certificate failed."
+#define SSL_CTX_CONTEXT_FAIL_CZ "Selhání při tvoření CTX kontextu."
+#define SSL_OBJECT_FAIL_CZ "Selhání při tvoření SSL objektu."
+#define SSL_CONNECT_FAIL_CZ "Nezdařilo se SSL připojení k cílové destinaci."
+#define SSL_SERVER_NAME_INDICATION_FAIL_CZ "Selhala identifikace jména serveru."
+#define SSL_GET_DEST_CERTIFICATE_FAIL_CZ "Selhalo získaní certifikátu cílové destinace."
 
 // XML errors
 // EN
@@ -89,9 +89,9 @@
 #define XML_CONVERT_FAIL "Converting to XML string failed."
 
 // CZ
-#define XML_EMPTY_CZ "XML file is empty."
-#define XML_PARSING_FAIL_CZ "Parsing XML file failed."
-#define XML_CONVERT_FAIL_CZ "Converting to XML string failed."
+#define XML_EMPTY_CZ "XML soubor je prázdný."
+#define XML_PARSING_FAIL_CZ "Selhalo zpracování XML souboru."
+#define XML_CONVERT_FAIL_CZ "Selhalo konvertování XML řetězce."
 
 // Certificate errors
 // EN
@@ -101,10 +101,10 @@
 #define CERT_VERIFY_FAIL "Failed to verify certificate."
 
 // CZ
-#define CERT_LOAD_FILE_FAIL_CZ "Fail while loading certificate file."
-#define CERT_LOAD_FOLDER_FAIL_CZ "Fail while loading certificates folder."
-#define CERT_DEFAULT_FOLDER_FAIL_CZ "Fail while setting default certificates folder."
-#define CERT_VERIFY_FAIL_CZ "Failed to verify certificate."
+#define CERT_LOAD_FILE_FAIL_CZ "Selhání při čtení certifikačního souboru."
+#define CERT_LOAD_FOLDER_FAIL_CZ "Selhání při čtení certifikační složky."
+#define CERT_DEFAULT_FOLDER_FAIL_CZ "Selhání při nastavování výchozí certifikační složky."
+#define CERT_VERIFY_FAIL_CZ "Selhalo ověření certifikátu cílové destinace."
 
 //=== Collection of error values ===
 #define SUCCESS 0

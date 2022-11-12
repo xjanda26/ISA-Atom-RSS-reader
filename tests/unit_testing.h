@@ -4,4 +4,6 @@
 
 #include <stdio.h>
 
+#include "../src/error.h"
+
 int test(int expected, int actual, const char* testCaseID);

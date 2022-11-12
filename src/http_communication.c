@@ -41,9 +41,9 @@ int receive_data() {
     while (1) {
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
             if (LANG) {
-                fprintf(stderr, "Error (code: %i). Response timeout after %.2f seconds.\n", ERR_TCP_TIMEOUT, TIMEOUT);
+                fprintf(stderr, "Chyba (kód: %i). Vypršení času na odpověd po %.2f sekundách.\n", ERR_TCP_TIMEOUT, TIMEOUT);
             } else {
-                fprintf(stderr, "Chyba (kod: %i). Vypršení času na odpověd po %.2f sekundach.\n", ERR_TCP_TIMEOUT, TIMEOUT);
+                fprintf(stderr, "Error (code: %i). Response timeout after %.2f seconds.\n", ERR_TCP_TIMEOUT, TIMEOUT);
             }
             close(sock);
             return ERR_TCP_TIMEOUT;
@@ -80,11 +80,11 @@ int receive_data() {
                     http_status_s[3] = '\0';
                     char *tmp;
                     if (LANG) {
-                        tmp = (char *) malloc((strlen(HTTP_RESPONSE_BAD_CODE) + 4) * sizeof(char));
-                        strcpy(tmp, HTTP_RESPONSE_BAD_CODE);
-                    } else {
                         tmp = (char *) malloc((strlen(HTTP_RESPONSE_BAD_CODE_CZ) + 4) * sizeof(char));
                         strcpy(tmp, HTTP_RESPONSE_BAD_CODE_CZ);
+                    } else {
+                        tmp = (char *) malloc((strlen(HTTP_RESPONSE_BAD_CODE) + 4) * sizeof(char));
+                        strcpy(tmp, HTTP_RESPONSE_BAD_CODE);
                     }
                     
                     strcat(tmp, http_status_s);

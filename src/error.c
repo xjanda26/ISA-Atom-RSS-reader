@@ -83,7 +83,7 @@ int errVariants = 29;
 /// @param msg Error description
 void print_error_msg (int errorValue, const char* msg) {
     if (LANG) {
-        fprintf(stderr,"Chyba (kod: %i). %s\n", errorValue, msg);
+        fprintf(stderr,"Chyba (kód: %i). %s\n", errorValue, msg);
     } else {
         fprintf(stderr,"Error (code: %i). %s\n", errorValue, msg);
     }

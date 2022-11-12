@@ -110,7 +110,11 @@ void run_parameter_tests(){
     int counter = 4;
     int number_of_passed = 0;
 
-    printf("===- Parameter testing -===\n");
+    if (LANG) {
+        printf("===- Testování vstupních argumentů -===\n");
+    } else {
+        printf("===- Parameter testing -===\n");
+    }
     
     number_of_passed += test_TP1();
     number_of_passed += test_TP2();
@@ -131,5 +135,10 @@ void run_parameter_tests(){
         failed = 0;
     }
 
-    printf("\nParameter testing done.\nNumber of all: %d\tpassed: %d\tfailed: %d\n\n", counter, number_of_passed, failed);
+    if (LANG) {
+        printf("\nTestování vstupních argumentů dokončeno.\nPočet všech: %d\tprošlo: %d\tneúspěšné: %d\n\n", counter, number_of_passed, failed);
+    } else {
+        printf("\nParameter testing done.\nNumber of all: %d\tpassed: %d\tfailed: %d\n\n", counter, number_of_passed, failed);
+    }
+    
 }

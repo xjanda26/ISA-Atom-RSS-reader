@@ -22,7 +22,11 @@ int connect_to_host(char *hostname, char *port) {
     hints.ai_protocol = 0;
     
     if (getaddrinfo(hostname, port, &hints, &peer_address) != 0) {
-        fprintf(stderr, "Host name: %s\n", hostname);
+        if (LANG) {
+            fprintf(stderr, "Cílová destinace: %s\n", hostname);
+        } else {
+            fprintf(stderr, "Host name: %s\n", hostname);
+        }
         return error_msg(TCP_UNKNOWN_ADDR);
     }
 
