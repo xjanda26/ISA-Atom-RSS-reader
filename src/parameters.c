@@ -93,7 +93,10 @@ int parse_parameters (int argc, char *argv[]) {
                 if (certPath[0] == '-') {
                     optCertFileMissFlag = 1;
                 }
-                i++;
+
+                if (optind + 1 == argc) {
+                    i++;
+                }
                 break;
             case 'C':
                 optFlags[CC_FLAG]++;
@@ -101,7 +104,10 @@ int parse_parameters (int argc, char *argv[]) {
                 if (certFolder[0] == '-') {
                     optCertFolderMissFlag = 1;
                 }
-                i++;
+
+                if (optind + 1 == argc) {
+                    i++;
+                }
                 break;
             case 'f':
                 optFlags[F_FLAG]++;
@@ -109,7 +115,10 @@ int parse_parameters (int argc, char *argv[]) {
                 if (filePath[0] == '-') {
                     optPathMissFlag = 1;
                 }
-                i++;
+
+                if (optind + 1 == argc) {
+                    i++;
+                }
                 break;
             case 'T':
                 optFlags[T_FLAG]++;

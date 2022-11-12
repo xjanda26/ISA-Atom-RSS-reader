@@ -49,14 +49,14 @@ int test_TP6() {
 }
 
 int test_TP7() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:80/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz:80/fit/news-rss/"};
     int argc = 2;
 
     return test(0, parse_parameters(argc,in_var), "TP7");
 }
 
 int test_TP8() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz:65535/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz:65535/fit/news-rss/"};
     int argc = 2;
 
     return test(0, parse_parameters(argc,in_var), "TP8");
@@ -77,27 +77,97 @@ int test_TP10() {
 }
 
 int test_TP11() {
-    char *in_var[] = {"./feedreader", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
+    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 3;
 
     return test(0,parse_parameters(argc,in_var), "TP11");
 }
 
 int test_TP12() {
-    char *in_var[] = {"./feedreader", "-u", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
+    char *in_var[] = {"./feedreader", "-u", "https://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 4;
 
     return test(0,parse_parameters(argc,in_var), "TP12");
 }
 
 int test_TP13() {
-    char *in_var[] = {"./feedreader", "-T", "http://www.fit.vut.cz/fit/news-rss/", "-a"};
+    char *in_var[] = {"./feedreader", "-T", "https://www.fit.vut.cz/fit/news-rss/", "-a"};
     int argc = 4;
 
     return test(0,parse_parameters(argc,in_var), "TP13");
 }
 
-/*
+int test_TP14() {
+    char *in_var[] = {"./feedreader", "-T", "-a", "https://www.fit.vut.cz/fit/news-rss/"};
+    int argc = 4;
+
+    return test(0,parse_parameters(argc,in_var), "TP14");
+}
+
+int test_TP15() {
+    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/", "-T", "-a"};
+    int argc = 4;
+
+    return test(0,parse_parameters(argc,in_var), "TP15");
+}
+
+int test_TP16() {
+    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/", "-T", "-a", "-u"};
+    int argc = 5;
+
+    return test(0,parse_parameters(argc,in_var), "TP16");
+}
+
+int test_TP17() {
+    char *in_var[] = {"./feedreader", "-T", "-a", "-u", "https://www.fit.vut.cz/fit/news-rss/"};
+    int argc = 5;
+
+    return test(0,parse_parameters(argc,in_var), "TP17");
+}
+
+int test_TP18() {
+    char *in_var[] = {"./feedreader", "-c", "-a", "https://www.fit.vut.cz/fit/news-rss/"};
+    int argc = 4;
+
+    return test(ERR_OPT_CERT_PATH_MISSING,parse_parameters(argc,in_var), "TP18");
+}
+
+int test_TP19() {
+    char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-c"};
+    int argc = 4;
+
+    return test(ERR_OPT_CERT_PATH_MISSING,parse_parameters(argc,in_var), "TP19");
+}
+
+int test_TP20() {
+    char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-c", "cert.pem"};
+    int argc = 5;
+
+    return test(0,parse_parameters(argc,in_var), "TP20");
+}
+
+int test_TP21() {
+    char *in_var[] = {"./feedreader", "-C", "-a", "-T", "https://www.fit.vut.cz/fit/news-rss/"};
+    int argc = 5;
+
+    return test(ERR_OPT_FOLDER_PATH_MISSING,parse_parameters(argc,in_var), "TP21");
+}
+
+int test_TP22() {
+    char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-T", "-C"};
+    int argc = 5;
+
+    return test(ERR_OPT_FOLDER_PATH_MISSING,parse_parameters(argc,in_var), "TP22");
+}
+
+int test_TP23() {
+    char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-C", "tests"};
+    int argc = 5;
+
+    return test(0,parse_parameters(argc,in_var), "TP23");
+}
+
+/* Copy-pasta template
 int test_TP() {
     char *in_var[] = {};
     int argc =;
@@ -107,7 +177,7 @@ int test_TP() {
 */
 
 void run_parameter_tests(){
-    int counter = 13;
+    int counter = 23;
     int number_of_passed = 0;
 
     if (LANG) {
@@ -129,6 +199,16 @@ void run_parameter_tests(){
     number_of_passed += test_TP11();
     number_of_passed += test_TP12();
     number_of_passed += test_TP13();
+    number_of_passed += test_TP14();
+    number_of_passed += test_TP15();
+    number_of_passed += test_TP16();
+    number_of_passed += test_TP17();
+    number_of_passed += test_TP18();
+    number_of_passed += test_TP19();
+    number_of_passed += test_TP20();
+    number_of_passed += test_TP21();
+    number_of_passed += test_TP22();
+    number_of_passed += test_TP23();
     
     int failed = counter - number_of_passed;
     if (failed < 0) {
