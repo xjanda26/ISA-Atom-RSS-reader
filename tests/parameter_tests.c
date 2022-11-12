@@ -167,6 +167,77 @@ int test_TP23() {
     return test(0,parse_parameters(argc,in_var), "TP23");
 }
 
+int test_TP24() {
+    char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-C", "-u", "tests"};
+    int argc = 5;
+
+    return test(ERR_OPT_FOLDER_PATH_MISSING,parse_parameters(argc,in_var), "TP24");
+}
+
+//===
+int test_TP25() {
+    char *in_var[] = {"./feedreader", "-f", "hosts.txt", "-T", "-a", "-u"};
+    int argc = 6;
+
+    return test(0,parse_parameters(argc,in_var), "TP25");
+}
+
+int test_TP26() {
+    char *in_var[] = {"./feedreader", "-T", "-a", "-u", "-f", "hosts.txt"};
+    int argc = 6;
+
+    return test(0,parse_parameters(argc,in_var), "TP26");
+}
+
+int test_TP27() {
+    char *in_var[] = {"./feedreader", "-c", "-a", "-f", "hosts.txt"};
+    int argc = 5;
+
+    return test(ERR_OPT_CERT_PATH_MISSING,parse_parameters(argc,in_var), "TP27");
+}
+
+int test_TP28() {
+    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-c"};
+    int argc = 5;
+
+    return test(ERR_OPT_CERT_PATH_MISSING,parse_parameters(argc,in_var), "TP28");
+}
+
+int test_TP29() {
+    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-c", "cert.pem"};
+    int argc = 6;
+
+    return test(0,parse_parameters(argc,in_var), "TP29");
+}
+
+int test_TP30() {
+    char *in_var[] = {"./feedreader", "-C", "-a", "-T", "-f", "hosts.txt"};
+    int argc = 5;
+
+    return test(ERR_OPT_FOLDER_PATH_MISSING,parse_parameters(argc,in_var), "TP30");
+}
+
+int test_TP31() {
+    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-T", "-C"};
+    int argc = 6;
+
+    return test(ERR_OPT_FOLDER_PATH_MISSING,parse_parameters(argc,in_var), "TP31");
+}
+
+int test_TP32() {
+    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-C", "tests"};
+    int argc = 6;
+
+    return test(0,parse_parameters(argc,in_var), "TP32");
+}
+
+int test_TP33() {
+    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-C", "-u", "tests"};
+    int argc = 5;
+
+    return test(ERR_OPT_FOLDER_PATH_MISSING,parse_parameters(argc,in_var), "TP33");
+}
+
 /* Copy-pasta template
 int test_TP() {
     char *in_var[] = {};
@@ -177,7 +248,7 @@ int test_TP() {
 */
 
 void run_parameter_tests(){
-    int counter = 23;
+    int counter = 33;
     int number_of_passed = 0;
 
     if (LANG) {
@@ -209,6 +280,16 @@ void run_parameter_tests(){
     number_of_passed += test_TP21();
     number_of_passed += test_TP22();
     number_of_passed += test_TP23();
+    number_of_passed += test_TP24();
+    number_of_passed += test_TP25();
+    number_of_passed += test_TP26();
+    number_of_passed += test_TP27();
+    number_of_passed += test_TP28();
+    number_of_passed += test_TP29();
+    number_of_passed += test_TP30();
+    number_of_passed += test_TP31();
+    number_of_passed += test_TP32();
+    number_of_passed += test_TP33();
     
     int failed = counter - number_of_passed;
     if (failed < 0) {

@@ -116,9 +116,7 @@ int parse_parameters (int argc, char *argv[]) {
                     optPathMissFlag = 1;
                 }
 
-                if (optind + 1 == argc) {
-                    i++;
-                }
+                i++;
                 break;
             case 'T':
                 optFlags[T_FLAG]++;
