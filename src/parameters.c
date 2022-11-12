@@ -68,10 +68,9 @@ int parse_parameters (int argc, char *argv[]) {
                 
                 return error_msg(OPT_MULTIPLE);
             }
-            res = parse_hostname(argv, i-1);
             
-            if (res) {
-                return res;
+            if (parse_hostname(argv, i-1)) {
+                return exit_value;
             }
 
             optFlags[DOMAIN_FLAG]++;

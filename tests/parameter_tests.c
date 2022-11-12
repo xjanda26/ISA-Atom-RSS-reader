@@ -199,7 +199,7 @@ int test_TP32() {
 int test_TP33() {
     char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-C", "-u", "tests"};
 
-    return test(ERR_OPT_FOLDER_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP33");
+    return test(ERR_OPT_URL_INVALID, parse_parameters(ARGV_LEN(in_var), in_var), "TP33");
 }
 
 /* Copy-pasta template
