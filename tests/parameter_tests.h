@@ -7,6 +7,8 @@
 #include "../src/host.h"
 #include "../src/parameters.h"
 
+#define ARGV_LEN(arr) sizeof(arr) / sizeof(char *)
+
 int test_TP1();
 int test_TP2();
 int test_TP3();
