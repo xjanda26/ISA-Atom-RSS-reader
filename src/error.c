@@ -8,41 +8,41 @@
 int exit_value = 0;
 int is_testing = 0;
 
-/// @brief Collection of error messages
-char *errorMgs[] = {
-    OPT_FEW,
-    OPT_UNKNOWN,
-    OPT_MULTIPLE,
-    OPT_MUL_COMBINATION,
-    OPT_MUL_DOMAINS,
-    OPT_URL_INVALID,
-    OPT_PATH_MISSING,
-    OPT_NO_HOST,
-    OPT_CERT_PATH_MISSING,
-    OPT_FOLDER_PATH_MISSING,
-    REGEX_COMPILE_FAILED,
-    TCP_UNKNOWN_ADDR,
-    TCP_NO_VALID_DEST,
-    TCP_CREATE_SOCK_FAIL,
-    TCP_CONNECTION_FAIL,
-    FILE_READING_FAILED,
-    FILE_EMPTY_INVALID_URLS,
-    SSL_CTX_CONTEXT_FAIL,
-    SSL_OBJECT_FAIL,
-    SSL_CONNECT_FAIL,
-    SSL_SERVER_NAME_INDICATION_FAIL,
-    SSL_GET_DEST_CERTIFICATE_FAIL,
-    XML_EMPTY,
-    XML_PARSING_FAIL,
-    XML_CONVERT_FAIL,
-    CERT_LOAD_FILE_FAIL,
-    CERT_LOAD_FOLDER_FAIL,
-    CERT_DEFAULT_FOLDER_FAIL,
-    CERT_VERIFY_FAIL
+/// @brief Dictionary of error messages
+const char *errorMgs[][2] = {
+    {OPT_FEW, OPT_FEW_CZ},
+    {OPT_UNKNOWN, OPT_UNKNOWN_CZ},
+    {OPT_MULTIPLE, OPT_MULTIPLE_CZ},
+    {OPT_MUL_COMBINATION, OPT_MUL_COMBINATION_CZ},
+    {OPT_MUL_DOMAINS, OPT_MUL_DOMAINS_CZ},
+    {OPT_URL_INVALID, OPT_URL_INVALID_CZ},
+    {OPT_PATH_MISSING, OPT_PATH_MISSING_CZ},
+    {OPT_NO_HOST, OPT_NO_HOST_CZ},
+    {OPT_CERT_PATH_MISSING, OPT_CERT_PATH_MISSING_CZ},
+    {OPT_FOLDER_PATH_MISSING, OPT_FOLDER_PATH_MISSING_CZ},
+    {REGEX_COMPILE_FAILED, REGEX_COMPILE_FAILED_CZ},
+    {TCP_UNKNOWN_ADDR, TCP_UNKNOWN_ADDR_CZ},
+    {TCP_NO_VALID_DEST, TCP_NO_VALID_DEST_CZ},
+    {TCP_CREATE_SOCK_FAIL, TCP_CREATE_SOCK_FAIL_CZ},
+    {TCP_CONNECTION_FAIL, TCP_CONNECTION_FAIL_CZ},
+    {FILE_READING_FAILED, FILE_READING_FAILED_CZ},
+    {FILE_EMPTY_INVALID_URLS, FILE_EMPTY_INVALID_URLS_CZ},
+    {SSL_CTX_CONTEXT_FAIL, SSL_CTX_CONTEXT_FAIL_CZ},
+    {SSL_OBJECT_FAIL, SSL_OBJECT_FAIL_CZ},
+    {SSL_CONNECT_FAIL, SSL_CONNECT_FAIL_CZ},
+    {SSL_SERVER_NAME_INDICATION_FAIL, SSL_SERVER_NAME_INDICATION_FAIL_CZ},
+    {SSL_GET_DEST_CERTIFICATE_FAIL, SSL_GET_DEST_CERTIFICATE_FAIL_CZ},
+    {XML_EMPTY, XML_EMPTY_CZ},
+    {XML_PARSING_FAIL, XML_PARSING_FAIL_CZ},
+    {XML_CONVERT_FAIL, XML_CONVERT_FAIL_CZ},
+    {CERT_LOAD_FILE_FAIL, CERT_LOAD_FILE_FAIL_CZ},
+    {CERT_LOAD_FOLDER_FAIL, CERT_LOAD_FOLDER_FAIL_CZ},
+    {CERT_DEFAULT_FOLDER_FAIL, CERT_DEFAULT_FOLDER_FAIL_CZ},
+    {CERT_VERIFY_FAIL, CERT_VERIFY_FAIL_CZ}
 };
 
 /// @brief Collection of error values
-int errorValues[] = {
+const int errorValues[] = {
     ERR_OPT_FEW,
     ERR_OPT_UNKNOWN,
     ERR_OPT_MULTIPLE,
@@ -82,7 +82,11 @@ int errVariants = 29;
 /// @param errorValue Return value with wich application exits
 /// @param msg Error description
 void print_error_msg (int errorValue, const char* msg) {
-    fprintf(stderr,"Error (code: %i). %s", errorValue, msg);
+    if (LANG) {
+        fprintf(stderr,"Chyba (kod: %i). %s\n", errorValue, msg);
+    } else {
+        fprintf(stderr,"Error (code: %i). %s\n", errorValue, msg);
+    }
 }
 
 /// @brief Function generates return value and error message 
@@ -91,21 +95,25 @@ void print_error_msg (int errorValue, const char* msg) {
 /// @return Error value
 int error_msg(const char *msg) {
     int errorValue = ERR_GENERIC;
+    int msgIndex;
 
     // Response Error
     if (strstr(msg, HTTP_RESPONSE_BAD_CODE) != NULL) {
         errorValue = ERR_HTTP_RESPONSE_BAD_CODE;
+        if (!is_testing) {
+            print_error_msg(errorValue, msg);
+        }
     } else {
-        for (int i = 0; i < errVariants; i++) {
-            if (!strcmp(msg,errorMgs[i])){
-                errorValue = errorValues[i];
+        for (msgIndex = 0; msgIndex < errVariants; msgIndex++) {
+            if (!strcmp(msg,errorMgs[msgIndex][0])){
+                errorValue = errorValues[msgIndex];
                 break;
             }
         }
-    }
 
-    if (!is_testing) {
-        print_error_msg(errorValue, msg);
+        if (!is_testing) {
+            print_error_msg(errorValue, errorMgs[msgIndex][LANG]);
+        }
     }
 
     exit_value = errorValue;

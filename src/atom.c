@@ -20,7 +20,7 @@ void print_entry() {
 
     if (optFlags[A_FLAG] > 0) {
         if (authorName) {
-            printf("%s: %s\n", AUTHOR, authorName);
+            printf("%s: %s\n",(LANG ? AUTHOR_CZ : AUTHOR), authorName);
         }
     }
 
@@ -32,7 +32,7 @@ void print_entry() {
 
     if (optFlags[T_FLAG] > 0) {
         if (updatedAt) {
-            printf("%s: %s\n", UPDATED_AT,updatedAt);
+            printf("%s: %s\n", (LANG ? UPDATED_AT_CZ : UPDATED_AT), updatedAt);
         }
     }
 

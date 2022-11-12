@@ -106,7 +106,7 @@ void send_https_request(char *hostname, char *port, char *path) {
 ///        An error might occur even after timeout of 5 seconds.
 /// @return Zero value on success or TCP or HTTP error type defined in error.h
 int receive_ssl_data() {
-    char response[BUFFER_SIZE+1];
+    char response[BUFFER_SIZE + 1];
     char *tmp_respo_pointer;
     char *body = 0;
 
@@ -118,12 +118,17 @@ int receive_ssl_data() {
     memset(response, '\0', sizeof(response));
     while (1) {
         if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
-            fprintf(stderr, "timeout after %.2f seconds.\n", TIMEOUT);
+            if (LANG) {
+                fprintf(stderr, "Error (code: %i). Response timeout after %.2f seconds.\n", ERR_TCP_TIMEOUT, TIMEOUT);
+            } else {
+                fprintf(stderr, "Chyba (kod: %i). Vypršení času na odpověd po %.2f sekundach.\n", ERR_TCP_TIMEOUT, TIMEOUT);
+            }
+            close(sock);
             return ERR_TCP_TIMEOUT;
         }
 
         int bytes_received = SSL_read(ssl, response, sizeof(response));
-        response[BUFFER_SIZE+1] = '\0';
+        response[BUFFER_SIZE + 1] = '\0';
 
         // Connection closed by peer
         if (bytes_received < 1) {
@@ -145,12 +150,19 @@ int receive_ssl_data() {
 
                     // Extracting HTTP STATUS and creating error msg
                     for (int i = 0; i < 3; i++) {
-                        http_status_s[i] = tmp_respo_pointer[i+9];
+                        http_status_s[i] = tmp_respo_pointer[i + 9];
                     }
 
                     http_status_s[3] = '\0';
-                    char *tmp = (char *) malloc((strlen(HTTP_RESPONSE_BAD_CODE)+4) * sizeof(char));
-                    strcpy(tmp, HTTP_RESPONSE_BAD_CODE);
+                    char *tmp;
+                    if (LANG) {
+                        tmp = (char *) malloc((strlen(HTTP_RESPONSE_BAD_CODE) + 4) * sizeof(char));
+                        strcpy(tmp, HTTP_RESPONSE_BAD_CODE);
+                    } else {
+                        tmp = (char *) malloc((strlen(HTTP_RESPONSE_BAD_CODE_CZ) + 4) * sizeof(char));
+                        strcpy(tmp, HTTP_RESPONSE_BAD_CODE_CZ);
+                    }
+
                     strcat(tmp, http_status_s);
                     strcat(tmp, "\n");
 

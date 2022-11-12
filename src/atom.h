@@ -7,8 +7,10 @@
 
 #include "parameters.h"
 
-#define AUTHOR "Autor"
-#define UPDATED_AT "Aktualizace"
+#define AUTHOR "Author"
+#define AUTHOR_CZ "Autor"
+#define UPDATED_AT "Updated"
+#define UPDATED_AT_CZ "Aktualizace"
 #define ENTRY_URI "URI"
 
 void process_author_node(xmlDocPtr doc, xmlNodePtr authorNode);

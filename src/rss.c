@@ -19,7 +19,7 @@ void print_item() {
 
     if (optFlags[A_FLAG] > 0) {
         if (itemAuthorName) {
-            printf("%s: %s\n", AUTHOR, itemAuthorName);
+            printf("%s: %s\n",(LANG ? AUTHOR_CZ : AUTHOR), itemAuthorName);
         }
     }
 
@@ -31,7 +31,7 @@ void print_item() {
 
     if (optFlags[T_FLAG] > 0) {
         if (itemUpdatedAt) {
-            printf("%s: %s\n", UPDATED_AT,itemUpdatedAt);
+            printf("%s: %s\n", (LANG ? UPDATED_AT_CZ : UPDATED_AT), itemUpdatedAt);
         }
     }
 

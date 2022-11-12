@@ -6,51 +6,105 @@
 #include <stdlib.h>
 #include <string.h>
 
-//=== Collection of error messages ===
-// Messages for operator errors
-#define OPT_FEW "No argument on STDIN.\n"
-#define OPT_UNKNOWN "Unknown operator.\n"
-#define OPT_MULTIPLE "Operator is used multpletimes.\n"
-#define OPT_MUL_COMBINATION "Multiple combination of operators.\n"
-#define OPT_MUL_DOMAINS "Entered multiple domain sources.\n"
-#define OPT_URL_INVALID "Entered URL is invalid.\n"
-#define OPT_PATH_MISSING "Operator '-f' requires an argument.\n"
-#define OPT_NO_HOST "No hostname nor file with hostnames entered.\n"
-#define OPT_CERT_PATH_MISSING "Operator '-c' requires an argument with file name.\n"
-#define OPT_FOLDER_PATH_MISSING "Operator '-C' requires an argument with folder name.\n"
+// EN/CZ language switch, CZ == 1, EN == 0
+#define LANG 1
 
-#define REGEX_COMPILE_FAILED "Could not compile regex.\n"
+//=== Dictionary of error messages ===
+// Messages for operator errors
+// EN
+#define OPT_FEW "No argument on STDIN."
+#define OPT_UNKNOWN "Unknown operator."
+#define OPT_MULTIPLE "Operator is used multpletimes."
+#define OPT_MUL_COMBINATION "Multiple combination of operators."
+#define OPT_MUL_DOMAINS "Entered multiple domain sources."
+#define OPT_URL_INVALID "Entered URL is invalid."
+#define OPT_PATH_MISSING "Operator '-f' requires an argument with file name."
+#define OPT_NO_HOST "No hostname nor file with hostnames entered."
+#define OPT_CERT_PATH_MISSING "Operator '-c' requires an argument with file name."
+#define OPT_FOLDER_PATH_MISSING "Operator '-C' requires an argument with folder name."
+
+#define REGEX_COMPILE_FAILED "Could not compile regex."
+// CZ
+#define OPT_FEW_CZ "Žádný argument na standarním vstupu."
+#define OPT_UNKNOWN_CZ "Neznámý vstupní argument."
+#define OPT_MULTIPLE_CZ "Vstupní argument byl použit vícekrát."
+#define OPT_MUL_COMBINATION_CZ "Vícenásobná kombinace vstupních argumentů rovnakého typu."
+#define OPT_MUL_DOMAINS_CZ "Vloženo více zdrojů cílových destinací."
+#define OPT_URL_INVALID_CZ "Vložena URL není ve validním tvaru."
+#define OPT_PATH_MISSING_CZ "Vstupní argument '-f' vyžaduje soubor."
+#define OPT_NO_HOST_CZ "Žádny zdroj cílové destinace nebyl vložen."
+#define OPT_CERT_PATH_MISSING_CZ "Vstupní argument '-c' vyžaduje soubor."
+#define OPT_FOLDER_PATH_MISSING_CZ "Vstupní argument '-C' vyžaduje složku."
+
+#define REGEX_COMPILE_FAILED_CZ "Nepodařilo se přeložit regulární výraz."
 
 // Messages for TCP communication
-#define TCP_UNKNOWN_ADDR "DNS doesn't know domain.\n"
-#define TCP_NO_VALID_DEST "Any valid destination.\n"
-#define TCP_CREATE_SOCK_FAIL "Failed to create socked.\n"
-#define TCP_CONNECTION_FAIL "Failed while creating connection to host.\n"
+// EN
+#define TCP_UNKNOWN_ADDR "DNS doesn't know domain."
+#define TCP_NO_VALID_DEST "Any valid destination."
+#define TCP_CREATE_SOCK_FAIL "Failed to create socked."
+#define TCP_CONNECTION_FAIL "Failed while creating connection to host."
+
+// CZ
+#define TCP_UNKNOWN_ADDR_CZ "DNS doesn't know domain."
+#define TCP_NO_VALID_DEST_CZ "Any valid destination."
+#define TCP_CREATE_SOCK_FAIL_CZ "Failed to create socked."
+#define TCP_CONNECTION_FAIL_CZ "Failed while creating connection to host."
 
 // File errors
-#define FILE_READING_FAILED "Cannot read file.\n"
-#define FILE_EMPTY_INVALID_URLS "File is empty or not containing valid URLs.\n"
+// EN
+#define FILE_READING_FAILED "Cannot read file."
+#define FILE_EMPTY_INVALID_URLS "File is empty or not containing valid URLs."
+
+//CZ
+#define FILE_READING_FAILED_CZ "Cannot read file."
+#define FILE_EMPTY_INVALID_URLS_CZ "File is empty or not containing valid URLs."
 
 // HTTP errors
+// EN
 #define HTTP_RESPONSE_BAD_CODE "Host responsed with status code "
 
+// CZ
+#define HTTP_RESPONSE_BAD_CODE_CZ "Host responsed with status code "
+
 // SSL errors
-#define SSL_CTX_CONTEXT_FAIL "Fail while creating CTX context.\n"
-#define SSL_OBJECT_FAIL "Fail while creating SSL object.\n"
-#define SSL_CONNECT_FAIL "Cannot SSL connect to destination.\n"
-#define SSL_SERVER_NAME_INDICATION_FAIL "Server Name Indication failed.\n"
-#define SSL_GET_DEST_CERTIFICATE_FAIL "Getting destination certificate failed.\n"
+// EN
+#define SSL_CTX_CONTEXT_FAIL "Fail while creating CTX context."
+#define SSL_OBJECT_FAIL "Fail while creating SSL object."
+#define SSL_CONNECT_FAIL "Cannot SSL connect to destination."
+#define SSL_SERVER_NAME_INDICATION_FAIL "Server Name Indication failed."
+#define SSL_GET_DEST_CERTIFICATE_FAIL "Getting destination certificate failed."
+
+// CZ
+#define SSL_CTX_CONTEXT_FAIL_CZ "Fail while creating CTX context."
+#define SSL_OBJECT_FAIL_CZ "Fail while creating SSL object."
+#define SSL_CONNECT_FAIL_CZ "Cannot SSL connect to destination."
+#define SSL_SERVER_NAME_INDICATION_FAIL_CZ "Server Name Indication failed."
+#define SSL_GET_DEST_CERTIFICATE_FAIL_CZ "Getting destination certificate failed."
 
 // XML errors
-#define XML_EMPTY "XML file is empty.\n"
-#define XML_PARSING_FAIL "Parsing XML file failed.\n"
-#define XML_CONVERT_FAIL "Converting to XML string failed.\n"
+// EN
+#define XML_EMPTY "XML file is empty."
+#define XML_PARSING_FAIL "Parsing XML file failed."
+#define XML_CONVERT_FAIL "Converting to XML string failed."
+
+// CZ
+#define XML_EMPTY_CZ "XML file is empty."
+#define XML_PARSING_FAIL_CZ "Parsing XML file failed."
+#define XML_CONVERT_FAIL_CZ "Converting to XML string failed."
 
 // Certificate errors
-#define CERT_LOAD_FILE_FAIL "Fail while loading certificate file.\n"
-#define CERT_LOAD_FOLDER_FAIL "Fail while loading certificates folder.\n"
-#define CERT_DEFAULT_FOLDER_FAIL "Fail while setting default certificates folder.\n"
-#define CERT_VERIFY_FAIL "Failed to verify certificate.\n"
+// EN
+#define CERT_LOAD_FILE_FAIL "Fail while loading certificate file."
+#define CERT_LOAD_FOLDER_FAIL "Fail while loading certificates folder."
+#define CERT_DEFAULT_FOLDER_FAIL "Fail while setting default certificates folder."
+#define CERT_VERIFY_FAIL "Failed to verify certificate."
+
+// CZ
+#define CERT_LOAD_FILE_FAIL_CZ "Fail while loading certificate file."
+#define CERT_LOAD_FOLDER_FAIL_CZ "Fail while loading certificates folder."
+#define CERT_DEFAULT_FOLDER_FAIL_CZ "Fail while setting default certificates folder."
+#define CERT_VERIFY_FAIL_CZ "Failed to verify certificate."
 
 //=== Collection of error values ===
 #define SUCCESS 0
