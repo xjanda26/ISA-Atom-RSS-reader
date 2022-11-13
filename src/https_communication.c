@@ -29,20 +29,12 @@ int init_ssl() {
         return error_msg(SSL_CTX_CONTEXT_FAIL);
     }
 
-    if (optFlags[C_FLAG] > 0) {
-        if (certPath) {
-            if (SSL_CTX_load_verify_locations(ctx, certPath, NULL) != 1) {
-                error_msg(CERT_LOAD_FILE_FAIL);
-                return exit_value;
-            }
-        }
-    } else if (optFlags[CC_FLAG] > 0) {
-        if (certFolder) {
-            if (SSL_CTX_load_verify_locations(ctx, NULL, certFolder) != 1) {
-                error_msg(CERT_LOAD_FOLDER_FAIL);
-                return exit_value;
-            }
-        }
+    if (optFlags[C_FLAG] > 0 && certPath && SSL_CTX_load_verify_locations(ctx, certPath, NULL) != 1) {
+        error_msg(CERT_LOAD_FILE_FAIL);
+        return exit_value;
+    } else if (optFlags[CC_FLAG] > 0 && certFolder && SSL_CTX_load_verify_locations(ctx, NULL, certFolder) != 1) {
+        error_msg(CERT_LOAD_FOLDER_FAIL);
+        return exit_value;
     } else if (SSL_CTX_set_default_verify_paths(ctx) != 1) {
         SSL_CTX_free(ctx);
         error_msg(CERT_DEFAULT_FOLDER_FAIL);
@@ -186,7 +178,7 @@ int receive_ssl_data() {
 
         if (body && !is_body_without_h) {
             // Part of data right after HTTP header
-            xmlResponse = (char*) malloc((strlen(body) + 1) * sizeof(char));
+            xmlResponse = (char *) malloc((strlen(body) + 1) * sizeof(char));
             memcpy(xmlResponse, body, strlen(body) + 1);
             is_body_without_h = 1;        
         } else {
@@ -196,11 +188,11 @@ int receive_ssl_data() {
             if (tmp_respo_pointer) {
                 // The end of received data
                 size_t respo_len_until_end = respo_len - strlen(tmp_respo_pointer);
-                xmlResponse = (char*) realloc(xmlResponse, (strlen(xmlResponse) + respo_len_until_end + 1) * sizeof(char));
+                xmlResponse = (char *) realloc(xmlResponse, (strlen(xmlResponse) + respo_len_until_end + 1) * sizeof(char));
                 strncat(xmlResponse, response, respo_len_until_end);
             } else {
                 // The middle of received data
-                xmlResponse = (char*) realloc(xmlResponse, (strlen(response) + strlen(xmlResponse) + 2) * sizeof(char));
+                xmlResponse = (char *) realloc(xmlResponse, (strlen(response) + strlen(xmlResponse) + 2) * sizeof(char));
                 strcat(xmlResponse, response);
             }
         }
