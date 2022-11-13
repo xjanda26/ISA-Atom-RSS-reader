@@ -15,15 +15,22 @@ int init_ssl() {
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
 
-    ctx = SSL_CTX_new(TLS_client_method());
+    const SSL_METHOD *method;
+
+    // if OpenSSL library version is 1.1.0 or greater
+    #if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        method = TLS_client_method();
+    #else
+        method = DTLS_client_method();
+    #endif
+
+    ctx = SSL_CTX_new(method);
     if(!ctx) {
         return error_msg(SSL_CTX_CONTEXT_FAIL);
     }
 
     if (optFlags[C_FLAG] > 0) {
         if (certPath) {
-            printf("FILE cert\n");
-            //if (SSL_CTX_load_verify_file(ctx, certPath) != 1) {
             if (SSL_CTX_load_verify_locations(ctx, certPath, NULL) != 1) {
                 error_msg(CERT_LOAD_FILE_FAIL);
                 return exit_value;
@@ -31,7 +38,6 @@ int init_ssl() {
         }
     } else if (optFlags[CC_FLAG] > 0) {
         if (certFolder) {
-            //if (SSL_CTX_load_verify_dir(ctx, certFolder) != 1) {
             if (SSL_CTX_load_verify_locations(ctx, NULL, certFolder) != 1) {
                 error_msg(CERT_LOAD_FOLDER_FAIL);
                 return exit_value;
