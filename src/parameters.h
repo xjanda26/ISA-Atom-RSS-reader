@@ -2,9 +2,8 @@
  * Author: Adam Janda, xjanda26@stud.fit.vutbr.cz
 */
 
-//#define _POSIX_C_SOURCE 2
-
 #include <ctype.h>
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
