@@ -183,4 +183,5 @@ int parse_parameters (int argc, char *argv[]) {
     }
 
     return SUCCESS;
+    printf("Parsing done\n\n");
 }
