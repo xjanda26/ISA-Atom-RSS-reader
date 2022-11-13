@@ -56,32 +56,40 @@ int parse_parameters (int argc, char *argv[]) {
     while (i - 1 < argc) {
         opt = getopt(argc, argv, "ac:C:f:Tu");
 
+        printf("ARGC:%i, OPTIND:%i, OPT:%c, I:%i\n", argc, optind, opt, i);
         if (opt == 'c' || opt == 'C' || opt == 'f') {
             optind --;
         }
 
+        printf("ARGC:%i, OPTIND:%i, OPT:%c, I:%i\n", argc, optind, opt, i);
         if (i != optind) {
-            if (optFlags[DOMAIN_FLAG] > 0 ) {
-                if (optFlags[F_FLAG] > 0) {
-                    return error_msg(OPT_MUL_DOMAINS);
+            if (!optPathMissFlag && !optCertFileMissFlag && !optCertFolderMissFlag) {
+                printf("Hostname parsing: %s\n", argv[i-1]);
+                if (optFlags[DOMAIN_FLAG] > 0 ) {
+                    if (optFlags[F_FLAG] > 0) {
+                        return error_msg(OPT_MUL_DOMAINS);
+                    }
+
+                    return error_msg(OPT_MULTIPLE);
                 }
-                
-                return error_msg(OPT_MULTIPLE);
-            }
             
-            if (parse_hostname(argv, i-1)) {
-                return exit_value;
-            }
+                if (parse_hostname(argv, i-1)) {
+                    return exit_value;
+                }
 
-            optFlags[DOMAIN_FLAG]++;
+                optFlags[DOMAIN_FLAG]++;
 
-            if (i == argc) {
+                if (i == argc) {
+                    break;
+                }
+
+                i++;
+            } else {
                 break;
             }
-
-            i++;
         }
 
+        printf("OPT parsing:%c\n", opt);
         switch(opt) {
             case 'a':
                 optFlags[A_FLAG]++;
@@ -93,9 +101,7 @@ int parse_parameters (int argc, char *argv[]) {
                     optCertFileMissFlag = 1;
                 }
 
-                if (optind + 1 == argc) {
-                    i++;
-                }
+                i++;
                 break;
             case 'C':
                 optFlags[CC_FLAG]++;
@@ -104,9 +110,7 @@ int parse_parameters (int argc, char *argv[]) {
                     optCertFolderMissFlag = 1;
                 }
 
-                if (optind + 1 == argc) {
-                    i++;
-                }
+                i++;
                 break;
             case 'f':
                 optFlags[F_FLAG]++;
@@ -135,6 +139,7 @@ int parse_parameters (int argc, char *argv[]) {
                 }
         }
         i++;
+        printf("ARGC:%i, OPTIND:%i, OPT:%c, I:%i\n--\n\n", argc, optind, opt, i);
     }
 
     if (optErrFlag) {

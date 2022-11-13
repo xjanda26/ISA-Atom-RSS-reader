@@ -145,7 +145,7 @@ int test_TP23() {
 int test_TP24() {
     char *in_var[] = {"./feedreader", "-a", "https://www.fit.vut.cz/fit/news-rss/", "-C", "-u", "tests"};
 
-    return test(ERR_OPT_MULTIPLE, parse_parameters(ARGV_LEN(in_var), in_var), "TP24");
+    return test(ERR_OPT_FOLDER_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP24");
 }
 
 int test_TP25() {
@@ -199,7 +199,19 @@ int test_TP32() {
 int test_TP33() {
     char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-C", "-u", "tests"};
 
-    return test(ERR_OPT_URL_INVALID, parse_parameters(ARGV_LEN(in_var), in_var), "TP33");
+    return test(ERR_OPT_FOLDER_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP33");
+}
+
+int test_TP34() {
+    char *in_var[] = {"./feedreader", "-u", "-c", "FIT-cert", "https://www.fit.vut.cz/fit/news-rss/"};
+
+    return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP34");
+}
+
+int test_TP35() {
+    char *in_var[] = {"./feedreader", "-a", "-c", "FIT-cert", "-f", "hosts.txt"};
+
+    return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP35");
 }
 
 /* Copy-pasta template
@@ -211,7 +223,7 @@ int test_TP() {
 */
 
 void run_parameter_tests(){
-    int counter = 33;
+    int counter = 35;
     int number_of_passed = 0;
 
     if (LANG) {
@@ -253,6 +265,8 @@ void run_parameter_tests(){
     number_of_passed += test_TP31();
     number_of_passed += test_TP32();
     number_of_passed += test_TP33();
+    number_of_passed += test_TP34();
+    number_of_passed += test_TP35();
     
     int failed = counter - number_of_passed;
     if (failed < 0) {
