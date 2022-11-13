@@ -66,10 +66,8 @@ int receive_data() {
                 body += 4; // shift pointer after "\r\n\r\n"
 
                 // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
-                ///TODO: otetsovat aj pre http 1.0
                 tmp_respo_pointer = strstr(response, "200 OK");
-                if (!tmp_respo_pointer) {
-                    ///TODO: otestovat pre http 1.0/1.1
+                if (!tmp_respo_pointer) { 
                     tmp_respo_pointer = strstr(response, "HTTP/1.");
                     char http_status_s[4];
 
