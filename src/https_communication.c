@@ -15,7 +15,7 @@ int init_ssl() {
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
 
-    ctx = SSL_CTX_new(TLSv1_2_client_method());
+    ctx = SSL_CTX_new(TLS_client_method());
     if(!ctx) {
         return error_msg(SSL_CTX_CONTEXT_FAIL);
     }
