@@ -15,10 +15,10 @@ int *secure;
 /// @param dest_count Number of remote hosts
 void init_destinations(int dest_count) {
     destinations_counter = 0;
-    hosts = malloc(dest_count * sizeof(char*));
-    paths = malloc(dest_count * sizeof(char*));
-    ports = malloc(dest_count * sizeof(char*));
-    secure = (int*) malloc(dest_count * sizeof(int));
+    hosts = malloc(dest_count * sizeof(char *));
+    paths = malloc(dest_count * sizeof(char *));
+    ports = malloc(dest_count * sizeof(char *));
+    secure = (int *) malloc(dest_count * sizeof(int));
 }
 
 /// @brief Function deallocates reserved memory.
@@ -94,7 +94,7 @@ int parse_url (char *url, int is_getting_data) {
         regoff_t off; 
         regoff_t len;
 
-        port = (char*) malloc(6 * sizeof(char));
+        port = (char *) malloc(6 * sizeof(char));
 
         strcpy(port, "80");
 
@@ -104,45 +104,43 @@ int parse_url (char *url, int is_getting_data) {
 
             if (len + off <= urlPartIndex) {
                 continue;
-            } else {
-                urlPartIndex = off + len;
-
-                char *tmp = (char*) malloc((len+1) * sizeof(char));
-            
-                int w = 0;
-                for (int j = off; j < (len+off); j++) {
-                    tmp[w] = url[j];
-                    w++;
-                }
-
-                tmp[w] = '\0';
-
-                int tmp_len = strlen(tmp);
-                if ((strcmp("https", tmp)) == 0) {
-                    isSecure = 1;
-                    strcpy(port, "443");
-                } else if(tmp[0] == ':') {
-                    memmove(tmp, tmp + 1, tmp_len);
-                    strcpy(port, tmp);
-                } else { 
-                    hostname = (char*) malloc((tmp_len + 1) * sizeof(char));
-                    strcpy(hostname, tmp);
-                }
-
-                free(tmp);
             }
+            
+            urlPartIndex = off + len;
+
+            char *tmp = (char *) malloc((len + 1) * sizeof(char));
+            
+            int w = 0;
+            for (int j = off; j < (len + off); w++, j++) {
+                tmp[w] = url[j];
+            }
+
+            tmp[w] = '\0';
+
+            int tmp_len = strlen(tmp);
+            if ((strcmp("https", tmp)) == 0) {
+                isSecure = 1;
+                strcpy(port, "443");
+            } else if(tmp[0] == ':') {
+                memmove(tmp, tmp + 1, tmp_len);
+                strcpy(port, tmp);
+            } else { 
+                hostname = (char *) malloc((tmp_len + 1) * sizeof(char));
+                strcpy(hostname, tmp);
+            }
+
+            free(tmp);
         }
     
         off = urlPartIndex;
         len = urlLen - urlPartIndex;
 
         if (len) {
-            path = (char*) malloc((urlLen+1) * sizeof(char));
+            path = (char *) malloc((urlLen + 1) * sizeof(char));
 
             int w = 0;
-            for (int j = off; j < (len+off); j++) {
+            for (int j = off; j < (len + off); w++, j++) {
                 path[w] = url[j];
-                w++;
             }
             path[w]='\0';
         } else {
@@ -174,12 +172,8 @@ int read_urls(FILE *fp, int is_getting_data) {
 
     int urlCount = 0;
     while ((getline(&line, &len, fp)) != -1) {
-        if(strlen(line) > 1) {
-            if (line[0] != '#') {
-                if(!parse_url(line,is_getting_data)){
-                    urlCount++;
-                }
-            }            
+        if(strlen(line) > 1 && line[0] != '#' && !parse_url(line,is_getting_data)) {
+            urlCount++;            
         }        
     }
 
