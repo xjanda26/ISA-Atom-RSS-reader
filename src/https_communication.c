@@ -22,14 +22,17 @@ int init_ssl() {
 
     if (optFlags[C_FLAG] > 0) {
         if (certPath) {
-            if (SSL_CTX_load_verify_file(ctx, certPath) != 1) {
+            printf("FILE cert\n");
+            //if (SSL_CTX_load_verify_file(ctx, certPath) != 1) {
+            if (SSL_CTX_load_verify_locations(ctx, certPath, NULL) != 1) {
                 error_msg(CERT_LOAD_FILE_FAIL);
                 return exit_value;
             }
         }
     } else if (optFlags[CC_FLAG] > 0) {
         if (certFolder) {
-            if (SSL_CTX_load_verify_dir(ctx, certFolder) != 1) {
+            //if (SSL_CTX_load_verify_dir(ctx, certFolder) != 1) {
+            if (SSL_CTX_load_verify_locations(ctx, NULL, certFolder) != 1) {
                 error_msg(CERT_LOAD_FOLDER_FAIL);
                 return exit_value;
             }
@@ -76,6 +79,7 @@ int verify_certificate() {
     X509_free(cert);
 
     int verifyResult = SSL_get_verify_result(ssl);
+    printf("verification result val: %i\n", verifyResult);
     if (verifyResult != X509_V_OK) {
         error_msg(CERT_VERIFY_FAIL);
         return exit_value;
