@@ -8,10 +8,21 @@
 /// @param doc Parsed XML object
 /// @param node Feed element
 void process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
+    int isFirstEntry = 1;
     while (node != NULL) {
-        process_feed_title_node(doc, node);
-        process_entry_node(doc, node);
-        
+        if ((xmlStrcmp(node->name, (const xmlChar *) "text"))) {
+            if ((!xmlStrcmp(node->name, (const xmlChar *) "title"))) {
+                process_feed_title_node(doc, node);
+            } else if ((!xmlStrcmp(node->name, (const xmlChar *) "entry"))) {
+                process_entry_node(doc, node);
+
+                if (isFirstEntry) {
+                    isFirstEntry = 0;
+                } else if (optFlags[A_FLAG] || optFlags[T_FLAG] || optFlags[U_FLAG]) {
+                    printf("\n");
+                }
+            }
+        }
         node = node->next;
     }
 }
