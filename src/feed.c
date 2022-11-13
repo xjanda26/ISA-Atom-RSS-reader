@@ -31,14 +31,24 @@ void process_feed_node(xmlDocPtr doc, xmlNodePtr node) {
 /// @param doc Parsed XML object
 /// @param node Rss element
 void process_rss_node(xmlDocPtr doc, xmlNodePtr node) {
+    int isFirstItem = 1;
     while (node != NULL) {
         if ((!xmlStrcmp(node->name, (const xmlChar *) "channel"))) {
             xmlNodePtr channelChild = node->children;
 
             while (channelChild != NULL) {
                 if ((xmlStrcmp(channelChild->name, (const xmlChar *) "text"))) {
-                    process_rss_title_node(doc, channelChild);
-                    process_item_nodes(doc, channelChild);
+                    if ((!xmlStrcmp(channelChild->name, (const xmlChar *) "title"))) {
+                        process_rss_title_node(doc, channelChild);
+                    } else if ((!xmlStrcmp(channelChild->name, (const xmlChar *) "item"))) {
+                        process_item_nodes(doc, channelChild);
+
+                        if (isFirstItem) {
+                            isFirstItem = 0;
+                        } else if (optFlags[A_FLAG] || optFlags[T_FLAG] || optFlags[U_FLAG]) {
+                            printf("\n");
+                        }
+                    }
                 }
 
                 channelChild = channelChild->next;
