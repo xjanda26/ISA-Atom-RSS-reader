@@ -54,7 +54,6 @@ void process_rss_node(xmlDocPtr doc, xmlNodePtr node) {
 ///        Distinguishes between RSS and Atom feed types.
 /// @return Zero value on success or any of XML error types defined in error.h
 int process_xml() {
-    ///TODO: ak nepracujeme s UTF-8, musíme convertovat do UTF-8
     xmlChar *xml = xmlCharStrdup(xmlResponse);
     xmlDocPtr xmlTree;
 
