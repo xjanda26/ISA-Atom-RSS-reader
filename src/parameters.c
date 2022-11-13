@@ -45,7 +45,7 @@ int parse_parameters (int argc, char *argv[]) {
     optind = 1; //kvoli testom. Ked sa posebe vola getopt, optind ostáva po predchadzajucom pouziti
     init_parameter_variables();
 
-    int opt, res, i = 2;
+    int opt, i = 2;
     int optErrFlag = 0, optPathMissFlag = 0;
     int optCertFileMissFlag = 0, optCertFolderMissFlag = 0;
     

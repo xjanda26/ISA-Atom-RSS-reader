@@ -2,7 +2,7 @@
  * Author: Adam Janda, xjanda26@stud.fit.vutbr.cz
 */
 
-#include "error.h"
+#include "../src/error.h"
 #include "parameter_tests.h"
 
 void run_test() {
