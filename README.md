@@ -40,15 +40,15 @@ Užívateľ si môže nechať vypísať dátum publikovania, URI na konkrétny p
     │   ├── rss.c
     │   ├── rss.h
     │   ├── tcp_communication.c
-    │   ├── tcp_communication.h 
+    │   └── tcp_communication.h 
     ├── tests                   # Automatizované testy
-    |   ├── examples            # Príklady
-    |   |   └── ...
+    │   ├── examples            # Príklady
+    │   │   └── ...
     │   ├── parameter_tests.c
     │   ├── parameter_tests.h
     │   ├── tests.c
     │   ├── unit_testing.c
-    │   ├── unit_testing.h
+    │   └── unit_testing.h
     ├── Makefile
     ├── manual.pdf
     └── README.md
