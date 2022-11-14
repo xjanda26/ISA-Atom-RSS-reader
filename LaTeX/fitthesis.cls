@@ -225,6 +225,15 @@
 %Vyber typu projektu / project type selection
 \newcommand{\set@project}[1]{%
  \naselfalse
+ \ifEqString{#1}{TD}{Technická dokumentace}{\@projecttype@CS}%
+% \ifEqString{#1}{SP}{Semestrálny projekt}{\@projecttype@SK}%
+ \ifEqString{#1}{TD}{Technická dokumentace}{\@projecttype@SK}%
+ \ifEqString{#1}{TD}{Technical documentation}{\@projecttype@EN}%
+ \ifEqString{#1}{TD}{Vedoucí práce}{\@supervisor@CS}%
+% \ifEqString{#1}{SP}{Vedúci práce}{\@supervisor@SK}%
+ \ifEqString{#1}{TD}{Vedoucí práce}{\@supervisor@SK}%
+ \ifEqString{#1}{TD}{Supervisor}{\@supervisor@EN}%
+
  \ifEqString{#1}{BP}{Bakalářská práce}{\@projecttype@CS}%
 % \ifEqString{#1}{BP}{Bakalárska práca}{\@projecttype@SK}%
  \ifEqString{#1}{BP}{Bakalářská práce}{\@projecttype@SK}%
@@ -276,7 +285,7 @@
  \ifEqString{#1}{DT}{Supervisor}{\@supervisor@EN}%
  \ifnasel
  \else
-   \typeout{Spatny typ projektu! Moznosti: BP, SP, DP, DR, DT, DA}\set@project{BP}
+   \typeout{Spatny typ projektu! Moznosti: BP, SP, DP, DR, DT, DA, TD}\set@project{BP}
  \fi
 }
 
@@ -564,6 +573,7 @@ Management}{\@fit@EN}%
 \addtolength{\voffset}{0.95cm}
 }
 
+\iffalse
 %-----------------------------------------------------------------------------
 % Abstrakt, klicova slova \makeabstract
 % Abstract, keywords \makeabstract
@@ -721,7 +731,7 @@ Management}{\@fit@EN}%
   \newpage
 \fi
 }
-
+\fi
 %-----------------------------------------------------------------------------
 % Uvodni stranky \maketitle
 % Introductory pages \maketitle
