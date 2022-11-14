@@ -11,7 +11,7 @@ int test_TP1() {
 }
 
 int test_TP2() {
-    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/", "-f", "files/test.txt"};
+    char *in_var[] = {"./feedreader", "https://www.fit.vut.cz/fit/news-rss/", "-f", "tests/examples/test.txt"};
 
     return test(ERR_OPT_MUL_DOMAINS, parse_parameters(ARGV_LEN(in_var), in_var), "TP2");
 }
@@ -149,49 +149,49 @@ int test_TP24() {
 }
 
 int test_TP25() {
-    char *in_var[] = {"./feedreader", "-f", "hosts.txt", "-T", "-a", "-u"};
+    char *in_var[] = {"./feedreader", "-f", "tests/examples/hosts.txt", "-T", "-a", "-u"};
 
     return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP25");
 }
 
 int test_TP26() {
-    char *in_var[] = {"./feedreader", "-T", "-a", "-u", "-f", "hosts.txt"};
+    char *in_var[] = {"./feedreader", "-T", "-a", "-u", "-f", "tests/examples/hosts.txt"};
 
     return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP26");
 }
 
 int test_TP27() {
-    char *in_var[] = {"./feedreader", "-c", "-a", "-f", "hosts.txt"};
+    char *in_var[] = {"./feedreader", "-c", "-a", "-f", "tests/examples/hosts.txt"};
 
     return test(ERR_OPT_CERT_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP27");
 }
 
 int test_TP28() {
-    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-c"};
+    char *in_var[] = {"./feedreader", "-a", "-f", "tests/examples/hosts.txt", "-c"};
 
     return test(ERR_OPT_CERT_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP28");
 }
 
 int test_TP29() {
-    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-c", "cert.pem"};
+    char *in_var[] = {"./feedreader", "-a", "-f", "tests/examples/hosts.txt", "-c", "cert.pem"};
 
     return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP29");
 }
 
 int test_TP30() {
-    char *in_var[] = {"./feedreader", "-C", "-a", "-T", "-f", "hosts.txt"};
+    char *in_var[] = {"./feedreader", "-C", "-a", "-T", "-f", "tests/examples/hosts.txt"};
 
     return test(ERR_OPT_FOLDER_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP30");
 }
 
 int test_TP31() {
-    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-T", "-C"};
+    char *in_var[] = {"./feedreader", "-a", "-f", "tests/examples/hosts.txt", "-T", "-C"};
 
     return test(ERR_OPT_FOLDER_PATH_MISSING, parse_parameters(ARGV_LEN(in_var), in_var), "TP31");
 }
 
 int test_TP32() {
-    char *in_var[] = {"./feedreader", "-a", "-f", "hosts.txt", "-C", "tests"};
+    char *in_var[] = {"./feedreader", "-a", "-f", "tests/examples/hosts.txt", "-C", "tests"};
 
     return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP32");
 }
@@ -203,13 +203,13 @@ int test_TP33() {
 }
 
 int test_TP34() {
-    char *in_var[] = {"./feedreader", "-u", "-c", "FIT-cert", "https://www.fit.vut.cz/fit/news-rss/"};
+    char *in_var[] = {"./feedreader", "-u", "-c", "tests/examples/FIT-cert", "https://www.fit.vut.cz/fit/news-rss/"};
 
     return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP34");
 }
 
 int test_TP35() {
-    char *in_var[] = {"./feedreader", "-a", "-c", "FIT-cert", "-f", "hosts.txt"};
+    char *in_var[] = {"./feedreader", "-a", "-c", "tests/examples/FIT-cert", "-f", "tests/examples/hosts.txt"};
 
     return test(SUCCESS, parse_parameters(ARGV_LEN(in_var), in_var), "TP35");
 }

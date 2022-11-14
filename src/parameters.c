@@ -56,15 +56,12 @@ int parse_parameters (int argc, char *argv[]) {
     while (i - 1 < argc) {
         opt = getopt_long(argc, argv, "ac:C:f:Tu", NULL, &optind);
 
-        printf("ARGC:%i, OPTIND:%i, OPT:%c, I:%i\n", argc, optind, opt, i);
         if (opt == 'c' || opt == 'C' || opt == 'f') {
             optind --;
         }
 
-        printf("ARGC:%i, OPTIND:%i, OPT:%c, I:%i\n", argc, optind, opt, i);
         if (i != optind) {
             if (!optPathMissFlag && !optCertFileMissFlag && !optCertFolderMissFlag) {
-                printf("Hostname parsing: %s\n", argv[i-1]);
                 if (optFlags[DOMAIN_FLAG] > 0 ) {
                     if (optFlags[F_FLAG] > 0) {
                         return error_msg(OPT_MUL_DOMAINS);
@@ -89,7 +86,6 @@ int parse_parameters (int argc, char *argv[]) {
             }
         }
 
-        printf("OPT parsing:%c\n", opt);
         switch(opt) {
             case 'a':
                 optFlags[A_FLAG]++;
@@ -139,7 +135,6 @@ int parse_parameters (int argc, char *argv[]) {
                 }
         }
         i++;
-        printf("ARGC:%i, OPTIND:%i, OPT:%c, I:%i\n--\n\n", argc, optind, opt, i);
     }
 
     if (optErrFlag) {
@@ -182,6 +177,5 @@ int parse_parameters (int argc, char *argv[]) {
         }
     }
 
-    printf("Parsing done\n\n");
     return SUCCESS;
 }

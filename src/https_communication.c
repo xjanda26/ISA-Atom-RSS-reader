@@ -24,6 +24,7 @@ int init_ssl() {
 
     const SSL_METHOD *method;
 
+    // https://www.openssl.org/docs/man3.0/man3/DTLS_client_method.html
     // if OpenSSL library version is 1.1.0 or greater
     #if OPENSSL_VERSION_NUMBER >= 0x10100000L
         method = TLS_client_method();
@@ -81,6 +82,7 @@ int init_tls_connection(char *hostname) {
 }
 
 /// @brief Function gets host's certificate and verify it with loaded certificates
+///        https://www.openssl.org/docs/man3.0/man1/openssl-verification-options.html
 /// @return Zero value on success or SSL or CERT error type defined in error.h
 int verify_certificate() {
     /**
@@ -98,7 +100,6 @@ int verify_certificate() {
     X509_free(cert);
 
     int verifyResult = SSL_get_verify_result(ssl);
-    printf("verification result val: %i\n", verifyResult);
     if (verifyResult != X509_V_OK) {
         error_msg(CERT_VERIFY_FAIL);
         return exit_value;

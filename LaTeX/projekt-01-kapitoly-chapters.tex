@@ -119,6 +119,8 @@ Prijímanie a uloženie je taktiež naimplementované v súboroch
 
 Ako úspešnú odpoveď, implementácia považuje odpoveď so statusom {\tt 200}. Všetky ostatné\cite{ibmHttp} sú brané ako neúspešná odpoveď a spracovanie dát sa ukončuje. Užívateľ si môže v chybovej hláške nájsť.
 
+Keďže do verzie knižnice openssl 1.1.0 funguje iná funkcia pre získanie metódy (slúži pre vytvorenie CTX kontextu), ako pre vyššie verzie, je v implemetácii kontrola pre verziu používanej knižnice openssl\cite{openSslMet}.
+
 Inšpiráciou pre prijímanie odpovedí z sielového serveru boli už spomínaná prednáška docenta Matoušku\cite{Matousek} a refrečná kniha predmetu ISA\cite{Winkle}.
 
 Ukážky kódu z refrečnej knihy predmetu ISA\cite{Winkle}, po úpravách a rozšíreniach, boli taktiež použité, ako inšpirácia pre pre TLS komunikáciu a prácu s certifikátmi vo funkciách súboru {\tt ../src/https\_communication.c}.
@@ -139,7 +141,7 @@ V prípade, že boli použité dodatočné parametre, články sú oddelené jed
 Ak nejaká dodatočná informácia chýba, alebo nebola vybraná, preskočí sa a vypíše sa ďalšia v poradí.
 
 \subsubsection{Atom a RSS}
-Spracovanie je implementované v {\tt ../src/atom.c} a v {\tt ../src/rss.c}.
+Spracovanie je implementované v {\tt ../src/atom.c}\cite{atomSpec} a v {\tt ../src/rss.c}\cite{rssSpec}.
 
 \subsection*{Oštrenie chýb}
 \label{err_label}
