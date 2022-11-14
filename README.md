@@ -42,6 +42,8 @@ Užívateľ si môže nechať vypísať dátum publikovania, URI na konkrétny p
     │   ├── tcp_communication.c
     │   ├── tcp_communication.h 
     ├── tests                   # Automatizované testy
+    |   ├── examples            # Príklady
+    |   |   └── ...
     │   ├── parameter_tests.c
     │   ├── parameter_tests.h
     │   ├── tests.c
