@@ -1053,6 +1053,7 @@ Management}{\@fit@EN}%
 \fontfamily{\familydefault}\selectfont%
 
 %=================================================================================
+\iffalse
 \makeabstract
 \ifx\@textendedabstract\@empty
 \else
@@ -1062,7 +1063,7 @@ Management}{\@fit@EN}%
 \clearpage
 \setcounter{tocdepth}{2}\setcounter{page}{1}
 }
-
+\fi
 %-----------------------------------------------------------------------------
 \def\uv#1{\iflanguage{english}{``#1''}%
                               {\quotedblbase #1\textquotedblleft}}%
