@@ -4,10 +4,10 @@
   - Dátum vytvorenia: 14.11.2022
 
 ## Popis aplikácie
-Aplikácia sa pripája k požadovanému zdroju, stiahne ATOM alebo RSS v2.0 dáta, spracuje ich a vypíše užívateľovi na štandarný výstup. Pri HTTPS komunikácii, aplikácia podporuje SSL/TLS pre overenie certifikátu zdroju.
+Aplikácia sa pripája k požadovanému zdroju, stiahne ATOM alebo RSS v2.0 dáta, spracuje ich a vypíše užívateľovi na štandardný výstup. Pri HTTPS komunikácii, aplikácia podporuje SSL/TLS pre overenie certifikátu zdroju.
 Požadovaný zdroj môže byť vložený pomocou jednej URL alebo pomocou súboru s viacerými URL pri spustení aplikácie.
 Vždy sa vypíše názov zdroju a názvy jednotlivých príspevkov.
-Užívateľ si môže nechať vypísať dátum publikovania, URL na konkrétny príspevok a autora príspevku.
+Užívateľ si môže nechať vypísať dátum publikovania, URI na konkrétny príspevok a autora príspevku.
 ## Rozšírenia
   - Rôzne návratové hodnoty pri chybách, definovaných v `../src/error.h`
   - Lokalizácia správ aplikácie do čestiny a angličtiny. Prepínač je v `../src/error.h`

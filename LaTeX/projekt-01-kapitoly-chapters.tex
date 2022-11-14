@@ -1,17 +1,18 @@
 % Tento soubor nahraďte vlastním souborem s obsahem práce.
 %=========================================================================
-% Autoři: Michal Bidlo, Bohuslav Křena, Jaroslav Dytrych, Petr Veigend a Adam Herout 2019
+% Autor: Adam Janda, xjanda26
 \chapter{Úvod}
 Tento dokument popisuje riešenie automatického získavania a spracovania noviniek zo vzdialeného serveru s podporou pre zabezpečenú komunikáciu. 
 
-Táto kapitola približuje základné a zjednodušené fungovanie jednotlivých častí implementácie.
+Nasledujúcich kapitolách sa priblížia základné a zjednodušené fungovanie jednotlivých častí implementácie. Najprv sa uzrejmia základné informácie, odlišnosti od zadania, obmedzenia, spôsob kompilácie celého projektu/aplikácie a testy aplikácie. Potom sa spomenie stronová štruktúra súborov a priečinkov, a lokalizácia. Nakoniec sa v stručnosti vysvetlí implementácia, chybové ošetrenia a príklady použitia.
 
 \chapter{Základné informácie}
 \label{basic_info}
-Naimplementovaná aplikácia sa pripája k požadovanému zdroju, stiahne ATOM alebo RSS 2.0 dáta, spracuje ich a vypíše užívateľovi na štandarný výstup. Pri HTTPS komunikácii, aplikácia podporuje SSL/TLS pre overenie certifikátu zdroju.
+Naimplementovaná aplikácia sa pripája k požadovanému zdroju, stiahne ATOM alebo RSS 2.0 dáta, spracuje ich a vypíše užívateľovi na štandardný výstup. Pri HTTPS komunikácii, aplikácia podporuje SSL/TLS pre overenie certifikátu zdroju.
+
 Požadovaný zdroj môže byť vložený pomocou jednej URL alebo pomocou súboru s viacerými URL pri spustení aplikácie.
 Vždy sa vypíše názov zdroju a názvy jednotlivých príspevkov.
-Užívateľ si môže nechať vypísať dátum publikovania, URL na konkrétny príspevok a autora príspevku.
+Užívateľ si môže nechať vypísať dátum publikovania, URI na konkrétny príspevok a autora príspevku.
 
 \subsection*{Rozšírenie}
 \begin{itemize}
@@ -25,9 +26,17 @@ Užívateľ si môže nechať vypísať dátum publikovania, URL na konkrétny p
   \item{Aplikácia je vyvinutá pre UNIX OS.}
 \end{itemize}
 
+\subsection*{Kompilácia}
+Predstavované riešenie obsahuje aj základné testy vstupných parametrov. Kompilácia testov nie je súčasť predvoleného kompilovania zdrojových súborov. Je ich možné pridať pridaním parametru {\tt test} k GNU make príkazu. Taktiež je možné testy skompilovať spolu s ostatnými zdrojovými súbormi aplikácie pomocou parametru {\tt all}. Príklady použitia sú v kapitole \ref{examples}.
+Po kompilácii sa vytvoria spustiteľné súbory {\tt feedreader} a {\tt test} v priečinku s Makefile. Záleží či kompiluje len aplikácia, alebo len testy, alebo všetko.
+
+\subsection*{Testy}
+Implementácia obsahuje aj unit testy, ktoré testujú základné spracovanie vstupných parametrov.
+
 \chapter{Návrh aplikácie}
 \subsection*{Stromová štruktúra}
 \dirtree{%
+.0 root.
 .1 bin.
 .1 src.
 .2 atom.c.
@@ -47,30 +56,28 @@ Užívateľ si môže nechať vypísať dátum publikovania, URL na konkrétny p
 \begin{itemize}
   \item{priečinok {\tt bin} bude po kompilácii aplikácie obsahovať objektové súbory zdrojových súborov}
   \item{priečinok {\tt src} obsahuje zdrojové súbory implementácie aplikácie}
-  \item{priečinok {\tt tests} obsahuje zdrojové súbory testov aplikácie}
+  \item{priečinok {\tt tests} obsahuje zdrojové súbory testov aplikácie a vzorové príklady}
 \end{itemize}
 
 \subsection*{Lokalizácia}
 Nad rámec zadania bola naimplementovaná dvojjazyčná mutácia aplikácie. Lokalizácia poskytuje českú a anglickú jazykovú mutáciu.
 
-Predvolený jazykom je čestina a zmena je možná prenastavením hodnoty \bold{LANG} v {\tt ../src/error.h} na 0 (nula). Toto nastavenie ovplyvňuje preklad časti výstupu pre užívateľa, ako napr. {\it Autor:} na {\it Author:} pri výpise autora článku. Ako ďalší vplyv tohto nastavenia je preklad všetkých chybových hláškok, viac \ref{err_label}.
-
-Chybové hlášky sú definové v {\tt ../src/error.h}, keďže veľmi blízko súvisia s oznamovaním chýb.
+Predvoleným jazykom je čestina a zmena je možná prenastavením hodnoty \textbf{LANG} v {\tt ../src/error.h} na 0 (nula). Toto nastavenie ovplyvňuje preklad častí výstupu pre užívateľa, ako napr. {\it Autor:} na {\it Author:} pri výpise autora článku. Ako ďalší vplyv tohto nastavenia je preklad všetkých chybových hláškok, viac v kapitole \ref{err_label}.
 
 \chapter{Implementácia}
-Naimplementovaná čítačka noviniek je napísaná v programovacom jazyku C. Pri vývoji aplikácie boli použité štandardné knižnice jazyka C ({\it stdio, stdlib, string, getopt, time\dots}), sieťové knižnice({\tt sys/*, netdb}), knižnicu openssl pre TLS/SSL a knižnicu libxml pre spracovanie XML odpovede.
+Naimplementovaná čítačka noviniek je napísaná v programovacom jazyku C. Pri vývoji aplikácie boli použité štandardné knižnice jazyka C ({\it stdio, stdlib, string, getopt, time\dots}), sieťové knižnice({\tt sys/*, netdb}), knižnica openssl pre TLS/SSL a knižnica libxml pre spracovanie XML odpovede.
 \subsection*{Vstupné parametre}
-Spracovanie uživatelského vstupu má na starosti {\tt ../src/parameters.c}. Kontroluje správnosť kombinácii vstupných parametrov, ich požadovaného správania podľa zadania projektu.
+Spracovanie užívateľského vstupu má na starosti {\tt ../src/parameters.c}. Kontroluje správnosť kombinácii vstupných parametrov a ich požadovaného správania, podľa zadania projektu.
 \subsubsection{Možnosti}
 \begin{itemize}
-  \item{URL so schématom}
+  \item{URL so schématom http alebo https}
   \item{-f {\it cesta-k-suboru-s-urls}}
   \item{-c {\it cesta-k-suboru-pertifikatu}}
   \item{-C {\it cesta-k-priečinku-pertifikatov}}
   \item{prepínače zobrazenia doplňujúcich dát článku: -a, -u, -T}
 \end{itemize}
 \subsubsection{Kombinácie}
-Aplikácia nepodporuje kombinácie:
+Aplikácia \textbf{nepodporuje} kombinácie:
 \begin{itemize}
   \item{URL a -f {\it cesta-k-suboru-s-urls}}
   \item{-c {\it cesta-k-suboru-pertifikatu} a -C {\it cesta-k-priečinku-pertifikatov}}
@@ -84,10 +91,9 @@ URL môže byť užívateľom vložená do aplikácie dvomi spôsobmi:
 \begin{itemize}
   \item{pri spustení cez terminál}
   \item{vložený do súboru, ktorý je predaný aplikácii s parametrom {\tt -f}}
-  \item{mnohonásobné použitie prepínačov alebo URL}
 \end{itemize}
 
-O spracovanie URL z príkazového riadku a súboru sa starajú {\tt ../src/host.c}, konkrétne funkcie {\it parse\_url()} a {\it read\_urls()}. 
+O spracovanie URL z príkazového riadku a súboru sa starajú funkcie súboru {\tt ../src/host.c}, konkrétne funkcie {\it parse\_url()} a {\it read\_urls()}. 
 
 Spracovanie URL prebieha pomocou regulárneho výrazu\cite{regexMan}, ktorý bol navrhnutý tak, aby pri použití na URL vyhľadal a jednotlivé časti (skupiny) URL. A to:
 \begin{itemize}
@@ -98,14 +104,15 @@ Spracovanie URL prebieha pomocou regulárneho výrazu\cite{regexMan}, ktorý bol
   \item{{\it cesta-k-suboru}}
 \end{itemize}
 
-Súbor pre parameter {\tt -f} môže obsahovať jednu URL na každom riadku, ďalej ak má na začiatku znak '\#', tento riadok je braný ako komentár. Každý nekomentový riadok je spracovaný funkciou {\it parse\_url()}. Pri chybnom formáte URL, je na štandardný chybový výstup vypísaná chyba a aplikácia pokračuje ďalej vo vykonávaní implementácie.
+\noindent Súbor pre parameter {\tt -f} môže obsahovať jednu URL na každom riadku. Ak má na začiatku znak '\#', tento riadok je braný ako komentár. Každý nekomentový riadok je spracovaný funkciou {\it parse\_url()}. Pri chybnom formáte URL, je na štandardný chybový výstup vypísaná chyba a aplikácia pokračuje ďalej vo vykonávaní implementácie.
 
 \subsection*{TCP komunikácia}
-Implementácia TCP časti sa nachádza v {\tt ../src/tcp\_communication.c}, ktorého podstata vychádza z prednášky a jej príkladov predmetu ISA, konkrétne prednášku, docenta Matoušku, Pokrocilé programování sítí TCP/IP\cite{Matousek}. 
+Implementácia TCP časti sa nachádza v {\tt ../src/tcp\_communication.c}, ktorého podstata vychádza z prednášky a jej príkladov predmetu ISA, konkrétne prednášku docenta Matoušku, Pokrocilé programování sítí TCP/IP\cite{Matousek}. 
 
 \subsubsection{HTTP a HTTPS}
 HTTP a HTTPS komunikácia sú implementované v zdrojový súboroch 
-\\{\tt ../src/http\_communication.c} a {\tt ../src/https\_communication.c}.Funkcie oboch týchto komunikácií sú volané, po prevedí predošlých úkonov, napr. naviazenie TLS spojenia pri HTTPS, zasielajú HTTP 1.0 dotaz na cieľovú destináciu. Inšpiráciou pre HTTP dotaz, po menšej úprave, bola časť kódu z referečnej knihy predmetu ISA\cite{Winkle}.
+\\{\tt ../src/http\_communication.c} a {\tt ../src/https\_communication.c}. Funkcie
+\\({\tt send\_http\_request()} a {\tt send\_https\_request()}) oboch týchto komunikácií sú volané, po prevedí predošlých úkonov, napr. naviazenie TLS spojenia pri HTTPS. Zasielajú HTTP 1.0 dotaz na cieľovú destináciu. Inšpiráciou pre HTTP dotaz, po menšej úprave, bola časť kódu z referečnej knihy predmetu ISA\cite{Winkle}.
 \subsubsection{Prijímanie a uloženie dát}
 Prijímanie a uloženie je taktiež naimplementované v súboroch
 \\{\tt ../src/http\_communication.c} a {\tt ../src/https\_communication.c}. Výsledným produktom, pri úspešnej odpovedi cieľového serveru a prijatí všetkých dát, je dynamicky alokovaný reťazec, ktorý sa ďalej spracováva.
@@ -114,10 +121,10 @@ Ako úspešnú odpoveď, implementácia považuje odpoveď so statusom {\tt 200}
 
 Inšpiráciou pre prijímanie odpovedí z sielového serveru boli už spomínaná prednáška docenta Matoušku\cite{Matousek} a refrečná kniha predmetu ISA\cite{Winkle}.
 
-Ukážky kódu z refrečnej knihy predmetu ISA\cite{Winkle}, po úpravách a rozšíreniach, boli taktiež použité, ako inšpirácia pre pre TLS komunikáciu a prácu s certifikátmi vo funkciách súboru {\tt ../src/https\_communication.c}
+Ukážky kódu z refrečnej knihy predmetu ISA\cite{Winkle}, po úpravách a rozšíreniach, boli taktiež použité, ako inšpirácia pre pre TLS komunikáciu a prácu s certifikátmi vo funkciách súboru {\tt ../src/https\_communication.c}.
 
 \subsection*{Spracovanie XML}
-Hlavné spracovanie XML odpovede sa deje v {\tt ../src/feed.c}, kde sa reťazec konvertuje do XML objektu pomocou funkcie knižnice {\it libxml}. Po úspešnom prekonvertovaní a nájdení koreňa XML, nasleduje spracovanie podľa typu štruktúry XML. Pri spracovaní sa vypíše názov zdroja a jednotlivé názvy článkov. 
+Hlavné spracovanie XML odpovede sa deje v {\tt ../src/feed.c}, kde sa reťazec konvertuje do XML objektu pomocou funkcie knižnice {\it libxml}\cite{libxml}. Po úspešnom prekonvertovaní a nájdení koreňa XML, nasleduje spracovanie podľa typu štruktúry XML. Pri spracovaní sa vypíše názov zdroja a jednotlivé názvy článkov. 
 
 Ak užívateľ zadal príslušné paramatri a odpoveď obsahuje také údaje, aplikácia vypíše informácie o autorovi, dátume vydania a URI článku. 
 
@@ -129,14 +136,27 @@ V prípade, že boli použité dodatočné parametre, články sú oddelené jed
   \item{dátum publikovania článku}
 \end{enumerate}
 
-Ak nejaká dodatočná informácia chýba alebo nebola vybraná, preskočí sa a vypíše sa ďalšia v poradí.
+Ak nejaká dodatočná informácia chýba, alebo nebola vybraná, preskočí sa a vypíše sa ďalšia v poradí.
 
 \subsubsection{Atom a RSS}
-Spracovanie je implementované v {\tt ../src/atom.c} a v {\tt ../src/rss.c}
+Spracovanie je implementované v {\tt ../src/atom.c} a v {\tt ../src/rss.c}.
 
 \subsection*{Oštrenie chýb}
 \label{err_label}
-Úspešný chod aplikácie vráti hodnotu 0. Pri chybách, aplikácia vráti príslušnú chybovú hodnotu, definovanú v {\tt ../src/error.c}
+Každá chybová hláška má svoju českú a anglickú verziu. V zdrojových súboroch je volaná funkcia {\tt error\_msg()} s anglickou hláškou. 
+
+Pred výpisom sa prejde matica dvojic. Jedna dvojica zodpovedá jednej z chybových možností. A teda pri prechode maticou sa nájde riadok vyskytnutej chyby a prepínačom {\tt LANG} sa určí stĺpec. Takto sa vyberá chybová hláška k výpisu pre užívateľa.
+
+V matici dvojic sa nenachádzajú dva prípady chýb. Prvá je vypršanie času pri prijímaní dát v {\tt ../src/http\_communication.c} a 
+\\{\tt ../src/https\_communication.c}. Tieto chyby si generujú správu samé a nastavujú globálne premenné návratovej hodnoty.
+
+Druhou je zlá odpoveď na http dotaz rovnako v {\tt ../src/http\_communication.c} a 
+\\{\tt ../src/https\_communication.c}. Na rozdiel od predošlej varianty, sa volá funkcia
+\\{\tt error\_msg()}, ktorá iným spôsobom vyhodnocuje návratovú hodnotu aplikácie.
+
+Ku matici dvojíc existuje matica návratových hodnôt, ktorá má na rovnakých pozíciach hodnotu, ktorá zodpovedá dvojici. Preto keď sa nájde riadok dvojice, ktorej chyba sa prejavila, tak vie aplikácia nájsť správnu návratovú hodnotu. 
+
+Úspešný chod aplikácie vráti hodnotu 0. Pri chybách, aplikácia vráti príslušnú chybovú hodnotu, definovanú v {\tt ../src/error.h}.
 
 Výpis návratových hodnôt:
 \begin{itemize}
@@ -177,5 +197,20 @@ Výpis návratových hodnôt:
 
 \chapter{Príklady použitia}
 \label{examples}
-
+\subsection*{Kompilácia}
+Pri predvolenom GNU make.
+\begin{itemize}
+  \item{make -- kompilácia zdrojových súborov}
+  \item{make test -- kompilácia zdrojových súborov testov}
+  \item{make all -- kombilácia všetkých zdrojových súborov projektu}
+\end{itemize}
+\subsection*{Spustenie aplikácie}
+\begin{itemize}
+  \item{{\tt ./feedreader https://www.fit.vut.cz/fit/news-rss/}}
+  \item{{\tt ./feedreader -T https://www.fit.vut.cz/fit/news-rss/ -a}}
+  \item{{\tt ./feedreader https://www.fit.vut.cz/fit/news-rss/ -T -a -u}}
+  \item{{\tt ./feedreader -f test/examples/hosts.txt -T -a -u}}
+  \item{{\tt ./feedreader -u -c test/examples/FIT-cert https://www.fit.vut.cz/fit/news-rss/}}
+  \item{{\tt ./feedreader -u -c test/examples/FIT-cert -f test/examples/hosts.txt}}
+\end{itemize}
 %===============================================================================
