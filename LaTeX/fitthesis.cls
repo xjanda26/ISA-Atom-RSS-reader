@@ -233,7 +233,7 @@
 % \ifEqString{#1}{SP}{Vedúci práce}{\@supervisor@SK}%
  \ifEqString{#1}{TD}{Vedoucí práce}{\@supervisor@SK}%
  \ifEqString{#1}{TD}{Supervisor}{\@supervisor@EN}%
-
+ 
  \ifEqString{#1}{BP}{Bakalářská práce}{\@projecttype@CS}%
 % \ifEqString{#1}{BP}{Bakalárska práca}{\@projecttype@SK}%
  \ifEqString{#1}{BP}{Bakalářská práce}{\@projecttype@SK}%
@@ -285,7 +285,7 @@
  \ifEqString{#1}{DT}{Supervisor}{\@supervisor@EN}%
  \ifnasel
  \else
-   \typeout{Spatny typ projektu! Moznosti: BP, SP, DP, DR, DT, DA, TD}\set@project{BP}
+   \typeout{Spatny typ projektu! Moznosti: BP, SP, DP, DR, DT, DA}\set@project{BP}
  \fi
 }
 
@@ -647,6 +647,7 @@ Management}{\@fit@EN}%
 \newpage
 
 }
+
 
 %Rozsireny abstrakt / Extended abstract
 \newcommand\makeextendedabstract{%
@@ -1053,7 +1054,6 @@ Management}{\@fit@EN}%
 \fontfamily{\familydefault}\selectfont%
 
 %=================================================================================
-\iffalse
 \makeabstract
 \ifx\@textendedabstract\@empty
 \else
@@ -1063,7 +1063,7 @@ Management}{\@fit@EN}%
 \clearpage
 \setcounter{tocdepth}{2}\setcounter{page}{1}
 }
-\fi
+
 %-----------------------------------------------------------------------------
 \def\uv#1{\iflanguage{english}{``#1''}%
                               {\quotedblbase #1\textquotedblleft}}%
