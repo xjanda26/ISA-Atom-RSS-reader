@@ -12,6 +12,10 @@ char *xmlResponse;
 /// @param port Destination port
 /// @return Zero value on success or TCP error type defined in error.h
 int connect_to_host(char *hostname, char *port) {
+    /**
+     * doc. Petr Matousek, [a lecture] BUT FIT, 2022 
+     * https://moodle.vut.cz/pluginfile.php/502879/mod_resource/content/2/isa-sockets.pdf
+    */
     struct addrinfo hints;
     struct addrinfo *peer_address;
 

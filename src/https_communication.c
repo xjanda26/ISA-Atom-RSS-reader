@@ -11,6 +11,13 @@ SSL_CTX *ctx;
 ///        certificates depends on input from user.
 /// @return Zero value on success or SSL or CERT error type defined in error.h
 int init_ssl() {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     SSL_library_init();
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
@@ -48,6 +55,13 @@ int init_ssl() {
 /// @param hostname Name of remote host
 /// @return Zero value on success or SSL error type defined in error.h
 int init_tls_connection(char *hostname) {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     ssl = SSL_new(ctx);
 
     if (!ssl) {
@@ -69,6 +83,13 @@ int init_tls_connection(char *hostname) {
 /// @brief Function gets host's certificate and verify it with loaded certificates
 /// @return Zero value on success or SSL or CERT error type defined in error.h
 int verify_certificate() {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     X509 *cert = SSL_get_peer_certificate(ssl);
     if (!cert) {
         return error_msg(SSL_GET_DEST_CERTIFICATE_FAIL);
@@ -92,6 +113,13 @@ int verify_certificate() {
 /// @param port Destination port
 /// @param path Path to the resource on remote host
 void send_https_request(char *hostname, char *port, char *path) {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     char buffer[BUFFER_SIZE];
 
     sprintf(buffer, "GET %s HTTP/1.0\r\n", path);
@@ -108,6 +136,13 @@ void send_https_request(char *hostname, char *port, char *path) {
 ///        An error might occur even after timeout of 5 seconds.
 /// @return Zero value on success or TCP or HTTP error type defined in error.h
 int receive_ssl_data() {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     char response[BUFFER_SIZE + 1];
     char *tmp_respo_pointer;
     char *body = 0;
@@ -145,7 +180,6 @@ int receive_ssl_data() {
                 *body = 0;
                 body += 4; // shift pointer after "\r\n\r\n"
                 
-                // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
                 tmp_respo_pointer = strstr(response, "200 OK");
                 if (!tmp_respo_pointer) {
                     tmp_respo_pointer = strstr(response, "HTTP/1.");

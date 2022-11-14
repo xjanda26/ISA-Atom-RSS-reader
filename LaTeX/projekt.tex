@@ -44,6 +44,7 @@
 % Základní balíčky jsou dole v souboru šablony fitthesis.cls
 % Basic packages are at the bottom of template file fitthesis.cls
 % zde můžeme vložit vlastní balíčky / you can place own packages here
+\usepackage{dirtree}
 
 % Kompilace po částech (rychlejší, ale v náhledu nemusí být vše aktuální)
 % Compilation piecewise (faster, but not all parts in preview will be up-to-date)
@@ -122,7 +123,7 @@
   date=\today,             % datum odevzdání / submission date
   %Nazev prace / thesis title
   title.cs={Čtečka novinek ve formátu Atom a RSS s podporou TLS},  % název práce v češtině či slovenštině (dle zadání) / thesis title in czech language (according to assignment)
-  title.en={Thesis title}, % název práce v angličtině / thesis title in english
+  title.en={News reader in Atom and RSS format with TLS support}, % název práce v angličtině / thesis title in english
   %title.length={14.5cm}, % nastavení délky bloku s titulkem pro úpravu zalomení řádku (lze definovat zde nebo níže) / setting the length of a block with a thesis title for adjusting a line break (can be defined here or below)
   %sectitle.length={14.5cm}, % nastavení délky bloku s druhým titulkem pro úpravu zalomení řádku (lze definovat zde nebo níže) / setting the length of a block with a second thesis title for adjusting a line break (can be defined here or below)
   %dectitle.length={14.5cm}, % nastavení délky bloku s titulkem nad prohlášením pro úpravu zalomení řádku (lze definovat zde nebo níže) / setting the length of a block with a thesis title above declaration for adjusting a line break (can be defined here or below)
@@ -174,7 +175,7 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
 %\extabstractodd{true}
 
 % nastavení délky bloku s titulkem pro úpravu zalomení řádku - lze definovat zde nebo výše / setting the length of a block with a thesis title for adjusting a line break - can be defined here or above
-%\titlelength{14.5cm}
+\titlelength{12.5cm}
 % nastavení délky bloku s druhým titulkem pro úpravu zalomení řádku - lze definovat zde nebo výše / setting the length of a block with a second thesis title for adjusting a line break - can be defined here or above
 %\sectitlelength{14.5cm}
 % nastavení délky bloku s titulkem nad prohlášením pro úpravu zalomení řádku - lze definovat zde nebo výše / setting the length of a block with a thesis title above declaration for adjusting a line break - can be defined here or above
@@ -234,11 +235,8 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
 
   % Text prace / Thesis text
   % ----------------------------------------------
-  \ifenglish
-    \input{projekt-01-kapitoly-chapters-en}
-  \else
-    \input{projekt-01-kapitoly-chapters}
-  \fi
+
+  \input{projekt-01-kapitoly-chapters}
   
   % Kompilace po částech (viz výše, nutno odkomentovat)
   % Compilation piecewise (see above, it is necessary to uncomment it)
@@ -278,64 +276,6 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
     \cleardoublepage
   \fi
 
-  % Prilohy / Appendices
-  % ---------------------------------------------
-  \appendix
-\ifczech
-  \renewcommand{\appendixpagename}{Přílohy}
-  \renewcommand{\appendixtocname}{Přílohy}
-  \renewcommand{\appendixname}{Příloha}
-\fi
-\ifslovak
-  \renewcommand{\appendixpagename}{Prílohy}
-  \renewcommand{\appendixtocname}{Prílohy}
-  \renewcommand{\appendixname}{Príloha}
-\fi
-%  \appendixpage
 
-% vynechani stranky v oboustrannem rezimu
-% Skip the page in the two-sided mode
-%\iftwoside
-%  \cleardoublepage
-%\fi
-  
-\ifslovak
-%  \section*{Zoznam príloh}
-%  \addcontentsline{toc}{section}{Zoznam príloh}
-\else
-  \ifczech
-%    \section*{Seznam příloh}
-%    \addcontentsline{toc}{section}{Seznam příloh}
-  \else
-%    \section*{List of Appendices}
-%    \addcontentsline{toc}{section}{List of Appendices}
-  \fi
-\fi
-  \startcontents[chapters]
-  \setlength{\parskip}{0pt} 
-  % seznam příloh / list of appendices
-  % \printcontents[chapters]{l}{0}{\setcounter{tocdepth}{2}}
-  
-  \ifODSAZ
-    \setlength{\parskip}{0.5\bigskipamount}
-  \else
-    \setlength{\parskip}{0pt}
-  \fi
-  
-  % vynechani stranky v oboustrannem rezimu
-  \iftwoside
-    \cleardoublepage
-  \fi
-  
-  % Přílohy / Appendices
-  \ifenglish
-    \input{projekt-30-prilohy-appendices-en}
-  \else
-    \input{projekt-30-prilohy-appendices}
-  \fi
-  
-  % Kompilace po částech (viz výše, nutno odkomentovat)
-  % Compilation piecewise (see above, it is necessary to uncomment it)
-  %\subfile{projekt-30-prilohy-appendices}
   
 \end{document}

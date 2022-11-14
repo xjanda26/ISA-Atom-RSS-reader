@@ -4,14 +4,19 @@
 
 #include "http_communication.h"
 
-// https://www.ibm.com/docs/en/cics-ts/5.3?topic=client-making-get-requests-atom-feeds-collections
-
 /// @brief Function creates HTTPv1.0 request and sends it by socket.
 /// @param sock Socket
 /// @param hostname Name of remote host
 /// @param port Destination port
 /// @param path Path to the resource on remote host
 void send_http_request(int sock, char *hostname, char *port, char *path) {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     char buffer[BUFFER_SIZE];
 
     sprintf(buffer, "GET %s HTTP/1.0\r\n", path);
@@ -27,6 +32,13 @@ void send_http_request(int sock, char *hostname, char *port, char *path) {
 ///        An error might occur even after timeout of 5 seconds.
 /// @return Zero value on success or TCP or HTTP error type defined in error.h
 int receive_data() {
+    /**
+     * Van, WL 2019, 
+     * Hands-On Network Programming with C : Learn Socket Programming in C and Write Secure and Optimized Network Code, 
+     * Packt Publishing, Limited, Birmingham. 
+     * ISBN 9781789349863
+     * Available from: ProQuest Ebook Central. [14 November 2022].
+    */ 
     char response[BUFFER_SIZE + 1];
     char *response_b = response, *tmp_respo_pointer;
     char *response_end = response + BUFFER_SIZE;
@@ -50,6 +62,10 @@ int receive_data() {
             return ERR_TCP_TIMEOUT;
         }
 
+        /**
+         * doc. Petr Matousek, [a lecture] BUT FIT, 2022 
+         * https://moodle.vut.cz/pluginfile.php/502879/mod_resource/content/2/isa-sockets.pdf
+        */
         int bytes_received = recv(sock, response_b, response_end - response_b, 0);
         response[BUFFER_SIZE + 1] = '\0';
 
@@ -65,7 +81,6 @@ int receive_data() {
                 *body = 0;
                 body += 4; // shift pointer after "\r\n\r\n"
 
-                // https://www.ibm.com/docs/en/cics-ts/5.2?topic=concepts-status-codes-reason-phrases#dfhtl_httpstatus
                 tmp_respo_pointer = strstr(response, "200 OK");
                 if (!tmp_respo_pointer) { 
                     tmp_respo_pointer = strstr(response, "HTTP/1.");

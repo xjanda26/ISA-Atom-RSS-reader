@@ -54,15 +54,12 @@ void clear_destinations() {
     secure = NULL;
 }
 
-/**
- * Regex inspiration: https://man7.org/linux/man-pages/man3/regexec.3.html
- * 
-*/
 /// @brief Function checks entered URL and saves its metadata for later use.
 ///        Function works in 2 modes controlled by @param is_getting_data.
 ///        If @param is_getting_data is zero then function just checks URL syntax.
 ///        If @param is_getting_data is bigger than zero, function checks URL and 
 ///        saves data for later use.
+///        https://man7.org/linux/man-pages/man3/regexec.3.html
 /// @param url Checked URL
 /// @param is_getting_data Mode flag
 /// @return Zero on success or regex or url error types defined in error.h
